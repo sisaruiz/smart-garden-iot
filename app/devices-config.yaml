@@ -1,0 +1,25 @@
+# devices-config.yaml
+
+mqtt:
+  broker: "tcp://localhost:1883"
+  sensors:
+    - name: light
+      topic: "light"
+    - name: moisture
+      topic: "soilMoisture"
+    - name: temperature
+      topic: "temperature"
+    - name: pH
+      topic: "pH"
+
+coap:
+  endpointBase: "coap://[your-node-ip]"
+  actuators:
+    - name: fertilizer
+      path: "actuators/fertilizer"
+    - name: irrigation
+      path: "actuators/irrigation"
+    - name: light
+      path: "actuators/light"
+    - name: temperature
+      path: "actuators/climateControl"
