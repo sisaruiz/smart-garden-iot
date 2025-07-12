@@ -16,10 +16,9 @@ static enum {
   IRRIGATION_ALERT
 } irrigation_mode = IRRIGATION_OFF;
 
-// Timer per il lampeggio e bottone
-static struct etimer alert_timer;
+// Timer per bottone
 static struct etimer button_timer;
-static struct button_hal_button *btn;
+static button_hal_button_t *btn;  // ✅ Correct type
 
 // Forward declarations
 static void res_get_handler(coap_message_t *request,
@@ -34,7 +33,6 @@ static void res_put_handler(coap_message_t *request,
                             uint16_t preferred_size,
                             int32_t *offset);
 
-PROCESS(irrigation_alert_process, "Irrigation alert handler");
 PROCESS(irrigation_button_process, "Irrigation button handler");
 
 // CoAP resource definition
@@ -149,3 +147,4 @@ PROCESS_THREAD(irrigation_button_process, ev, data)
 
   PROCESS_END();
 }
+

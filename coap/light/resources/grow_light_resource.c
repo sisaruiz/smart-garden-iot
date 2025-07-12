@@ -1,9 +1,9 @@
 #include "contiki.h"
 #include "coap-engine.h"
 #include "os/dev/leds.h"
-#include "sys/log.h"
 #include "os/dev/button-hal.h"
 #include "sys/etimer.h"
+#include "sys/log.h"
 #include <string.h>
 
 #define LOG_MODULE "grow_light_res"
@@ -15,6 +15,10 @@ static enum {
   MODE_ON,
   MODE_ALERT
 } current_mode = MODE_OFF;
+
+/* Timers and button */
+static struct etimer button_timer;
+static button_hal_button_t *btn;
 
 /* Forward declarations */
 static void res_get_handler(coap_message_t *request,
@@ -28,6 +32,8 @@ static void res_put_handler(coap_message_t *request,
                             uint16_t preferred_size,
                             int32_t *offset);
 
+PROCESS(grow_light_button_process, "Grow Light Button Handler");
+
 /* CoAP resource definition */
 RESOURCE(res_grow_light,
          "title=\"Grow Light\";rt=\"Control\";obs",
@@ -35,10 +41,6 @@ RESOURCE(res_grow_light,
          NULL,
          res_put_handler,
          NULL);
-
-/* Button + reset logic */
-static struct etimer button_timer;
-static struct button_hal_button *btn;
 
 /*---------------------------------------------------------------------------*/
 static void
@@ -54,7 +56,7 @@ res_get_handler(coap_message_t *request,
 
   coap_set_header_content_format(response, APPLICATION_JSON);
   size_t len = snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE,
-                        "{\"mode\":\"%s\"}", mode_str);
+                        "{\"grow_light\":\"%s\"}", mode_str);
   coap_set_payload(response, buffer, len);
 }
 
@@ -75,18 +77,19 @@ res_put_handler(coap_message_t *request,
   if(len) {
     if(strncmp(mode, "on", len) == 0) {
       current_mode = MODE_ON;
-      LOG_INFO("Mode set to ON\n");
       leds_single_on(LEDS_BLUE);
       leds_off(LEDS_RED);
+      LOG_INFO("Mode set to ON\n");
     } else if(strncmp(mode, "off", len) == 0) {
       current_mode = MODE_OFF;
-      LOG_INFO("Mode set to OFF\n");
       leds_off(LEDS_BLUE | LEDS_RED);
+      LOG_INFO("Mode set to OFF\n");
     } else if(strncmp(mode, "alert", len) == 0) {
       current_mode = MODE_ALERT;
-      LOG_INFO("Mode set to ALERT\n");
       leds_single_on(LEDS_RED);
       leds_off(LEDS_BLUE);
+      LOG_INFO("Mode set to ALERT\n");
+      process_start(&grow_light_button_process, NULL); // Start alert handler
     } else {
       success = 0;
     }
@@ -104,32 +107,39 @@ res_put_handler(coap_message_t *request,
 }
 
 /*---------------------------------------------------------------------------*/
-PROCESS(grow_light_button_process, "Grow Light Button Handler");
-AUTOSTART_PROCESSES(&grow_light_button_process);
-
 PROCESS_THREAD(grow_light_button_process, ev, data)
 {
   PROCESS_BEGIN();
 
   btn = button_hal_get_by_index(0);
 
-  while(1) {
+  while(current_mode == MODE_ALERT) {
     PROCESS_YIELD();
 
-    if(ev == button_hal_press_event && current_mode == MODE_ALERT) {
-      LOG_INFO("Button pressed during ALERT, waiting 5 seconds...\n");
+    if(ev == button_hal_press_event) {
+      LOG_INFO("Button pressed during ALERT. Waiting 5s hold...\n");
       etimer_set(&button_timer, CLOCK_SECOND * 5);
       PROCESS_WAIT_EVENT_UNTIL(ev == button_hal_release_event || etimer_expired(&button_timer));
+
       if(etimer_expired(&button_timer)) {
-        LOG_INFO("Button held for 5 seconds. Resetting alert.\n");
-        current_mode = MODE_OFF;
+        LOG_INFO("Alert acknowledged. Blinking LED RED...\n");
+
+        for(int i = 0; i < 10; i++) {
+          leds_toggle(LEDS_RED);
+          clock_wait(CLOCK_SECOND / 2);
+        }
+
         leds_off(LEDS_RED);
+        current_mode = MODE_OFF;
+        LOG_INFO("Alert cleared. Grow light set to OFF.\n");
+
         coap_notify_observers(&res_grow_light);
       } else {
-        LOG_INFO("Button released before 5 seconds. Alert not cleared.\n");
+        LOG_INFO("Button released too soon. Alert not cleared.\n");
       }
     }
   }
 
   PROCESS_END();
 }
+

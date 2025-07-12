@@ -1,33 +1,63 @@
 #include "coap-engine.h"
 #include "os/dev/leds.h"
 #include "sys/log.h"
+#include <string.h>
 
 #define LOG_MODULE "res-cc-heater"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
 static int heater_on = 0;
 
+/* Forward declarations */
 static void res_get_handler(coap_message_t *request, coap_message_t *response,
-                            uint8_t *buffer, uint16_t preferred_size, int32_t *offset) {
-  const char *msg = heater_on ? "heater=ON" : "heater=OFF";
-  memcpy(buffer, msg, strlen(msg));
-  coap_set_payload(response, buffer, strlen(msg));
+                            uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
+static void res_put_handler(coap_message_t *request, coap_message_t *response,
+                            uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
+
+/* Define resource early so it's known for observer notifications */
+RESOURCE(res_cc_heater,
+         "title=\"Heater actuator\";rt=\"Control\";obs",
+         res_get_handler,
+         NULL,
+         res_put_handler,
+         NULL);
+
+/*---------------------------------------------------------------------------*/
+static void
+res_get_handler(coap_message_t *request, coap_message_t *response,
+                uint8_t *buffer, uint16_t preferred_size, int32_t *offset) {
+  const char *mode_str = heater_on ? "on" : "off";
+
+  coap_set_header_content_format(response, APPLICATION_JSON);
+  size_t len = snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE,
+                        "{\"mode\":\"%s\"}", mode_str);
+  coap_set_payload(response, buffer, len);
 }
 
-static void res_put_handler(coap_message_t *request, coap_message_t *response,
-                            uint8_t *buffer, uint16_t preferred_size, int32_t *offset) {
-  size_t len = coap_get_payload(request, (const uint8_t **)&buffer);
+/*---------------------------------------------------------------------------*/
+static void
+res_put_handler(coap_message_t *request, coap_message_t *response,
+                uint8_t *buffer, uint16_t preferred_size, int32_t *offset) {
+  const char *payload = NULL;
+  size_t len = coap_get_payload(request, (const uint8_t **)&payload);
 
-  if(len == 2 && strncmp((char *)buffer, "on", 2) == 0) {
+  if(payload == NULL || len == 0) {
+    LOG_INFO("Empty payload\n");
+    coap_set_status_code(response, BAD_REQUEST_4_00);
+    return;
+  }
+
+  // Look for "on" or "off" inside a JSON string like {"mode":"on"}
+  if(strstr(payload, "\"mode\":\"on\"")) {
     heater_on = 1;
     leds_single_on(LEDS_YELLOW);
     LOG_INFO("Heater turned ON\n");
-  } else if(len == 3 && strncmp((char *)buffer, "off", 3) == 0) {
+  } else if(strstr(payload, "\"mode\":\"off\"")) {
     heater_on = 0;
     leds_single_off(LEDS_YELLOW);
     LOG_INFO("Heater turned OFF\n");
   } else {
-    LOG_INFO("Unknown command\n");
+    LOG_INFO("Unknown mode in payload: %s\n", payload);
     coap_set_status_code(response, BAD_REQUEST_4_00);
     return;
   }
@@ -36,9 +66,3 @@ static void res_put_handler(coap_message_t *request, coap_message_t *response,
   coap_notify_observers(&res_cc_heater);
 }
 
-RESOURCE(res_cc_heater,
-         "title=\"Heater actuator\";rt=\"Control\";obs",
-         res_get_handler,
-         res_put_handler,
-         NULL,
-         NULL);

@@ -38,7 +38,7 @@ static struct etimer wait_registration;
 static struct etimer flow_timer;
 
 // Button
-static struct button_hal_button *btn;
+static button_hal_button_t *btn;
 
 // Registration response handler
 void client_chunk_handler(coap_message_t *response)
