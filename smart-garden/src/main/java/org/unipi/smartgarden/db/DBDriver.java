@@ -13,7 +13,7 @@ public class DBDriver {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/smart_garden";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "password"; // Replace with your actual password
+    private static final String DB_PASS = "SmartGarden_123!";
 
     private Connection connection;
     private Map<String, PreparedStatement> insertStatements;
