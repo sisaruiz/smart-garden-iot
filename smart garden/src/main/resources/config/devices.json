@@ -1,0 +1,15 @@
+{
+  "sensors": [
+    "light",
+    "soil_moisture",
+    "temperature",
+    "pH"
+  ],
+  "actuators": [
+    "fertilizer",
+    "irrigation",
+    "grow_light",
+    "fan",
+    "heater"
+  ]
+}
