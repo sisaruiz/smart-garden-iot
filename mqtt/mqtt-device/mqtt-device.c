@@ -84,6 +84,9 @@ static struct mqtt_message *msg_ptr = 0;
 static struct mqtt_connection conn;
 
 /*---------------------------------------------------------------------------*/
+static char app_buffer[APP_BUFFER_SIZE];
+static char pub_topic[BUFFER_SIZE];
+
 // Actuator simulation variables
 static int grow_light_state = 0; // 0=OFF, 1=ON, 2=DIM
 static bool irrigation_on = false;
@@ -91,11 +94,12 @@ static int fertilizer_erogation_variation = 0;
 static bool heater_on = false;
 static bool fan_on = false;
 
-// Sensor values received from sensor nodes
-static float light_value = 0.0f;
-static float moisture_value = 0.0f;
-static float pH_value = 0.0f;
-static float temperature_value = 0.0f;
+// Sensor simulation values (scaled: temp ×10, others ×100)
+static int sim_temperature = 250;   // 25.0°C
+static int sim_pH = 675;            // pH 6.75
+static int sim_light = 500;         // 50.0%
+static int sim_moisture = 400;      // 40.0%
+
 
 // MQTT subscription state
 static bool grow_light_subscribed = false;
@@ -109,51 +113,31 @@ static bool ph_subscribed = false;
 static bool temp_subscribed = false;
 
 /*---------------------------------------------------------------------------*/
-// Pub handler for actuators and sensor values
+// Pub handler for actuators only
 static void pub_handler(const char *topic, uint16_t topic_len, const uint8_t *chunk, uint16_t chunk_len) {
   if(strcmp(topic, "growLight") == 0) {
     if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) grow_light_state = 0;
     else if(strncmp((const char*)chunk, "ON", chunk_len) == 0) grow_light_state = 1;
     else if(strncmp((const char*)chunk, "DIM", chunk_len) == 0) grow_light_state = 2;
+
   } else if(strcmp(topic, "irrigation") == 0) {
     if(strncmp((const char*)chunk, "ON", chunk_len) == 0) irrigation_on = true;
     else if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) irrigation_on = false;
+
   } else if(strcmp(topic, "fertilizerDispenser") == 0) {
     if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) fertilizer_erogation_variation = 0;
     else if(strncmp((const char*)chunk, "SDEC", chunk_len) == 0) fertilizer_erogation_variation = -1;
     else if(strncmp((const char*)chunk, "SINC", chunk_len) == 0) fertilizer_erogation_variation = 1;
     else if(strncmp((const char*)chunk, "DEC", chunk_len) == 0) fertilizer_erogation_variation = -2;
     else if(strncmp((const char*)chunk, "INC", chunk_len) == 0) fertilizer_erogation_variation = 2;
+
   } else if(strcmp(topic, "fan") == 0) {
     if(strncmp((const char*)chunk, "on", chunk_len) == 0) { heater_on = false; fan_on = true; }
     else if(strncmp((const char*)chunk, "off", chunk_len) == 0) fan_on = false;
+
   } else if(strcmp(topic, "heater") == 0) {
     if(strncmp((const char*)chunk, "on", chunk_len) == 0) { fan_on = false; heater_on = true; }
     else if(strncmp((const char*)chunk, "off", chunk_len) == 0) heater_on = false;
-  } else if(strcmp(topic, "light") == 0) {
-    // Parse JSON: {"light":<value>}
-    char *colon = strchr((const char*)chunk, ':');
-    if(colon) {
-      light_value = atof(colon + 1);
-    }
-  } else if(strcmp(topic, "soilMoisture") == 0) {
-    // Parse JSON: {"soilMoisture":<value>}
-    char *colon = strchr((const char*)chunk, ':');
-    if(colon) {
-      moisture_value = atof(colon + 1);
-    }
-  } else if(strcmp(topic, "pH") == 0) {
-    // Parse JSON: {"pH":<value>}
-    char *colon = strchr((const char*)chunk, ':');
-    if(colon) {
-      pH_value = atof(colon + 1);
-    }
-  } else if(strcmp(topic, "temperature") == 0) {
-    // Parse JSON: {"temperature":<value>}
-    char *colon = strchr((const char*)chunk, ':');
-    if(colon) {
-      temperature_value = atof(colon + 1);
-    }
   }
 }
 
@@ -330,22 +314,68 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
         if(state == STATE_SUBSCRIBED){
             rgb_led_set(RGB_LED_GREEN);
             if(turn == 1){
-                // Use the received light value (do not publish, just log)
-                LOG_INFO("Current light value (from sensor): %.2f\n", light_value);
-                turn = 2;
-            }else if(turn == 2){
-                // Use the received soil moisture value (do not publish, just log)
-                LOG_INFO("Current soilMoisture value (from sensor): %.2f\n", moisture_value);
-                turn = 3;
-            }else if(turn == 3){
-                // Use the received pH value (do not publish, just log)
-                LOG_INFO("Current pH value (from sensor): %.2f\n", pH_value);
-                turn = 4;
-            }else if(turn == 4){
-                // Use the received temperature value (do not publish, just log)
-                LOG_INFO("Current temperature value (from sensor): %.2f\n", temperature_value);
-                turn = 1;
-            }
+		  sprintf(pub_topic, "temperature");
+
+		  // Simulate temperature variation
+		  if(fan_on) sim_temperature -= 4;
+		  else if(heater_on) sim_temperature += 4;
+		  else sim_temperature += (rand() % 3) - 1;
+
+		  if(sim_temperature < 180) sim_temperature = 180;
+		  if(sim_temperature > 320) sim_temperature = 320;
+
+		  sprintf(app_buffer, "{\"temperature\":%d.%d}", sim_temperature/10, sim_temperature%10);
+		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
+		  turn = 2;
+
+		} else if(turn == 2){
+		  sprintf(pub_topic, "pH");
+
+		  // Simulate pH variation
+		  if(fertilizer_erogation_variation == -1 || fertilizer_erogation_variation == -2) sim_pH += 5;
+		  else if(fertilizer_erogation_variation == 1 || fertilizer_erogation_variation == 2) sim_pH -= 5;
+		  else sim_pH += (rand() % 3) - 1;
+
+		  if(sim_pH < 600) sim_pH = 600;
+		  if(sim_pH > 800) sim_pH = 800;
+
+		  sprintf(app_buffer, "{\"pH\":%d.%02d}", sim_pH/100, sim_pH%100);
+		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
+		  turn = 3;
+
+		} else if(turn == 3){
+		  sprintf(pub_topic, "light");
+
+		  // Simulate light based on grow light state
+		  if(grow_light_state == 1) sim_light += 10;
+		  else if(grow_light_state == 2) sim_light += 5;
+		  else sim_light -= 5;
+
+		  if(sim_light < 100) sim_light = 100;
+		  if(sim_light > 1000) sim_light = 1000;
+
+		  sprintf(app_buffer, "{\"light\":%d.%01d}", sim_light/10, sim_light%10);
+		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
+		  turn = 4;
+
+		} else if(turn == 4){
+		  sprintf(pub_topic, "soilMoisture");
+
+		  // Simulate soil moisture based on irrigation
+		  if(irrigation_on) sim_moisture += 7;
+		  else sim_moisture -= 4;
+
+		  if(sim_moisture < 100) sim_moisture = 100;
+		  if(sim_moisture > 900) sim_moisture = 900;
+
+		  sprintf(app_buffer, "{\"soilMoisture\":%d.%01d}", sim_moisture/10, sim_moisture%10);
+		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
+		  turn = 1;
+		}
             etimer_set(&periodic_timer, SHORT_PUBLISH_INTERVAL);
             rgb_led_off();
         } else if ( state == STATE_DISCONNECTED ){
