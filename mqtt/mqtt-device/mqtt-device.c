@@ -77,7 +77,6 @@ static struct etimer periodic_timer;
  * We will need to increase if we start publishing more data.
  */
 #define APP_BUFFER_SIZE 512
-static char app_buffer[APP_BUFFER_SIZE];
 
 /*---------------------------------------------------------------------------*/
 static struct mqtt_message *msg_ptr = 0;
@@ -223,6 +222,8 @@ static int turn = 1;
 
 /*---------------------------------------------------------------------------*/
 
+PROCESS(mqtt_device_process, "MQTT Device Process");
+
 PROCESS_THREAD(mqtt_device_process, ev, data){
 
   PROCESS_BEGIN();
@@ -361,3 +362,4 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
   }//end while
 
   PROCESS_END();
+  }
