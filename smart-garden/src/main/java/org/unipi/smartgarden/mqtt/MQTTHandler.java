@@ -64,21 +64,33 @@ public class MQTTHandler implements MqttCallback {
     public void messageArrived(String topic, MqttMessage message) {
         String payload = new String(message.getPayload()).trim();
         try {
-            float value = Float.parseFloat(payload);
             String sensorName = getSensorNameFromTopic(topic);
 
             if (sensorName != null) {
-                latestValues.put(sensorName, value);
-                db.insertSample(sensorName, value, null);
-                System.out.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
+                // Use Gson to parse the JSON payload like {"temperature": 22.4}
+                com.google.gson.Gson gson = new com.google.gson.Gson();
+                Map<?, ?> jsonMap = gson.fromJson(payload, Map.class);
+
+                if (jsonMap.containsKey(sensorName)) {
+                    double doubleVal = (Double) jsonMap.get(sensorName);  // Gson returns Double by default
+                    float value = (float) doubleVal;
+
+                    latestValues.put(sensorName, value);
+                    db.insertSample(sensorName, value, null);
+                    System.out.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
+                } else {
+                    System.out.println(LOG + " JSON does not contain expected key: " + sensorName);
+                }
             } else {
                 System.out.println(LOG + " Received message from unknown topic: " + topic);
             }
 
-        } catch (NumberFormatException e) {
-            System.err.println(LOG + " Invalid payload: " + payload);
+        } catch (Exception e) {
+            System.err.println(LOG + " Failed to parse JSON payload: " + payload);
+            e.printStackTrace();
         }
     }
+
 
     private String getSensorNameFromTopic(String topic) {
         for (Map.Entry<String, String> entry : sensorTopics.entrySet()) {
@@ -139,5 +151,17 @@ public class MQTTHandler implements MqttCallback {
         // Used by ControlLogicThread when pH is too low or high.
         // Maps to the "fertilizerDispenser" topic.
         sendCommand("fertilizerDispenser", mode);  // e.g., "acidic", "alkaline"
+    }
+
+    // ---------------------- SENSOR SIMULATION METHOD ----------------------
+
+    public void simulateSensor(String sensorTopic, float value) {
+        try {
+            String json = "{\"" + sensorTopic + "\":" + value + "}";
+            client.publish(sensorTopic, new MqttMessage(json.getBytes()));
+            System.out.println(LOG + " Simulated sensor value for " + sensorTopic + ": " + json);
+        } catch (MqttException e) {
+            System.err.println(LOG + " Failed to simulate sensor data for " + sensorTopic + ": " + e.getMessage());
+        }
     }
 }
