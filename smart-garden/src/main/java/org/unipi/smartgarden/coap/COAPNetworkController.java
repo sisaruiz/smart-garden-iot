@@ -8,6 +8,8 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.elements.exception.ConnectorException;
 import org.unipi.smartgarden.db.DBDriver;
 
+import java.nio.charset.StandardCharsets;
+
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -80,7 +82,7 @@ public class COAPNetworkController extends CoapServer {
         @Override
 	public void handlePOST(CoapExchange exchange) {
 	    String sourceIP = exchange.getSourceAddress().getHostAddress();
-	    String payload = exchange.getRequestText();
+	    String payload = new String(exchange.getRequestPayload(), StandardCharsets.UTF_8);
 
 	    System.out.println(LOG + " Registration received from " + sourceIP + ": " + payload);
 
