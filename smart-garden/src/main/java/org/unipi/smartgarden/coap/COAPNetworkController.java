@@ -10,7 +10,6 @@ import org.unipi.smartgarden.db.DBDriver;
 import org.unipi.smartgarden.util.ConsoleUtils;
 
 import java.nio.charset.StandardCharsets;
-
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -24,7 +23,6 @@ public class COAPNetworkController extends CoapServer {
     private static final String LOG = "[CoAP Controller]";
     private static final int COAP_PORT = 5683;
 
-    // Mapping: actuator name → full CoAP URI (e.g., coap://[fd00::abcd]/actuators/fertilizer)
     private final Map<String, String> actuatorEndpoints = new HashMap<>();
     private final DBDriver db;
 
@@ -32,17 +30,13 @@ public class COAPNetworkController extends CoapServer {
         super(COAP_PORT);
         this.db = db;
 
-        // Add registration endpoint for CoAP device
         add(new RegistrationResource("registration"));
 
         ConsoleUtils.println(LOG + " CoAP server started on port " + COAP_PORT);
         start();
     }
 
-    /**
-     * Called from Main.java to send toggle command to the given actuator
-     */
-    public void toggleActuator(String actuatorName) throws ConnectorException, IOException {
+    public void sendCommand(String actuatorName, String command) throws ConnectorException, IOException {
         String endpoint = actuatorEndpoints.get(actuatorName);
         if (endpoint == null) {
             ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
@@ -50,29 +44,62 @@ public class COAPNetworkController extends CoapServer {
         }
 
         CoapClient client = new CoapClient(endpoint);
-        String payload = "toggle";
+        CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
 
-        CoapResponse response = client.put(payload, MediaTypeRegistry.TEXT_PLAIN);
-        if (response != null) {
-            ConsoleUtils.println(LOG + " PUT to " + actuatorName + ": " + response.getCode() +
-                    " - " + response.getResponseText());
+        if (response != null && response.isSuccess()) {
+            ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
         } else {
-            ConsoleUtils.printError(LOG + " No response from actuator: " + actuatorName);
+            ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
         }
     }
 
-    /**
-     * Shutdown logic (called from Main)
-     */
+    public String getActuatorState(String actuatorName) throws ConnectorException, IOException {
+        String endpoint = actuatorEndpoints.get(actuatorName);
+        if (endpoint == null) {
+            ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
+            return null;
+        }
+
+        CoapClient client = new CoapClient(endpoint);
+        CoapResponse response = client.get();
+
+        if (response != null && response.isSuccess()) {
+            String payload = response.getResponseText();
+            try {
+                JSONObject json = new JSONObject(payload);
+                if (json.has("mode")) {
+                    return json.getString("mode");
+                } else if (json.has("state")) {
+                    return json.getString("state");
+                } else {
+                    ConsoleUtils.printError(LOG + " Unexpected JSON format in GET response: " + payload);
+                    return null;
+                }
+            } catch (Exception e) {
+                ConsoleUtils.printError(LOG + " Failed to parse actuator GET response: " + payload);
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            ConsoleUtils.printError(LOG + " Failed to GET from actuator: " + actuatorName);
+            return null;
+        }
+    }
+
+    public void triggerHeater(boolean on) throws ConnectorException, IOException {
+        sendCommand("heater", on ? "on" : "off");
+    }
+
+    public void triggerFan(boolean on) throws ConnectorException, IOException {
+        sendCommand("fan", on ? "on" : "off");
+    }
+
     public void close() {
         this.stop();
         this.destroy();
         ConsoleUtils.println(LOG + " CoAP server shut down.");
     }
 
-    /**
-     * Inner class to handle POST /registration from the CoAP device
-     */
     private class RegistrationResource extends CoapResource {
 
         public RegistrationResource(String name) {
@@ -97,8 +124,8 @@ public class COAPNetworkController extends CoapServer {
 
                 JSONArray resources = json.getJSONArray("resources");
                 for (int i = 0; i < resources.length(); i++) {
-                    String path = resources.getString(i); // e.g., "actuators/fertilizer" or "cc/fan"
-                    String shortName = extractNameFromPath(path); // fertilizer, fan, heater, etc.
+                    String path = resources.getString(i);
+                    String shortName = extractNameFromPath(path);
                     String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
 
                     actuatorEndpoints.put(shortName, fullUri);
@@ -117,40 +144,6 @@ public class COAPNetworkController extends CoapServer {
             String[] parts = path.split("/");
             return parts[parts.length - 1];
         }
-    }
-
-    /**
-     * Sends a generic command to an actuator (used for value-based control like "on"/"off" or modes)
-     */
-    public void sendCommand(String actuatorName, String command) throws ConnectorException, IOException {
-        String endpoint = actuatorEndpoints.get(actuatorName);
-        if (endpoint == null) {
-            ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
-            return;
-        }
-
-        CoapClient client = new CoapClient(endpoint);
-        CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
-
-        if (response != null && response.isSuccess()) {
-            ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
-        } else {
-            ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
-        }
-    }
-
-    /**
-     * Wrapper method to activate/deactivate the heater actuator
-     */
-    public void triggerHeater(boolean on) throws ConnectorException, IOException {
-        sendCommand("heater", on ? "on" : "off");
-    }
-
-    /**
-     * Wrapper method to activate/deactivate the fan actuator
-     */
-    public void triggerFan(boolean on) throws ConnectorException, IOException {
-        sendCommand("fan", on ? "on" : "off");
     }
 }
 

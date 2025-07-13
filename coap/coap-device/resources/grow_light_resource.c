@@ -7,7 +7,6 @@
 #include <string.h>
 #include <strings.h>
 
-
 #define LOG_MODULE "grow_light_res"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
@@ -18,7 +17,6 @@ static enum {
   MODE_ALERT
 } current_mode = MODE_OFF;
 
-/* Timers and button */
 static struct etimer button_timer;
 static button_hal_button_t *btn;
 
@@ -33,6 +31,7 @@ static void res_put_handler(coap_message_t *request,
                             uint8_t *buffer,
                             uint16_t preferred_size,
                             int32_t *offset);
+static void res_trigger_handler(void);
 
 PROCESS(grow_light_button_process, "Grow Light Button Handler");
 
@@ -43,6 +42,12 @@ RESOURCE(res_grow_light,
          NULL,
          res_put_handler,
          NULL);
+
+/*---------------------------------------------------------------------------*/
+/* Public init function for use in coap-device.c */
+void grow_light_resource_init(void) {
+  res_grow_light.trigger = res_trigger_handler;
+}
 
 /*---------------------------------------------------------------------------*/
 static void
@@ -58,7 +63,7 @@ res_get_handler(coap_message_t *request,
 
   coap_set_header_content_format(response, APPLICATION_JSON);
   size_t len = snprintf((char *)buffer, COAP_MAX_CHUNK_SIZE,
-                        "{\"grow_light\":\"%s\"}", mode_str);
+                        "{\"mode\":\"%s\"}", mode_str);
   coap_set_payload(response, buffer, len);
 }
 
@@ -84,7 +89,7 @@ res_put_handler(coap_message_t *request,
   char mode[16];
   if(len >= sizeof(mode)) len = sizeof(mode) - 1;
   memcpy(mode, payload, len);
-  mode[len] = '\0'; // Null-terminate
+  mode[len] = '\0';
 
   if(strcmp(mode, "on") == 0) {
     current_mode = MODE_ON;
@@ -113,6 +118,31 @@ res_put_handler(coap_message_t *request,
 
   coap_notify_observers(&res_grow_light);
   res_get_handler(request, response, buffer, preferred_size, offset);
+}
+
+/*---------------------------------------------------------------------------*/
+static void
+res_trigger_handler(void)
+{
+  LOG_INFO("Triggering grow light toggle\n");
+
+  if(current_mode == MODE_ALERT) {
+    LOG_INFO("Ignoring trigger while in ALERT mode\n");
+    return;
+  }
+
+  current_mode = (current_mode == MODE_ON) ? MODE_OFF : MODE_ON;
+
+  if(current_mode == MODE_ON) {
+    leds_single_on(LEDS_BLUE);
+    leds_off(LEDS_RED);
+    LOG_INFO("Grow light triggered ON\n");
+  } else {
+    leds_off(LEDS_BLUE | LEDS_RED);
+    LOG_INFO("Grow light triggered OFF\n");
+  }
+
+  coap_notify_observers(&res_grow_light);
 }
 
 /*---------------------------------------------------------------------------*/

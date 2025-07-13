@@ -21,6 +21,7 @@ public class Main {
 
     private static final String[] possibleCommands = {
             ":get status",
+            ":get actuators",
             ":trigger irrigation",
             ":trigger grow_light",
             ":trigger fertilizer",
@@ -68,6 +69,8 @@ public class Main {
         ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController);
         controlLogic.start();
 
+        Map<String, Boolean> actuatorState = new HashMap<>();
+
         Scanner scanner = new Scanner(System.in);
         printPossibleCommands();
 
@@ -79,6 +82,59 @@ public class Main {
 
             if (isValidCommand(userInput)) {
                 ConsoleUtils.println(LOG + " Executing command: " + userInput);
+
+                if (userInput.startsWith(":trigger ")) {
+                    String actuator = userInput.replace(":trigger ", "").trim();
+
+                    if (!configuration.getActuators().contains(actuator)) {
+                        ConsoleUtils.printError(LOG + " Unknown actuator: " + actuator);
+                        continue;
+                    }
+
+                    if (actuator.equals("fertilizer")) {
+                        ConsoleUtils.println(LOG + " Select fertilizer mode:");
+                        ConsoleUtils.println(LOG + "   1 - sinc (acidic)");
+                        ConsoleUtils.println(LOG + "   2 - sdec (alkaline)");
+                        ConsoleUtils.println(LOG + "   3 - off");
+                        ConsoleUtils.print("> ");
+                        ConsoleUtils.setTyping(true);
+                        String choice = scanner.nextLine().trim();
+                        ConsoleUtils.setTyping(false);
+
+                        String mode = switch (choice) {
+                            case "1" -> "sinc";
+                            case "2" -> "sdec";
+                            case "3" -> "off";
+                            default -> {
+                                ConsoleUtils.printError(LOG + " Invalid fertilizer mode.");
+                                yield null;
+                            }
+                        };
+
+                        if (mode != null) {
+                            try {
+                                coapController.sendCommand("fertilizer", mode);
+                            } catch (Exception e) {
+                                ConsoleUtils.printError(LOG + " Failed to send fertilizer command.");
+                                e.printStackTrace();
+                            }
+                        }
+
+                    } else {
+                        boolean currentState = actuatorState.getOrDefault(actuator, false);
+                        String nextCommand = currentState ? "off" : "on";
+
+                        try {
+                            coapController.sendCommand(actuator, nextCommand);
+                            actuatorState.put(actuator, !currentState);
+                        } catch (Exception e) {
+                            ConsoleUtils.printError(LOG + " Failed to send toggle command to " + actuator);
+                            e.printStackTrace();
+                        }
+                    }
+
+                    continue;
+                }
 
                 switch (userInput) {
                     case ":quit":
@@ -102,24 +158,16 @@ public class Main {
                         mqttHandler.printSensorStatus();
                         break;
 
-                    case ":trigger irrigation":
-                        coapController.toggleActuator("irrigation");
-                        break;
-
-                    case ":trigger grow_light":
-                        coapController.toggleActuator("grow_light");
-                        break;
-
-                    case ":trigger fertilizer":
-                        coapController.toggleActuator("fertilizer");
-                        break;
-
-                    case ":trigger fan":
-                        coapController.toggleActuator("fan");
-                        break;
-
-                    case ":trigger heater":
-                        coapController.toggleActuator("heater");
+                    case ":get actuators":
+                        ConsoleUtils.println(LOG + " Current actuator states:");
+                        for (String actuator : configuration.getActuators()) {
+                            try {
+                                String state = coapController.getActuatorState(actuator);
+                                ConsoleUtils.println("  - " + actuator + ": " + state);
+                            } catch (Exception e) {
+                                ConsoleUtils.printError(LOG + " Could not retrieve state for " + actuator);
+                            }
+                        }
                         break;
 
                     case ":get configuration":

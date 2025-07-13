@@ -89,15 +89,18 @@ res_put_handler(coap_message_t *request,
     LOG_INFO("Mode set to acidic\n");
     leds_single_on(LEDS_GREEN);
   } else if(strcasecmp(mode, "sdec") == 0) {
-	  current_mode = MODE_ALKALINE;
-	  LOG_INFO("Mode set to alkaline\n");
-	  leds_single_on(LEDS_BLUE);
+    current_mode = MODE_ALKALINE;
+    LOG_INFO("Mode set to alkaline\n");
+    leds_single_on(LEDS_BLUE);
   } else if(strcasecmp(mode, "off") == 0) {
-	  current_mode = MODE_OFF;
-	  LOG_INFO("Mode set to off\n");
-	  leds_off(LEDS_GREEN | LEDS_BLUE);
+    current_mode = MODE_OFF;
+    LOG_INFO("Mode set to off\n");
+    leds_off(LEDS_GREEN | LEDS_BLUE);
+  } else {
+    LOG_WARN("Unknown mode: %s\n", mode);
+    success = 0;
   }
-  
+
   if(!success) {
     coap_set_status_code(response, BAD_REQUEST_4_00);
     return;

@@ -22,8 +22,12 @@ extern coap_resource_t res_grow_light;
 extern coap_resource_t res_cc_fan;
 extern coap_resource_t res_cc_heater;
 
-// Init trigger function
+// Init trigger functions
 void fertilizer_resource_init(void);
+void irrigation_resource_init(void);
+void grow_light_resource_init(void);
+void cc_fan_resource_init(void);
+void cc_heater_resource_init(void);
 
 // Service URL
 static char *service_url = "/registration";
@@ -88,8 +92,12 @@ PROCESS_THREAD(coap_device, ev, data)
   coap_activate_resource(&res_cc_fan, "cc/fan");
   coap_activate_resource(&res_cc_heater, "cc/heater");
 
-  // Assign trigger handler for fertilizer
+  // Assign trigger handlers for all actuators
   fertilizer_resource_init();
+  irrigation_resource_init();
+  grow_light_resource_init();
+  cc_fan_resource_init();
+  cc_heater_resource_init();
 
   LOG_INFO("Connecting to the Border Router...\n");
 

@@ -4,7 +4,6 @@
 #include <string.h>
 #include <strings.h>
 
-
 #define LOG_MODULE "res-cc-fan"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
@@ -15,8 +14,9 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response,
                             uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 static void res_put_handler(coap_message_t *request, coap_message_t *response,
                             uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
+static void res_trigger_handler(void); // <--- NEW
 
-/* Define the CoAP resource */
+/* CoAP resource definition */
 RESOURCE(res_cc_fan,
          "title=\"Fan actuator\";rt=\"Control\";obs",
          res_get_handler,
@@ -24,7 +24,12 @@ RESOURCE(res_cc_fan,
          res_put_handler,
          NULL);
 
-/*---------------------------------------------------------------------------*/
+/* Public init function to register .trigger */
+void cc_fan_resource_init(void) {
+  res_cc_fan.trigger = res_trigger_handler;
+}
+
+/* GET handler */
 static void
 res_get_handler(coap_message_t *request, coap_message_t *response,
                 uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
@@ -37,7 +42,7 @@ res_get_handler(coap_message_t *request, coap_message_t *response,
   coap_set_payload(response, buffer, len);
 }
 
-/*---------------------------------------------------------------------------*/
+/* PUT handler */
 static void
 res_put_handler(coap_message_t *request, coap_message_t *response,
                 uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
@@ -71,6 +76,24 @@ res_put_handler(coap_message_t *request, coap_message_t *response,
   }
 
   coap_set_status_code(response, CHANGED_2_04);
+  coap_notify_observers(&res_cc_fan);
+}
+
+/* TRIGGER handler */
+static void
+res_trigger_handler(void)
+{
+  LOG_INFO("Triggering fan toggle\n");
+  fan_on = !fan_on;
+
+  if(fan_on) {
+    leds_single_on(LEDS_GREEN);
+    LOG_INFO("fan turned ON (via trigger)\n");
+  } else {
+    leds_single_off(LEDS_GREEN);
+    LOG_INFO("fan turned OFF (via trigger)\n");
+  }
+
   coap_notify_observers(&res_cc_fan);
 }
 
