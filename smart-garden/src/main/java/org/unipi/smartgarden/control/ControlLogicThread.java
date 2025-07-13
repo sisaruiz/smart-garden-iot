@@ -114,7 +114,7 @@ public class ControlLogicThread extends Thread {
     }
 
     private void checkSoilMoisture() {
-        Float moisture = mqttHandler.getLatestValue("soil_moisture");
+        Float moisture = mqttHandler.getLatestValue("soilMoisture");
         if (moisture == null) return;
 
         if (moisture < MOISTURE_LOWER) {

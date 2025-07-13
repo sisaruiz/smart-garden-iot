@@ -67,7 +67,6 @@ public class MQTTHandler implements MqttCallback {
             String sensorName = getSensorNameFromTopic(topic);
 
             if (sensorName != null) {
-                // Use Gson to parse the JSON payload like {"temperature": 22.4}
                 com.google.gson.Gson gson = new com.google.gson.Gson();
                 Map<?, ?> jsonMap = gson.fromJson(payload, Map.class);
 
@@ -90,7 +89,6 @@ public class MQTTHandler implements MqttCallback {
             e.printStackTrace();
         }
     }
-
 
     private String getSensorNameFromTopic(String topic) {
         for (Map.Entry<String, String> entry : sensorTopics.entrySet()) {
@@ -136,21 +134,15 @@ public class MQTTHandler implements MqttCallback {
     }
 
     public void simulateGrowLight(String mode) {
-        sendCommand("growLight", mode);  // "ON", "OFF", "DIM"
+        sendCommand("grow_light", mode);  // "ON", "OFF", "DIM"
     }
 
     public void simulateIrrigation(String state) {
         sendCommand("irrigation", state);  // "ON" or "OFF"
     }
 
-    public void simulateFertilizerDispenser(String command) {
-        sendCommand("fertilizerDispenser", command);  // "OFF", "SINC", "SDEC", "INC", "DEC"
-    }
-
     public void simulateFertilizer(String mode) {
-        // Used by ControlLogicThread when pH is too low or high.
-        // Maps to the "fertilizerDispenser" topic.
-        sendCommand("fertilizerDispenser", mode);  // e.g., "acidic", "alkaline"
+        sendCommand("fertilizer", mode);  // "OFF", "SINC", "SDEC", "INC", "DEC", "acidic", "alkaline"
     }
 
     // ---------------------- SENSOR SIMULATION METHOD ----------------------
@@ -165,3 +157,4 @@ public class MQTTHandler implements MqttCallback {
         }
     }
 }
+

@@ -26,7 +26,7 @@ public class DBDriver {
 
             // Prepared statements for sensors
             insertStatements.put("light", connection.prepareStatement("INSERT INTO light (value) VALUES (?)"));
-            insertStatements.put("soil_moisture", connection.prepareStatement("INSERT INTO soil_moisture (value) VALUES (?)"));
+            insertStatements.put("soilMoisture", connection.prepareStatement("INSERT INTO soil_moisture (value) VALUES (?)"));
             insertStatements.put("temperature", connection.prepareStatement("INSERT INTO temperature (value) VALUES (?)"));
             insertStatements.put("pH", connection.prepareStatement("INSERT INTO pH (value) VALUES (?)"));
 
@@ -84,3 +84,4 @@ public class DBDriver {
         }
     }
 }
+

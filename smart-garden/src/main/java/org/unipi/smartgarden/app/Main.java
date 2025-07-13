@@ -37,10 +37,11 @@ public class Main {
 
         System.out.println(LOG + " Loading configuration...");
         Configuration configuration = null;
-        try (FileReader reader = new FileReader(
-                Main.class.getClassLoader().getResource("config/devices.json").getFile())) {
-            configuration = new Gson().fromJson(reader, Configuration.class);
-        } catch (Exception e) {
+        try (var reader = new java.io.InputStreamReader(
+		Main.class.getClassLoader().getResourceAsStream("config/devices.json"))) {
+	    configuration = new Gson().fromJson(reader, Configuration.class);
+	}
+	catch (Exception e) {
             System.err.println(LOG + " Failed to load configuration: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
@@ -60,6 +61,14 @@ public class Main {
 
         // Initialize CoAP actuator controller
         COAPNetworkController coapController = new COAPNetworkController(configuration.getActuators(), db);
+        
+        // Wait for registration before triggering logic
+	System.out.println(LOG + " Waiting 5 seconds for CoAP device registration...");
+	try {
+	    Thread.sleep(5000);
+	} catch (InterruptedException e) {
+	    System.err.println(LOG + " Sleep interrupted.");
+	}
 
         // Start control logic thread
         ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController);

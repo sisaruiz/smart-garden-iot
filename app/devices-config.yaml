@@ -5,7 +5,7 @@ mqtt:
   sensors:
     - name: light
       topic: "light"
-    - name: moisture
+    - name: soilMoisture
       topic: "soilMoisture"
     - name: temperature
       topic: "temperature"
@@ -19,7 +19,10 @@ coap:
       path: "actuators/fertilizer"
     - name: irrigation
       path: "actuators/irrigation"
-    - name: light
-      path: "actuators/light"
-    - name: temperature
-      path: "actuators/climateControl"
+    - name: grow_light
+      path: "actuators/grow_light"
+    - name: fan
+      path: "cc/fan"
+    - name: heater
+      path: "cc/heater"
+

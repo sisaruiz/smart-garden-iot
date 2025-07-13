@@ -1,0 +1,16 @@
+{
+  "sensors": [
+    { "id": "temperature", "topic": "temperature" },
+    { "id": "pH", "topic": "pH" },
+    { "id": "light", "topic": "light" },
+    { "id": "soilMoisture", "topic": "soilMoisture" }
+  ],
+  "actuators": [
+    "fertilizer",
+    "irrigation",
+    "grow_light",
+    "fan",
+    "heater"
+  ]
+}
+
