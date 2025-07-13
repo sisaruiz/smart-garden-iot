@@ -6,6 +6,7 @@ import org.unipi.smartgarden.mqtt.MQTTHandler;
 import org.unipi.smartgarden.util.ConsoleUtils;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * ControlLogicThread - Periodically checks sensor values and sends commands
@@ -15,11 +16,12 @@ public class ControlLogicThread extends Thread {
 
     private final MQTTHandler mqttHandler;
     private final COAPNetworkController coapController;
+    private final Map<String, String> actuatorAliasMap;
     private volatile boolean running = true;
 
     private static final long SLEEP_INTERVAL_MS = 10_000; // 10 seconds
 
-    // Thresholds (you may move these to config later)
+    // Thresholds
     private static final float TEMP_LOWER = 18.0f;
     private static final float TEMP_UPPER = 26.0f;
 
@@ -29,12 +31,13 @@ public class ControlLogicThread extends Thread {
     private static final float MOISTURE_LOWER = 35.0f;
     private static final float MOISTURE_UPPER = 70.0f;
 
-    private static final float LIGHT_LOWER = 300.0f;  // e.g., lux
+    private static final float LIGHT_LOWER = 300.0f;  // lux
     private static final float LIGHT_UPPER = 1000.0f;
 
-    public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController) {
+    public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController, Map<String, String> actuatorAliasMap) {
         this.mqttHandler = mqttHandler;
         this.coapController = coapController;
+        this.actuatorAliasMap = actuatorAliasMap;
     }
 
     @Override
@@ -52,6 +55,7 @@ public class ControlLogicThread extends Thread {
             } catch (ConnectorException | IOException e) {
                 throw new RuntimeException(e);
             }
+
             checkPH();
             checkSoilMoisture();
             checkLight();
@@ -68,35 +72,38 @@ public class ControlLogicThread extends Thread {
         Float temperature = mqttHandler.getLatestValue("temperature");
         if (temperature == null) return;
 
-        String fanState = coapController.getActuatorState("fan");
-        String heaterState = coapController.getActuatorState("heater");
+        String fanPath = actuatorAliasMap.get("fan");
+        String heaterPath = actuatorAliasMap.get("heater");
+
+        String fanState = coapController.getActuatorState(fanPath);
+        String heaterState = coapController.getActuatorState(heaterPath);
 
         if (temperature < TEMP_LOWER) {
             ConsoleUtils.println("[Control Logic] Temperature too low: " + temperature);
             mqttHandler.simulateHeater("on");
             if (!"on".equalsIgnoreCase(heaterState)) {
-                coapController.sendCommand("heater", "on");
+                coapController.sendCommand(heaterPath, "on");
             }
             if (!"off".equalsIgnoreCase(fanState)) {
-                coapController.sendCommand("fan", "off");
+                coapController.sendCommand(fanPath, "off");
             }
         } else if (temperature > TEMP_UPPER) {
             ConsoleUtils.println("[Control Logic] Temperature too high: " + temperature);
             mqttHandler.simulateFan("on");
             if (!"on".equalsIgnoreCase(fanState)) {
-                coapController.sendCommand("fan", "on");
+                coapController.sendCommand(fanPath, "on");
             }
             if (!"off".equalsIgnoreCase(heaterState)) {
-                coapController.sendCommand("heater", "off");
+                coapController.sendCommand(heaterPath, "off");
             }
         } else {
             mqttHandler.simulateHeater("off");
             mqttHandler.simulateFan("off");
             if (!"off".equalsIgnoreCase(heaterState)) {
-                coapController.sendCommand("heater", "off");
+                coapController.sendCommand(heaterPath, "off");
             }
             if (!"off".equalsIgnoreCase(fanState)) {
-                coapController.sendCommand("fan", "off");
+                coapController.sendCommand(fanPath, "off");
             }
         }
     }
@@ -105,18 +112,20 @@ public class ControlLogicThread extends Thread {
         Float pH = mqttHandler.getLatestValue("pH");
         if (pH == null) return;
 
+        String fertPath = actuatorAliasMap.get("fertilizer");
+
         try {
             if (pH < PH_LOWER) {
                 ConsoleUtils.println("[Control Logic] pH too low: " + pH);
                 mqttHandler.simulateFertilizer("sinc");
-                coapController.sendCommand("fertilizer", "sinc");
+                coapController.sendCommand(fertPath, "sinc");
             } else if (pH > PH_UPPER) {
                 ConsoleUtils.println("[Control Logic] pH too high: " + pH);
                 mqttHandler.simulateFertilizer("sdec");
-                coapController.sendCommand("fertilizer", "sdec");
+                coapController.sendCommand(fertPath, "sdec");
             } else {
                 mqttHandler.simulateFertilizer("off");
-                coapController.sendCommand("fertilizer", "off");
+                coapController.sendCommand(fertPath, "off");
             }
         } catch (ConnectorException | IOException e) {
             throw new RuntimeException(e);
@@ -127,19 +136,21 @@ public class ControlLogicThread extends Thread {
         Float moisture = mqttHandler.getLatestValue("soilMoisture");
         if (moisture == null) return;
 
+        String irrigationPath = actuatorAliasMap.get("irrigation");
+
         try {
-            String irrigationState = coapController.getActuatorState("irrigation");
+            String irrigationState = coapController.getActuatorState(irrigationPath);
 
             if (moisture < MOISTURE_LOWER) {
                 ConsoleUtils.println("[Control Logic] Soil moisture too low: " + moisture);
                 mqttHandler.simulateIrrigation("on");
                 if (!"on".equalsIgnoreCase(irrigationState)) {
-                    coapController.sendCommand("irrigation", "on");
+                    coapController.sendCommand(irrigationPath, "on");
                 }
             } else if (moisture > MOISTURE_UPPER) {
                 mqttHandler.simulateIrrigation("off");
                 if (!"off".equalsIgnoreCase(irrigationState)) {
-                    coapController.sendCommand("irrigation", "off");
+                    coapController.sendCommand(irrigationPath, "off");
                 }
             }
         } catch (ConnectorException | IOException e) {
@@ -151,19 +162,21 @@ public class ControlLogicThread extends Thread {
         Float light = mqttHandler.getLatestValue("light");
         if (light == null) return;
 
+        String lightPath = actuatorAliasMap.get("grow_light");
+
         try {
-            String lightState = coapController.getActuatorState("grow_light");
+            String lightState = coapController.getActuatorState(lightPath);
 
             if (light < LIGHT_LOWER) {
                 ConsoleUtils.println("[Control Logic] Light too low: " + light);
                 mqttHandler.simulateGrowLight("on");
                 if (!"on".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand("grow_light", "on");
+                    coapController.sendCommand(lightPath, "on");
                 }
             } else if (light > LIGHT_UPPER) {
                 mqttHandler.simulateGrowLight("off");
                 if (!"off".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand("grow_light", "off");
+                    coapController.sendCommand(lightPath, "off");
                 }
             }
         } catch (ConnectorException | IOException e) {

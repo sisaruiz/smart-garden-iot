@@ -32,6 +32,14 @@ public class Main {
             ":quit"
     };
 
+    private static final Map<String, String> actuatorAliasMap = Map.of(
+            "fertilizer", "actuators/fertilizer",
+            "irrigation", "actuators/irrigation",
+            "grow_light", "actuators/grow_light",
+            "fan", "cc/fan",
+            "heater", "cc/heater"
+    );
+
     public static void main(String[] args) throws ConnectorException, IOException {
 
         ConsoleUtils.println(LOG + " Welcome to the Smart Garden System!");
@@ -66,7 +74,7 @@ public class Main {
             ConsoleUtils.printError(LOG + " Sleep interrupted.");
         }
 
-        ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController);
+        ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController, actuatorAliasMap);
         controlLogic.start();
 
         Map<String, Boolean> actuatorState = new HashMap<>();
@@ -84,14 +92,15 @@ public class Main {
                 ConsoleUtils.println(LOG + " Executing command: " + userInput);
 
                 if (userInput.startsWith(":trigger ")) {
-                    String actuator = userInput.replace(":trigger ", "").trim();
+                    String shortName = userInput.replace(":trigger ", "").trim();
+                    String fullPath = actuatorAliasMap.getOrDefault(shortName, shortName);
 
-                    if (!configuration.getActuators().contains(actuator)) {
-                        ConsoleUtils.printError(LOG + " Unknown actuator: " + actuator);
+                    if (!configuration.getActuators().contains(shortName)) {
+                        ConsoleUtils.printError(LOG + " Unknown actuator: " + shortName);
                         continue;
                     }
 
-                    if (actuator.equals("fertilizer")) {
+                    if (shortName.equals("fertilizer")) {
                         ConsoleUtils.println(LOG + " Select fertilizer mode:");
                         ConsoleUtils.println(LOG + "   1 - sinc (acidic)");
                         ConsoleUtils.println(LOG + "   2 - sdec (alkaline)");
@@ -105,30 +114,29 @@ public class Main {
                             case "1" -> "sinc";
                             case "2" -> "sdec";
                             case "3" -> "off";
-                            default -> {
-                                ConsoleUtils.printError(LOG + " Invalid fertilizer mode.");
-                                yield null;
-                            }
+                            default -> null;
                         };
 
-                        if (mode != null) {
-                            try {
-                                coapController.sendCommand("fertilizer", mode);
-                            } catch (Exception e) {
-                                ConsoleUtils.printError(LOG + " Failed to send fertilizer command.");
-                                e.printStackTrace();
-                            }
+                        if (mode == null) {
+                            ConsoleUtils.printError(LOG + " Invalid fertilizer mode.");
+                            continue;
                         }
 
+                        try {
+                            coapController.sendCommand(fullPath, mode);
+                        } catch (Exception e) {
+                            ConsoleUtils.printError(LOG + " Failed to send fertilizer command.");
+                            e.printStackTrace();
+                        }
                     } else {
-                        boolean currentState = actuatorState.getOrDefault(actuator, false);
+                        boolean currentState = actuatorState.getOrDefault(shortName, false);
                         String nextCommand = currentState ? "off" : "on";
 
                         try {
-                            coapController.sendCommand(actuator, nextCommand);
-                            actuatorState.put(actuator, !currentState);
+                            coapController.sendCommand(fullPath, nextCommand);
+                            actuatorState.put(shortName, !currentState);
                         } catch (Exception e) {
-                            ConsoleUtils.printError(LOG + " Failed to send toggle command to " + actuator);
+                            ConsoleUtils.printError(LOG + " Failed to send toggle command to " + shortName);
                             e.printStackTrace();
                         }
                     }
@@ -160,12 +168,13 @@ public class Main {
 
                     case ":get actuators":
                         ConsoleUtils.println(LOG + " Current actuator states:");
-                        for (String actuator : configuration.getActuators()) {
+                        for (String shortName : configuration.getActuators()) {
+                            String fullPath = actuatorAliasMap.getOrDefault(shortName, shortName);
                             try {
-                                String state = coapController.getActuatorState(actuator);
-                                ConsoleUtils.println("  - " + actuator + ": " + state);
+                                String state = coapController.getActuatorState(fullPath);
+                                ConsoleUtils.println("  - " + shortName + ": " + state);
                             } catch (Exception e) {
-                                ConsoleUtils.printError(LOG + " Could not retrieve state for " + actuator);
+                                ConsoleUtils.printError(LOG + " Could not retrieve state for " + shortName);
                             }
                         }
                         break;

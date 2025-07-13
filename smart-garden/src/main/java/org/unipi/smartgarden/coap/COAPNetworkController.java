@@ -125,11 +125,9 @@ public class COAPNetworkController extends CoapServer {
                 JSONArray resources = json.getJSONArray("resources");
                 for (int i = 0; i < resources.length(); i++) {
                     String path = resources.getString(i);
-                    String shortName = extractNameFromPath(path);
                     String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
-
-                    actuatorEndpoints.put(shortName, fullUri);
-                    ConsoleUtils.println(LOG + " Registered actuator: " + shortName + " at " + fullUri);
+		    actuatorEndpoints.put(path, fullUri);
+		    ConsoleUtils.println(LOG + " Registered actuator: " + path + " at " + fullUri);
                 }
 
                 exchange.respond(CoAP.ResponseCode.CREATED, "Success");
@@ -138,11 +136,6 @@ public class COAPNetworkController extends CoapServer {
                 ConsoleUtils.printError(LOG + " Error while registering: " + e.getMessage());
                 exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR, "Registration failed.");
             }
-        }
-
-        private String extractNameFromPath(String path) {
-            String[] parts = path.split("/");
-            return parts[parts.length - 1];
         }
     }
 }
