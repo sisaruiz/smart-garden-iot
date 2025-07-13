@@ -2,6 +2,7 @@ package org.unipi.smartgarden.mqtt;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.unipi.smartgarden.db.DBDriver;
+import org.unipi.smartgarden.util.ConsoleUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,12 +31,12 @@ public class MQTTHandler implements MqttCallback {
 
             for (Map.Entry<String, String> entry : sensorTopics.entrySet()) {
                 client.subscribe(entry.getValue());
-                System.out.println(LOG + " Subscribed to topic: " + entry.getValue());
+                ConsoleUtils.println(LOG + " Subscribed to topic: " + entry.getValue());
                 latestValues.put(entry.getKey(), null);
             }
 
         } catch (MqttException e) {
-            System.err.println(LOG + " Failed to connect or subscribe: " + e.getMessage());
+            ConsoleUtils.println(LOG + " Failed to connect or subscribe: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -44,9 +45,9 @@ public class MQTTHandler implements MqttCallback {
         for (String sensor : sensorTopics.keySet()) {
             Float value = latestValues.get(sensor);
             if (value != null) {
-                System.out.printf("%s - Latest value: %.2f\n", sensor, value);
+                ConsoleUtils.println(sensor + " - Latest value: " + String.format("%.2f", value));
             } else {
-                System.out.printf("%s - No data received yet.\n", sensor);
+                ConsoleUtils.println(sensor + " - No data received yet.");
             }
         }
     }
@@ -57,7 +58,7 @@ public class MQTTHandler implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable cause) {
-        System.err.println(LOG + " Connection lost: " + cause.getMessage());
+        ConsoleUtils.println(LOG + " Connection lost: " + cause.getMessage());
     }
 
     @Override
@@ -76,16 +77,16 @@ public class MQTTHandler implements MqttCallback {
 
                     latestValues.put(sensorName, value);
                     db.insertSample(sensorName, value, null);
-                    System.out.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
+                    ConsoleUtils.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
                 } else {
-                    System.out.println(LOG + " JSON does not contain expected key: " + sensorName);
+                    ConsoleUtils.println(LOG + " JSON does not contain expected key: " + sensorName);
                 }
             } else {
-                System.out.println(LOG + " Received message from unknown topic: " + topic);
+                ConsoleUtils.println(LOG + " Received message from unknown topic: " + topic);
             }
 
         } catch (Exception e) {
-            System.err.println(LOG + " Failed to parse JSON payload: " + payload);
+            ConsoleUtils.println(LOG + " Failed to parse JSON payload: " + payload);
             e.printStackTrace();
         }
     }
@@ -106,11 +107,11 @@ public class MQTTHandler implements MqttCallback {
 
     public void close() {
         try {
-            System.out.println(LOG + " Disconnecting...");
+            ConsoleUtils.println(LOG + " Disconnecting...");
             client.disconnect();
             client.close();
         } catch (MqttException e) {
-            System.err.println(LOG + " Error during MQTT client shutdown: " + e.getMessage());
+            ConsoleUtils.println(LOG + " Error during MQTT client shutdown: " + e.getMessage());
         }
     }
 
@@ -119,9 +120,9 @@ public class MQTTHandler implements MqttCallback {
     public void sendCommand(String topic, String command) {
         try {
             client.publish(topic, new MqttMessage(command.getBytes()));
-            System.out.println(LOG + " Published command to " + topic + ": " + command);
+            ConsoleUtils.println(LOG + " Published command to " + topic + ": " + command);
         } catch (MqttException e) {
-            System.err.println(LOG + " Failed to publish command to " + topic + ": " + e.getMessage());
+            ConsoleUtils.println(LOG + " Failed to publish command to " + topic + ": " + e.getMessage());
         }
     }
 
@@ -151,10 +152,9 @@ public class MQTTHandler implements MqttCallback {
         try {
             String json = "{\"" + sensorTopic + "\":" + value + "}";
             client.publish(sensorTopic, new MqttMessage(json.getBytes()));
-            System.out.println(LOG + " Simulated sensor value for " + sensorTopic + ": " + json);
+            ConsoleUtils.println(LOG + " Simulated sensor value for " + sensorTopic + ": " + json);
         } catch (MqttException e) {
-            System.err.println(LOG + " Failed to simulate sensor data for " + sensorTopic + ": " + e.getMessage());
+            ConsoleUtils.println(LOG + " Failed to simulate sensor data for " + sensorTopic + ": " + e.getMessage());
         }
     }
 }
-

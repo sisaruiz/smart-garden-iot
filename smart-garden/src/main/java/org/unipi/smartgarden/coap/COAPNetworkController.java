@@ -7,6 +7,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.elements.exception.ConnectorException;
 import org.unipi.smartgarden.db.DBDriver;
+import org.unipi.smartgarden.util.ConsoleUtils;
 
 import java.nio.charset.StandardCharsets;
 
@@ -34,7 +35,7 @@ public class COAPNetworkController extends CoapServer {
         // Add registration endpoint for CoAP device
         add(new RegistrationResource("registration"));
 
-        System.out.println(LOG + " CoAP server started on port " + COAP_PORT);
+        ConsoleUtils.println(LOG + " CoAP server started on port " + COAP_PORT);
         start();
     }
 
@@ -44,7 +45,7 @@ public class COAPNetworkController extends CoapServer {
     public void toggleActuator(String actuatorName) throws ConnectorException, IOException {
         String endpoint = actuatorEndpoints.get(actuatorName);
         if (endpoint == null) {
-            System.err.println(LOG + " Unknown or unregistered actuator: " + actuatorName);
+            ConsoleUtils.err(LOG + " Unknown or unregistered actuator: " + actuatorName);
             return;
         }
 
@@ -53,10 +54,10 @@ public class COAPNetworkController extends CoapServer {
 
         CoapResponse response = client.put(payload, MediaTypeRegistry.TEXT_PLAIN);
         if (response != null) {
-            System.out.println(LOG + " PUT to " + actuatorName + ": " + response.getCode() +
+            ConsoleUtils.println(LOG + " PUT to " + actuatorName + ": " + response.getCode() +
                     " - " + response.getResponseText());
         } else {
-            System.err.println(LOG + " No response from actuator: " + actuatorName);
+            ConsoleUtils.err(LOG + " No response from actuator: " + actuatorName);
         }
     }
 
@@ -66,7 +67,7 @@ public class COAPNetworkController extends CoapServer {
     public void close() {
         this.stop();
         this.destroy();
-        System.out.println(LOG + " CoAP server shut down.");
+        ConsoleUtils.println(LOG + " CoAP server shut down.");
     }
 
     /**
@@ -84,7 +85,7 @@ public class COAPNetworkController extends CoapServer {
 	    String sourceIP = exchange.getSourceAddress().getHostAddress();
 	    String payload = new String(exchange.getRequestPayload(), StandardCharsets.UTF_8);
 
-	    System.out.println(LOG + " Registration received from " + sourceIP + ": " + payload);
+	    ConsoleUtils.println(LOG + " Registration received from " + sourceIP + ": " + payload);
 
 	    try {
 		JSONObject json = new JSONObject(payload);
@@ -101,13 +102,13 @@ public class COAPNetworkController extends CoapServer {
 		    String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
 
 		    actuatorEndpoints.put(shortName, fullUri);
-		    System.out.println(LOG + " Registered actuator: " + shortName + " at " + fullUri);
+		    ConsoleUtils.println(LOG + " Registered actuator: " + shortName + " at " + fullUri);
 		}
 
 		exchange.respond(CoAP.ResponseCode.CREATED, "Success");
 
 	    } catch (Exception e) {
-		System.err.println(LOG + " Error while registering: " + e.getMessage());
+		ConsoleUtils.err(LOG + " Error while registering: " + e.getMessage());
 		exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR, "Registration failed.");
 	    }
 	}
@@ -124,7 +125,7 @@ public class COAPNetworkController extends CoapServer {
     public void sendCommand(String actuatorName, String command) throws ConnectorException, IOException {
         String endpoint = actuatorEndpoints.get(actuatorName);
         if (endpoint == null) {
-            System.err.println(LOG + " Unknown or unregistered actuator: " + actuatorName);
+            ConsoleUtils.err(LOG + " Unknown or unregistered actuator: " + actuatorName);
             return;
         }
 
@@ -132,9 +133,9 @@ public class COAPNetworkController extends CoapServer {
         CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
 
         if (response != null && response.isSuccess()) {
-            System.out.println(LOG + " Command sent to " + actuatorName + ": " + command);
+            ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
         } else {
-            System.err.println(LOG + " Failed to send command to " + actuatorName);
+            ConsoleUtils.err(LOG + " Failed to send command to " + actuatorName);
         }
     }
 
@@ -151,5 +152,4 @@ public class COAPNetworkController extends CoapServer {
     public void triggerFan(boolean on) throws ConnectorException, IOException {
         sendCommand("fan", on ? "on" : "off");
     }
-
 }

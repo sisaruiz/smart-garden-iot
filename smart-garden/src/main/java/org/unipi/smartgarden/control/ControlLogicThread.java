@@ -3,6 +3,7 @@ package org.unipi.smartgarden.control;
 import org.eclipse.californium.elements.exception.ConnectorException;
 import org.unipi.smartgarden.coap.COAPNetworkController;
 import org.unipi.smartgarden.mqtt.MQTTHandler;
+import org.unipi.smartgarden.util.ConsoleUtils;
 
 import java.io.IOException;
 
@@ -42,7 +43,7 @@ public class ControlLogicThread extends Thread {
             try {
                 Thread.sleep(SLEEP_INTERVAL_MS);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                ConsoleUtils.err("[Control Logic] Sleep interrupted.");
                 break;
             }
 
@@ -56,7 +57,7 @@ public class ControlLogicThread extends Thread {
             checkLight();
         }
 
-        System.out.println("[Control Logic] Thread stopped.");
+        ConsoleUtils.println("[Control Logic] Thread stopped.");
     }
 
     public void stopThread() {
@@ -68,11 +69,11 @@ public class ControlLogicThread extends Thread {
         if (temperature == null) return;
 
         if (temperature < TEMP_LOWER) {
-            System.out.println("[Control Logic] Temperature too low: " + temperature);
+            ConsoleUtils.println("[Control Logic] Temperature too low: " + temperature);
             mqttHandler.simulateHeater("on");
             coapController.triggerHeater(true);
         } else if (temperature > TEMP_UPPER) {
-            System.out.println("[Control Logic] Temperature too high: " + temperature);
+            ConsoleUtils.println("[Control Logic] Temperature too high: " + temperature);
             mqttHandler.simulateFan("on");
             coapController.triggerFan(true);
         } else {
@@ -88,7 +89,7 @@ public class ControlLogicThread extends Thread {
         if (pH == null) return;
 
         if (pH < PH_LOWER) {
-            System.out.println("[Control Logic] pH too low: " + pH);
+            ConsoleUtils.println("[Control Logic] pH too low: " + pH);
             mqttHandler.simulateFertilizer("sinc");
             try {
                 coapController.sendCommand("fertilizer", "sinc");
@@ -96,7 +97,7 @@ public class ControlLogicThread extends Thread {
                 throw new RuntimeException(e);
             }
         } else if (pH > PH_UPPER) {
-            System.out.println("[Control Logic] pH too high: " + pH);
+            ConsoleUtils.println("[Control Logic] pH too high: " + pH);
             mqttHandler.simulateFertilizer("sdec");
             try {
                 coapController.sendCommand("fertilizer", "sdec");
@@ -118,7 +119,7 @@ public class ControlLogicThread extends Thread {
         if (moisture == null) return;
 
         if (moisture < MOISTURE_LOWER) {
-            System.out.println("[Control Logic] Soil moisture too low: " + moisture);
+            ConsoleUtils.println("[Control Logic] Soil moisture too low: " + moisture);
             mqttHandler.simulateIrrigation("on");
             try {
                 coapController.sendCommand("irrigation", "on");
@@ -140,7 +141,7 @@ public class ControlLogicThread extends Thread {
         if (light == null) return;
 
         if (light < LIGHT_LOWER) {
-            System.out.println("[Control Logic] Light too low: " + light);
+            ConsoleUtils.println("[Control Logic] Light too low: " + light);
             mqttHandler.simulateGrowLight("on");
             try {
                 coapController.sendCommand("grow_light", "on");
@@ -157,4 +158,3 @@ public class ControlLogicThread extends Thread {
         }
     }
 }
-

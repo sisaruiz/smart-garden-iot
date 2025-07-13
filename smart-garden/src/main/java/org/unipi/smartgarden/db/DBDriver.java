@@ -1,5 +1,7 @@
 package org.unipi.smartgarden.db;
 
+import org.unipi.smartgarden.util.ConsoleUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,7 +40,7 @@ public class DBDriver {
             insertStatements.put("heater", connection.prepareStatement("INSERT INTO heater (active) VALUES (?)"));
 
         } catch (SQLException e) {
-            System.err.println(LOG + " Error connecting to DB: " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Error connecting to DB: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -46,13 +48,13 @@ public class DBDriver {
     public boolean insertSample(String type, float value, Float level) {
         try {
             if (connection == null || connection.isClosed()) {
-                System.err.println(LOG + " Cannot insert sample: DB connection is closed.");
+                ConsoleUtils.printError(LOG + " Cannot insert sample: DB connection is closed.");
                 return false;
             }
 
             PreparedStatement stmt = insertStatements.get(type);
             if (stmt == null) {
-                System.err.println(LOG + " Unknown data type: " + type);
+                ConsoleUtils.printError(LOG + " Unknown data type: " + type);
                 return false;
             }
 
@@ -67,7 +69,7 @@ public class DBDriver {
             return true;
 
         } catch (SQLException e) {
-            System.err.println(LOG + " Failed to insert sample: " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Failed to insert sample: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -80,8 +82,7 @@ public class DBDriver {
             }
             if (connection != null) connection.close();
         } catch (SQLException e) {
-            System.err.println(LOG + " Error closing DB connection: " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Error closing DB connection: " + e.getMessage());
         }
     }
 }
-

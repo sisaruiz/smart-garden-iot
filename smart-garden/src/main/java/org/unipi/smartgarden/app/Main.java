@@ -6,10 +6,10 @@ import org.unipi.smartgarden.control.ControlLogicThread;
 import org.unipi.smartgarden.db.DBDriver;
 import org.unipi.smartgarden.mqtt.MQTTHandler;
 import org.unipi.smartgarden.coap.COAPNetworkController;
+import org.unipi.smartgarden.util.ConsoleUtils;
 
 import com.google.gson.Gson;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,76 +33,72 @@ public class Main {
 
     public static void main(String[] args) throws ConnectorException, IOException {
 
-        System.out.println(LOG + " Welcome to the Smart Garden System!");
+        ConsoleUtils.println(LOG + " Welcome to the Smart Garden System!");
 
-        System.out.println(LOG + " Loading configuration...");
+        ConsoleUtils.println(LOG + " Loading configuration...");
         Configuration configuration = null;
         try (var reader = new java.io.InputStreamReader(
-		Main.class.getClassLoader().getResourceAsStream("config/devices.json"))) {
-	    configuration = new Gson().fromJson(reader, Configuration.class);
-	}
-	catch (Exception e) {
-            System.err.println(LOG + " Failed to load configuration: " + e.getMessage());
+                Main.class.getClassLoader().getResourceAsStream("config/devices.json"))) {
+            configuration = new Gson().fromJson(reader, Configuration.class);
+        } catch (Exception e) {
+            ConsoleUtils.println(LOG + " Failed to load configuration: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
 
-        System.out.println(configuration);
+        ConsoleUtils.println(configuration.toString());
 
-        // Initialize DB
         DBDriver db = new DBDriver();
 
-        // Initialize MQTT handler
         Map<String, String> sensorTopicMap = new HashMap<>();
         for (var sensor : configuration.getSensors()) {
             sensorTopicMap.put(sensor.getId(), sensor.getTopic());
         }
         MQTTHandler mqttHandler = new MQTTHandler(sensorTopicMap, db);
 
-        // Initialize CoAP actuator controller
         COAPNetworkController coapController = new COAPNetworkController(configuration.getActuators(), db);
-        
-        // Wait for registration before triggering logic
-	System.out.println(LOG + " Waiting 5 seconds for CoAP device registration...");
-	try {
-	    Thread.sleep(5000);
-	} catch (InterruptedException e) {
-	    System.err.println(LOG + " Sleep interrupted.");
-	}
 
-        // Start control logic thread
+        ConsoleUtils.println(LOG + " Waiting 5 seconds for CoAP device registration...");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            ConsoleUtils.println(LOG + " Sleep interrupted.");
+        }
+
         ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController);
         controlLogic.start();
 
-        // Start user input loop
         Scanner scanner = new Scanner(System.in);
         printPossibleCommands();
 
         while (true) {
-            System.out.print("> ");
+            ConsoleUtils.print("> ");
+            ConsoleUtils.setTyping(true);
             String userInput = scanner.nextLine().trim().toLowerCase();
+            ConsoleUtils.setTyping(false);
 
             if (isValidCommand(userInput)) {
-                System.out.println(LOG + " Executing command: " + userInput);
+                ConsoleUtils.println(LOG + " Executing command: " + userInput);
 
                 switch (userInput) {
                     case ":quit":
-                        System.out.println(LOG + " Shutting down...");
+                        ConsoleUtils.println(LOG + " Shutting down...");
                         controlLogic.stopThread();
                         try {
                             controlLogic.join();
                         } catch (InterruptedException e) {
-                            System.err.println(LOG + " Error while stopping control logic thread.");
+                            ConsoleUtils.println(LOG + " Error while stopping control logic thread.");
                         }
                         mqttHandler.close();
                         coapController.close();
                         db.close();
                         scanner.close();
-                        System.out.println(LOG + " Bye!");
+                        ConsoleUtils.closeLogger();
+                        ConsoleUtils.println(LOG + " Bye!");
                         return;
 
                     case ":get status":
-                        System.out.println(LOG + " Current sensor readings:");
+                        ConsoleUtils.println(LOG + " Current sensor readings:");
                         mqttHandler.printSensorStatus();
                         break;
 
@@ -127,7 +123,7 @@ public class Main {
                         break;
 
                     case ":get configuration":
-                        System.out.println(configuration);
+                        ConsoleUtils.println(configuration.toString());
                         break;
 
                     case ":help":
@@ -136,15 +132,15 @@ public class Main {
                 }
 
             } else {
-                System.out.println(LOG + " Invalid command. Type ':help' to see the list of available commands.");
+                ConsoleUtils.println(LOG + " Invalid command. Type ':help' to see the list of available commands.");
             }
         }
     }
 
     private static void printPossibleCommands() {
-        System.out.println(LOG + " Available commands:");
+        ConsoleUtils.println(LOG + " Available commands:");
         for (String command : possibleCommands) {
-            System.out.println(LOG + " - " + command);
+            ConsoleUtils.println(LOG + " - " + command);
         }
     }
 
