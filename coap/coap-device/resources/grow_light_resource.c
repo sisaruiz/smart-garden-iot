@@ -5,6 +5,8 @@
 #include "sys/etimer.h"
 #include "sys/log.h"
 #include <string.h>
+#include <strings.h>
+
 
 #define LOG_MODULE "grow_light_res"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -68,32 +70,39 @@ res_put_handler(coap_message_t *request,
                 uint16_t preferred_size,
                 int32_t *offset)
 {
-  const char *mode = NULL;
-  size_t len = coap_get_post_variable(request, "mode", &mode);
+  const uint8_t *payload = NULL;
+  size_t len = coap_get_payload(request, &payload);
   int success = 1;
 
   LOG_INFO("Grow Light PUT received\n");
 
-  if(len) {
-    if(strncmp(mode, "on", len) == 0) {
-      current_mode = MODE_ON;
-      leds_single_on(LEDS_BLUE);
-      leds_off(LEDS_RED);
-      LOG_INFO("Mode set to ON\n");
-    } else if(strncmp(mode, "off", len) == 0) {
-      current_mode = MODE_OFF;
-      leds_off(LEDS_BLUE | LEDS_RED);
-      LOG_INFO("Mode set to OFF\n");
-    } else if(strncmp(mode, "alert", len) == 0) {
-      current_mode = MODE_ALERT;
-      leds_single_on(LEDS_RED);
-      leds_off(LEDS_BLUE);
-      LOG_INFO("Mode set to ALERT\n");
-      process_start(&grow_light_button_process, NULL); // Start alert handler
-    } else {
-      success = 0;
-    }
+  if(len == 0 || payload == NULL) {
+    coap_set_status_code(response, BAD_REQUEST_4_00);
+    return;
+  }
+
+  char mode[16];
+  if(len >= sizeof(mode)) len = sizeof(mode) - 1;
+  memcpy(mode, payload, len);
+  mode[len] = '\0'; // Null-terminate
+
+  if(strcmp(mode, "on") == 0) {
+    current_mode = MODE_ON;
+    leds_single_on(LEDS_BLUE);
+    leds_off(LEDS_RED);
+    LOG_INFO("Mode set to on\n");
+  } else if(strcmp(mode, "off") == 0) {
+    current_mode = MODE_OFF;
+    leds_off(LEDS_BLUE | LEDS_RED);
+    LOG_INFO("Mode set to off\n");
+  } else if(strcmp(mode, "alert") == 0) {
+    current_mode = MODE_ALERT;
+    leds_single_on(LEDS_RED);
+    leds_off(LEDS_BLUE);
+    LOG_INFO("Mode set to alert\n");
+    process_start(&grow_light_button_process, NULL);
   } else {
+    LOG_WARN("Unknown mode: %s\n", mode);
     success = 0;
   }
 
@@ -117,7 +126,7 @@ PROCESS_THREAD(grow_light_button_process, ev, data)
     PROCESS_YIELD();
 
     if(ev == button_hal_press_event) {
-      LOG_INFO("Button pressed during ALERT. Waiting 5s hold...\n");
+      LOG_INFO("Button pressed during alert. Waiting 5s hold...\n");
       etimer_set(&button_timer, CLOCK_SECOND * 5);
       PROCESS_WAIT_EVENT_UNTIL(ev == button_hal_release_event || etimer_expired(&button_timer));
 
@@ -131,7 +140,7 @@ PROCESS_THREAD(grow_light_button_process, ev, data)
 
         leds_off(LEDS_RED);
         current_mode = MODE_OFF;
-        LOG_INFO("Alert cleared. Grow light set to OFF.\n");
+        LOG_INFO("Alert cleared. Grow light set to off.\n");
 
         coap_notify_observers(&res_grow_light);
       } else {

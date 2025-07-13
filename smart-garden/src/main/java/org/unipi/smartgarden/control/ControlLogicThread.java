@@ -89,24 +89,24 @@ public class ControlLogicThread extends Thread {
 
         if (pH < PH_LOWER) {
             System.out.println("[Control Logic] pH too low: " + pH);
-            mqttHandler.simulateFertilizer("SINC");
+            mqttHandler.simulateFertilizer("sinc");
             try {
-                coapController.sendCommand("fertilizer", "SINC");
+                coapController.sendCommand("fertilizer", "sinc");
             } catch (ConnectorException | IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (pH > PH_UPPER) {
             System.out.println("[Control Logic] pH too high: " + pH);
-            mqttHandler.simulateFertilizer("SDEC");
+            mqttHandler.simulateFertilizer("sdec");
             try {
-                coapController.sendCommand("fertilizer", "SDEC");
+                coapController.sendCommand("fertilizer", "sdec");
             } catch (ConnectorException | IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            mqttHandler.simulateFertilizer("OFF");
+            mqttHandler.simulateFertilizer("off");
             try {
-                coapController.sendCommand("fertilizer", "OFF");
+                coapController.sendCommand("fertilizer", "off");
             } catch (ConnectorException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -141,19 +141,20 @@ public class ControlLogicThread extends Thread {
 
         if (light < LIGHT_LOWER) {
             System.out.println("[Control Logic] Light too low: " + light);
-            mqttHandler.simulateGrowLight("ON");
+            mqttHandler.simulateGrowLight("on");
             try {
-                coapController.sendCommand("grow_light", "ON");
+                coapController.sendCommand("grow_light", "on");
             } catch (ConnectorException | IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (light > LIGHT_UPPER) {
-            mqttHandler.simulateGrowLight("OFF");
+            mqttHandler.simulateGrowLight("off");
             try {
-                coapController.sendCommand("grow_light", "OFF");
+                coapController.sendCommand("grow_light", "off");
             } catch (ConnectorException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 }
+

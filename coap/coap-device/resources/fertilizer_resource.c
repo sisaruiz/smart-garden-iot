@@ -3,6 +3,7 @@
 #include "os/dev/leds.h"
 #include "sys/log.h"
 #include <string.h>
+#include <strings.h>
 
 #define LOG_MODULE "fertilizer_res"
 #define LOG_LEVEL LOG_LEVEL_INFO
@@ -66,32 +67,37 @@ res_put_handler(coap_message_t *request,
                 uint16_t preferred_size,
                 int32_t *offset)
 {
-  const char *mode = NULL;
-  size_t len = coap_get_post_variable(request, "mode", &mode);
-  int success = 1;
+  const uint8_t *payload = NULL;
+  size_t len = coap_get_payload(request, &payload);
 
   LOG_INFO("Fertilizer PUT received\n");
 
-  if(len) {
-    if(strncmp(mode, "acidic", len) == 0) {
-      current_mode = MODE_ACIDIC;
-      LOG_INFO("Mode set to ACIDIC\n");
-      leds_single_on(LEDS_GREEN);
-    } else if(strncmp(mode, "alkaline", len) == 0) {
-      current_mode = MODE_ALKALINE;
-      LOG_INFO("Mode set to ALKALINE\n");
-      leds_single_on(LEDS_BLUE);
-    } else if(strncmp(mode, "off", len) == 0) {
-      current_mode = MODE_OFF;
-      LOG_INFO("Mode set to OFF\n");
-      leds_off(LEDS_GREEN | LEDS_BLUE);
-    } else {
-      success = 0;
-    }
-  } else {
-    success = 0;
+  if(len == 0 || payload == NULL) {
+    coap_set_status_code(response, BAD_REQUEST_4_00);
+    return;
   }
 
+  char mode[16];
+  if(len >= sizeof(mode)) len = sizeof(mode) - 1;
+  memcpy(mode, payload, len);
+  mode[len] = '\0';  // Null-terminate
+
+  int success = 1;
+
+  if(strcasecmp(mode, "sinc") == 0) {
+    current_mode = MODE_ACIDIC;
+    LOG_INFO("Mode set to acidic\n");
+    leds_single_on(LEDS_GREEN);
+  } else if(strcasecmp(mode, "sdec") == 0) {
+	  current_mode = MODE_ALKALINE;
+	  LOG_INFO("Mode set to alkaline\n");
+	  leds_single_on(LEDS_BLUE);
+  } else if(strcasecmp(mode, "off") == 0) {
+	  current_mode = MODE_OFF;
+	  LOG_INFO("Mode set to off\n");
+	  leds_off(LEDS_GREEN | LEDS_BLUE);
+  }
+  
   if(!success) {
     coap_set_status_code(response, BAD_REQUEST_4_00);
     return;

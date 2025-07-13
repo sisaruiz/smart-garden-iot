@@ -5,22 +5,21 @@
 #include "sys/etimer.h"
 #include "sys/log.h"
 #include <string.h>
+#include <strings.h>
+
 
 #define LOG_MODULE "irrigation_res"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
-// Modalità disponibili
 static enum {
   IRRIGATION_OFF,
   IRRIGATION_ON,
   IRRIGATION_ALERT
 } irrigation_mode = IRRIGATION_OFF;
 
-// Timer per bottone
 static struct etimer button_timer;
-static button_hal_button_t *btn;  // ✅ Correct type
+static button_hal_button_t *btn;
 
-// Forward declarations
 static void res_get_handler(coap_message_t *request,
                             coap_message_t *response,
                             uint8_t *buffer,
@@ -35,7 +34,6 @@ static void res_put_handler(coap_message_t *request,
 
 PROCESS(irrigation_button_process, "Irrigation button handler");
 
-// CoAP resource definition
 RESOURCE(res_irrigation,
          "title=\"Irrigation\";rt=\"Control\";obs",
          res_get_handler,
@@ -73,22 +71,22 @@ res_put_handler(coap_message_t *request,
   size_t len = coap_get_post_variable(request, "mode", &mode);
   int success = 1;
 
-  LOG_INFO("Irrigation PUT received\n");
+  LOG_INFO("irrigation put received\n");
 
   if(len) {
-    if(strncmp(mode, "on", len) == 0) {
+    if(strcasecmp(mode, "on") == 0) {
       irrigation_mode = IRRIGATION_ON;
       leds_single_off(LEDS_RED);
-      LOG_INFO("Mode set to ON\n");
-    } else if(strncmp(mode, "off", len) == 0) {
+      LOG_INFO("mode set to on\n");
+    } else if(strcasecmp(mode, "off") == 0) {
       irrigation_mode = IRRIGATION_OFF;
       leds_single_off(LEDS_RED);
-      LOG_INFO("Mode set to OFF\n");
-    } else if(strncmp(mode, "alert", len) == 0) {
+      LOG_INFO("mode set to off\n");
+    } else if(strcasecmp(mode, "alert") == 0) {
       irrigation_mode = IRRIGATION_ALERT;
       leds_single_on(LEDS_RED);
-      LOG_INFO("Mode set to ALERT (LED RED ON)\n");
-      process_start(&irrigation_button_process, NULL); // Attiva gestione bottone
+      LOG_INFO("mode set to alert (led red on)\n");
+      process_start(&irrigation_button_process, NULL);
     } else {
       success = 0;
     }
@@ -101,15 +99,11 @@ res_put_handler(coap_message_t *request,
     return;
   }
 
-  // Notifica osservatori
   coap_notify_observers(&res_irrigation);
-
-  // Echo risposta
   res_get_handler(request, response, buffer, preferred_size, offset);
 }
 
 /*---------------------------------------------------------------------------*/
-// Processo che gestisce il bottone per risolvere lo stato di allerta
 PROCESS_THREAD(irrigation_button_process, ev, data)
 {
   PROCESS_BEGIN();
@@ -119,28 +113,22 @@ PROCESS_THREAD(irrigation_button_process, ev, data)
   while(irrigation_mode == IRRIGATION_ALERT) {
     PROCESS_YIELD();
     if(ev == button_hal_press_event) {
-      LOG_INFO("Button pressed. Waiting for 5s hold...\n");
+      LOG_INFO("button pressed. waiting for 5s hold...\n");
       etimer_set(&button_timer, CLOCK_SECOND * 5);
       PROCESS_WAIT_EVENT_UNTIL(ev == button_hal_release_event || etimer_expired(&button_timer));
 
       if(etimer_expired(&button_timer)) {
-        LOG_INFO("Alert acknowledged. Blinking LED RED...\n");
-
-        // Blink red LED 5 times
+        LOG_INFO("alert acknowledged. blinking led red...\n");
         for(int i = 0; i < 10; i++) {
           leds_toggle(LEDS_RED);
           clock_wait(CLOCK_SECOND / 2);
         }
-
         leds_single_off(LEDS_RED);
         irrigation_mode = IRRIGATION_OFF;
-
-        LOG_INFO("Alert cleared. Irrigation set to OFF.\n");
-
-        // Notifica osservatori
+        LOG_INFO("alert cleared. irrigation set to off.\n");
         coap_notify_observers(&res_irrigation);
       } else {
-        LOG_INFO("Button released too soon. No action taken.\n");
+        LOG_INFO("button released too soon. no action taken.\n");
       }
     }
   }

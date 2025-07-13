@@ -129,7 +129,7 @@ public class COAPNetworkController extends CoapServer {
         }
 
         CoapClient client = new CoapClient(endpoint);
-        CoapResponse response = client.put(command, MediaTypeRegistry.TEXT_PLAIN);
+        CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
 
         if (response != null && response.isSuccess()) {
             System.out.println(LOG + " Command sent to " + actuatorName + ": " + command);
