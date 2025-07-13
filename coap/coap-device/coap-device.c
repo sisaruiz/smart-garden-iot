@@ -6,7 +6,6 @@
 #include "routing/routing.h"
 #include "coap-engine.h"
 #include "coap-blocking-api.h"
-#include "random.h"
 
 #include "sys/log.h"
 #define LOG_MODULE "coap device"
@@ -15,15 +14,16 @@
 #define SERVER_EP "coap://[fd00::1]:5683"
 #define START_INTERVAL 1
 #define REGISTRATION_INTERVAL 1
-#define FLOW_BASE_INTERVAL 15     // Base trigger interval in seconds
-#define FLOW_JITTER 5             // Jitter in seconds (+/- up to 5s)
 
-// Declare actuator resources (must be implemented in their respective folders)
+// Declare actuator resources
 extern coap_resource_t res_fertilizer;
 extern coap_resource_t res_irrigation;
 extern coap_resource_t res_grow_light;
 extern coap_resource_t res_cc_fan;
 extern coap_resource_t res_cc_heater;
+
+// Init trigger function
+void fertilizer_resource_init(void);
 
 // Service URL
 static char *service_url = "/registration";
@@ -35,10 +35,12 @@ static bool registered = false;
 // Timers
 static struct etimer wait_connection;
 static struct etimer wait_registration;
-static struct etimer flow_timer;
 
 // Button
 static button_hal_button_t *btn;
+
+// Refill logic flag
+static bool fertilizer_to_be_dispensed = true;  // Set to true to allow manual triggering
 
 // Registration response handler
 void client_chunk_handler(coap_message_t *response)
@@ -61,7 +63,6 @@ void client_chunk_handler(coap_message_t *response)
   }
 }
 
-/*---------------------------------------------------------------------------*/
 PROCESS(coap_device, "CoAP device");
 AUTOSTART_PROCESSES(&coap_device);
 
@@ -71,7 +72,6 @@ PROCESS_THREAD(coap_device, ev, data)
   static coap_message_t request[1];
 
   PROCESS_BEGIN();
-
   PROCESS_PAUSE();
 
   coap_endpoint_parse(SERVER_EP, strlen(SERVER_EP), &server_ep);
@@ -87,6 +87,9 @@ PROCESS_THREAD(coap_device, ev, data)
   coap_activate_resource(&res_grow_light, "actuators/grow_light");
   coap_activate_resource(&res_cc_fan, "cc/fan");
   coap_activate_resource(&res_cc_heater, "cc/heater");
+
+  // Assign trigger handler for fertilizer
+  fertilizer_resource_init();
 
   LOG_INFO("Connecting to the Border Router...\n");
 
@@ -111,37 +114,46 @@ PROCESS_THREAD(coap_device, ev, data)
     coap_init_message(request, COAP_TYPE_CON, COAP_POST, 0);
     coap_set_header_uri_path(request, service_url);
 
-    // Static configuration: device and resource list
-    const char msg[] = "{\"device\":\"coapDevice\",\"resources\":[\"actuators/fertilizer\",\"actuators/irrigation\",\"actuators/grow_light\",\"cc/fan\",\"cc/heater\"]}";
-    coap_set_payload(request, (uint8_t *)msg, sizeof(msg) - 1);
+    static char msg[256];
+    snprintf(msg, sizeof(msg),
+      "{\"device\":\"coapDevice\",\"resources\":["
+      "\"actuators/fertilizer\",\"actuators/irrigation\","
+      "\"actuators/grow_light\",\"cc/fan\",\"cc/heater\"]}");
 
+    LOG_INFO("Sending registration payload: %s\n", msg);
+
+    coap_set_payload(request, (uint8_t *)msg, strlen(msg));
     COAP_BLOCKING_REQUEST(&server_ep, request, client_chunk_handler);
   }
 
   LOG_INFO("Device started correctly!\n");
 
-  // Start FLOW trigger timer with jitter
-  int base = FLOW_BASE_INTERVAL * CLOCK_SECOND;
-  int jitter = (random_rand() % (2 * FLOW_JITTER * CLOCK_SECOND)) - (FLOW_JITTER * CLOCK_SECOND);
-  etimer_set(&flow_timer, base + jitter);
-
+  // Initialize button
   btn = button_hal_get_by_index(0);
+
   while(1) {
     PROCESS_WAIT_EVENT();
 
-    if(ev == PROCESS_EVENT_TIMER && etimer_expired(&flow_timer)) {
-      res_fertilizer.trigger();
-      res_irrigation.trigger();
-      res_grow_light.trigger();
-      res_cc_fan.trigger();
-      res_cc_heater.trigger();
+    // Check for fertilizer refill confirmation
+    if((ev == button_hal_periodic_event || ev == button_hal_press_event) &&
+       fertilizer_to_be_dispensed) {
 
-      int new_jitter = (random_rand() % (2 * FLOW_JITTER * CLOCK_SECOND)) - (FLOW_JITTER * CLOCK_SECOND);
-      etimer_set(&flow_timer, FLOW_BASE_INTERVAL * CLOCK_SECOND + new_jitter);
+      btn = (button_hal_button_t *)data;
+
+      if(btn->press_duration_seconds == 3) {
+        LOG_INFO("Button held 3s: manually triggering fertilizer refill\n");
+
+        fertilizer_to_be_dispensed = false; // Refill complete
+        leds_on(LEDS_GREEN);
+        res_fertilizer.trigger();
+
+      } else if(ev == button_hal_release_event && btn->press_duration_seconds < 3) {
+        LOG_INFO("Button released early: refill not accepted\n");
+        leds_on(LEDS_RED);  // Indicate failure
+      }
     }
-
-    // Button-based alert logic can go here if needed
   }
 
   PROCESS_END();
 }
+

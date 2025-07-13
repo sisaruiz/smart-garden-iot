@@ -8,6 +8,9 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.elements.exception.ConnectorException;
 import org.unipi.smartgarden.db.DBDriver;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -75,32 +78,37 @@ public class COAPNetworkController extends CoapServer {
         }
 
         @Override
-        public void handlePOST(CoapExchange exchange) {
-            String sourceIP = exchange.getSourceAddress().getHostAddress();
-            String payload = exchange.getRequestText();
+	public void handlePOST(CoapExchange exchange) {
+	    String sourceIP = exchange.getSourceAddress().getHostAddress();
+	    String payload = exchange.getRequestText();
 
-            System.out.println(LOG + " Registration received from " + sourceIP + ": " + payload);
+	    System.out.println(LOG + " Registration received from " + sourceIP + ": " + payload);
 
-            try {
-                if (payload.contains("\"device\"") && payload.contains("\"resources\"")) {
-                    for (String token : payload.split("\"")) {
-                        if (token.contains("/") && !token.contains("device")) {
-                            String path = token;
-                            String actuatorName = extractNameFromPath(path);
-                            String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
-                            actuatorEndpoints.put(actuatorName, fullUri);
-                            System.out.println(LOG + " Registered actuator: " + actuatorName + " at " + fullUri);
-                        }
-                    }
-                    exchange.respond(CoAP.ResponseCode.CREATED, "Success");
-                } else {
-                    exchange.respond(CoAP.ResponseCode.BAD_REQUEST, "Invalid registration payload.");
-                }
-            } catch (Exception e) {
-                System.err.println(LOG + " Error while registering: " + e.getMessage());
-                exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR, "Registration failed.");
-            }
-        }
+	    try {
+		JSONObject json = new JSONObject(payload);
+
+		if (!json.has("device") || !json.has("resources")) {
+		    exchange.respond(CoAP.ResponseCode.BAD_REQUEST, "Invalid registration payload.");
+		    return;
+		}
+
+		JSONArray resources = json.getJSONArray("resources");
+		for (int i = 0; i < resources.length(); i++) {
+		    String path = resources.getString(i); // e.g., "actuators/fertilizer" or "cc/fan"
+		    String shortName = extractNameFromPath(path); // fertilizer, fan, heater, etc.
+		    String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
+
+		    actuatorEndpoints.put(shortName, fullUri);
+		    System.out.println(LOG + " Registered actuator: " + shortName + " at " + fullUri);
+		}
+
+		exchange.respond(CoAP.ResponseCode.CREATED, "Success");
+
+	    } catch (Exception e) {
+		System.err.println(LOG + " Error while registering: " + e.getMessage());
+		exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR, "Registration failed.");
+	    }
+	}
 
         private String extractNameFromPath(String path) {
             String[] parts = path.split("/");

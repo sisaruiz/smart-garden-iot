@@ -85,8 +85,7 @@ build/nrf52840/dongle/obj/coap-device.o: coap-device.c \
  ../../../os/net/app-layer/coap/coap-observe-client.h \
  ../../../os/net/app-layer/coap/coap-blocking-api.h \
  ../../../os/net/app-layer/coap/coap-request-state.h \
- ../../../os/lib/random.h ../../../os/sys/log.h \
- ../../../os/sys/log-conf.h
+ ../../../os/sys/log.h ../../../os/sys/log-conf.h
 
 ../../../os/net/app-layer/coap/module-macros.h:
 
@@ -303,8 +302,6 @@ project-conf.h:
 ../../../os/net/app-layer/coap/coap-blocking-api.h:
 
 ../../../os/net/app-layer/coap/coap-request-state.h:
-
-../../../os/lib/random.h:
 
 ../../../os/sys/log.h:
 

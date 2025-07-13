@@ -25,14 +25,20 @@ static void res_put_handler(coap_message_t *request,
                             uint8_t *buffer,
                             uint16_t preferred_size,
                             int32_t *offset);
+static void res_trigger_handler(void);
 
-/* CoAP resource definition */
+/* CoAP resource definition (standard 6 arguments) */
 RESOURCE(res_fertilizer,
          "title=\"Fertilizer Dispenser\";rt=\"Control\";obs",
          res_get_handler,
          NULL,
          res_put_handler,
          NULL);
+
+/* Public init function to assign trigger handler */
+void fertilizer_resource_init(void) {
+  res_fertilizer.trigger = res_trigger_handler;
+}
 
 /*---------------------------------------------------------------------------*/
 static void
@@ -91,9 +97,23 @@ res_put_handler(coap_message_t *request,
     return;
   }
 
-  // Notifica gli osservatori del cambiamento di stato
   coap_notify_observers(&res_fertilizer);
-
-  // Echo the new state in the response
   res_get_handler(request, response, buffer, preferred_size, offset);
 }
+
+/*---------------------------------------------------------------------------*/
+/* Triggered by button press (manual refill simulation) */
+static void
+res_trigger_handler(void)
+{
+  LOG_INFO("Fertilizer manually dispensed (trigger)\n");
+
+  // Simulate dispensing: flash LED to indicate action
+  leds_on(LEDS_RED);
+  clock_wait(CLOCK_SECOND / 2);
+  leds_off(LEDS_RED);
+
+  // Notify observers (even if state hasn't changed)
+  coap_notify_observers(&res_fertilizer);
+}
+
