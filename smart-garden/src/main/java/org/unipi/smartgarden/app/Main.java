@@ -41,7 +41,7 @@ public class Main {
                 Main.class.getClassLoader().getResourceAsStream("config/devices.json"))) {
             configuration = new Gson().fromJson(reader, Configuration.class);
         } catch (Exception e) {
-            ConsoleUtils.println(LOG + " Failed to load configuration: " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Failed to load configuration: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -62,7 +62,7 @@ public class Main {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            ConsoleUtils.println(LOG + " Sleep interrupted.");
+            ConsoleUtils.printError(LOG + " Sleep interrupted.");
         }
 
         ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController);
@@ -87,7 +87,7 @@ public class Main {
                         try {
                             controlLogic.join();
                         } catch (InterruptedException e) {
-                            ConsoleUtils.println(LOG + " Error while stopping control logic thread.");
+                            ConsoleUtils.printError(LOG + " Error while stopping control logic thread.");
                         }
                         mqttHandler.close();
                         coapController.close();
@@ -151,3 +151,4 @@ public class Main {
         return false;
     }
 }
+

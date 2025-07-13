@@ -1,0 +1,513 @@
+[2025-07-13 19:25:55] [Smart Garden] Welcome to the Smart Garden System!
+[2025-07-13 19:25:56] [Smart Garden] Loading configuration...
+[2025-07-13 19:25:56] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-07-13 19:25:57] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-07-13 19:25:57] [MQTT Handler] Subscribed to topic: light
+[2025-07-13 19:25:57] [MQTT Handler] Subscribed to topic: temperature
+[2025-07-13 19:25:57] [MQTT Handler] Subscribed to topic: pH
+[2025-07-13 19:25:57] [CoAP Controller] CoAP server started on port 5683
+[2025-07-13 19:25:57] [Smart Garden] Waiting 5 seconds for CoAP device registration...
+[2025-07-13 19:26:00] [MQTT Handler] Inserted 48.5 for sensor: light
+[2025-07-13 19:26:02] [Smart Garden] Available commands:
+[2025-07-13 19:26:02] [Smart Garden] - :get status
+[2025-07-13 19:26:02] [Smart Garden] - :trigger irrigation
+[2025-07-13 19:26:02] [Smart Garden] - :trigger grow_light
+[2025-07-13 19:26:02] [Smart Garden] - :trigger fertilizer
+[2025-07-13 19:26:02] [Smart Garden] - :trigger fan
+[2025-07-13 19:26:02] [Smart Garden] - :trigger heater
+[2025-07-13 19:26:02] [Smart Garden] - :get configuration
+[2025-07-13 19:26:02] [Smart Garden] - :help
+[2025-07-13 19:26:02] [Smart Garden] - :quit
+[2025-07-13 19:26:02] > 
+[2025-07-13 19:26:05] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:369c:1f14:2edf: {"device":"coapDevice","resources":["actuators/fertilizer","actuators/irrigation","actuators/grow_light","cc/fan","cc/heater"]}
+[2025-07-13 19:26:05] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:369c:1f14:2edf]:5683/actuators/fertilizer
+[2025-07-13 19:26:05] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:369c:1f14:2edf]:5683/actuators/irrigation
+[2025-07-13 19:26:05] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:369c:1f14:2edf]:5683/actuators/grow_light
+[2025-07-13 19:26:05] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:369c:1f14:2edf]:5683/cc/fan
+[2025-07-13 19:26:05] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:369c:1f14:2edf]:5683/cc/heater
+[2025-07-13 19:26:08] [MQTT Handler] Inserted 38.8 for sensor: soilMoisture
+[2025-07-13 19:26:12] [Control Logic] Light too low: 48.5
+[2025-07-13 19:26:12] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:26:12] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:26:16] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-13 19:26:22] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:26:22] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:26:22] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:26:22] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:26:22] [Control Logic] Light too low: 48.5
+[2025-07-13 19:26:22] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:26:22] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:26:24] [MQTT Handler] Inserted 6.77 for sensor: pH
+[2025-07-13 19:26:32] [MQTT Handler] Inserted 48.0 for sensor: light
+[2025-07-13 19:26:32] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:26:32] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:26:32] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:26:32] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:26:32] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:26:33] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:26:33] [Control Logic] Light too low: 48.0
+[2025-07-13 19:26:33] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:26:33] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:26:39] [Smart Garden] Executing command: :help
+[2025-07-13 19:26:39] [Smart Garden] Available commands:
+[2025-07-13 19:26:39] [Smart Garden] - :get status
+[2025-07-13 19:26:39] [Smart Garden] - :trigger irrigation
+[2025-07-13 19:26:39] [Smart Garden] - :trigger grow_light
+[2025-07-13 19:26:39] [Smart Garden] - :trigger fertilizer
+[2025-07-13 19:26:39] [Smart Garden] - :trigger fan
+[2025-07-13 19:26:39] [Smart Garden] - :trigger heater
+[2025-07-13 19:26:39] [Smart Garden] - :get configuration
+[2025-07-13 19:26:39] [Smart Garden] - :help
+[2025-07-13 19:26:39] [Smart Garden] - :quit
+[2025-07-13 19:26:39] > 
+[2025-07-13 19:26:40] [MQTT Handler] Inserted 38.4 for sensor: soilMoisture
+[2025-07-13 19:26:43] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:26:43] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:26:43] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:26:43] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:26:43] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:26:44] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:26:44] [Control Logic] Light too low: 48.0
+[2025-07-13 19:26:44] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:26:44] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:26:44] [Smart Garden] Executing command: :get status
+[2025-07-13 19:26:44] [Smart Garden] Current sensor readings:
+[2025-07-13 19:26:44] soilMoisture - Latest value: 38,40
+[2025-07-13 19:26:44] light - Latest value: 48,00
+[2025-07-13 19:26:44] temperature - Latest value: 25,20
+[2025-07-13 19:26:44] pH - Latest value: 6,77
+[2025-07-13 19:26:44] > 
+[2025-07-13 19:26:48] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-07-13 19:26:54] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:26:54] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:26:54] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:26:54] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:26:54] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:26:54] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:26:54] [Control Logic] Light too low: 48.0
+[2025-07-13 19:26:54] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:26:54] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:26:56] [MQTT Handler] Inserted 6.77 for sensor: pH
+[2025-07-13 19:27:04] [MQTT Handler] Inserted 47.5 for sensor: light
+[2025-07-13 19:27:04] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:27:04] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:27:05] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:27:05] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:27:05] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:27:05] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:27:05] [Control Logic] Light too low: 47.5
+[2025-07-13 19:27:05] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:27:05] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:27:13] [MQTT Handler] Inserted 38.0 for sensor: soilMoisture
+[2025-07-13 19:27:15] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:27:15] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:27:18] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:27:19] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:27:19] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:27:19] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:27:19] [Control Logic] Light too low: 47.5
+[2025-07-13 19:27:19] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:27:19] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:27:20] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-07-13 19:27:28] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-07-13 19:27:29] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:27:29] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:27:29] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:27:29] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:27:29] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:27:29] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:27:29] [Control Logic] Light too low: 47.5
+[2025-07-13 19:27:29] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:27:30] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:27:36] [MQTT Handler] Inserted 47.0 for sensor: light
+[2025-07-13 19:27:40] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:27:40] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:27:40] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:27:40] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:27:40] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:27:40] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:27:40] [Control Logic] Light too low: 47.0
+[2025-07-13 19:27:40] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:27:40] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:27:44] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-07-13 19:27:50] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:27:50] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:27:50] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:27:51] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:27:51] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:27:51] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:27:51] [Control Logic] Light too low: 47.0
+[2025-07-13 19:27:51] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:27:51] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:27:52] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-13 19:27:52] [Smart Garden] Executing command: :help
+[2025-07-13 19:27:52] [Smart Garden] Available commands:
+[2025-07-13 19:27:52] [Smart Garden] - :get status
+[2025-07-13 19:27:52] [Smart Garden] - :trigger irrigation
+[2025-07-13 19:27:52] [Smart Garden] - :trigger grow_light
+[2025-07-13 19:27:52] [Smart Garden] - :trigger fertilizer
+[2025-07-13 19:27:52] [Smart Garden] - :trigger fan
+[2025-07-13 19:27:52] [Smart Garden] - :trigger heater
+[2025-07-13 19:27:52] [Smart Garden] - :get configuration
+[2025-07-13 19:27:52] [Smart Garden] - :help
+[2025-07-13 19:27:52] [Smart Garden] - :quit
+[2025-07-13 19:27:52] > 
+[2025-07-13 19:28:00] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-13 19:28:01] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:28:01] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:28:01] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:28:01] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:28:01] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:28:01] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:28:01] [Control Logic] Light too low: 47.0
+[2025-07-13 19:28:01] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:28:01] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:28:02] [Smart Garden] Invalid command. Type ':help' to see the list of available commands.
+[2025-07-13 19:28:02] > 
+[2025-07-13 19:28:08] [MQTT Handler] Inserted 46.5 for sensor: light
+[2025-07-13 19:28:11] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:28:11] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:28:11] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:28:11] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:28:11] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:28:12] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:28:12] [Control Logic] Light too low: 46.5
+[2025-07-13 19:28:12] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:28:12] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:28:13] [Smart Garden] Executing command: :trigger irrigation
+[2025-07-13 19:28:13] [CoAP Controller] PUT to irrigation: 4.00 - 
+[2025-07-13 19:28:13] > 
+[2025-07-13 19:28:16] [MQTT Handler] Inserted 37.2 for sensor: soilMoisture
+[2025-07-13 19:28:22] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:28:22] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:28:22] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:28:22] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:28:22] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:28:22] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:28:22] [Control Logic] Light too low: 46.5
+[2025-07-13 19:28:22] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:28:22] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:28:24] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-13 19:28:32] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:28:32] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:28:32] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:28:32] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:28:32] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:28:32] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:28:32] [Control Logic] Light too low: 46.5
+[2025-07-13 19:28:32] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:28:32] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:28:32] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-13 19:28:40] [MQTT Handler] Inserted 46.0 for sensor: light
+[2025-07-13 19:28:42] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:28:42] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:28:42] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:28:42] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:28:43] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:28:43] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:28:43] [Control Logic] Light too low: 46.0
+[2025-07-13 19:28:43] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:28:43] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:28:48] [Smart Garden] Executing command: :get status
+[2025-07-13 19:28:48] [Smart Garden] Current sensor readings:
+[2025-07-13 19:28:48] soilMoisture - Latest value: 37,20
+[2025-07-13 19:28:48] light - Latest value: 46,00
+[2025-07-13 19:28:48] temperature - Latest value: 25,10
+[2025-07-13 19:28:48] pH - Latest value: 6,74
+[2025-07-13 19:28:48] > 
+[2025-07-13 19:28:49] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-07-13 19:28:53] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:28:53] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:28:53] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:28:53] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:28:53] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:28:53] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:28:53] [Control Logic] Light too low: 46.0
+[2025-07-13 19:28:53] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:28:53] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:28:57] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-13 19:29:03] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:29:03] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:29:03] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:29:03] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:29:04] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:29:04] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:29:04] [Control Logic] Light too low: 46.0
+[2025-07-13 19:29:04] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:29:04] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:29:04] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-13 19:29:12] [MQTT Handler] Inserted 45.5 for sensor: light
+[2025-07-13 19:29:14] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:29:14] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:29:14] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:29:14] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:29:14] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:29:14] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:29:14] [Control Logic] Light too low: 45.5
+[2025-07-13 19:29:14] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:29:14] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:29:21] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-07-13 19:29:24] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:29:24] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:29:24] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:29:24] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:29:24] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:29:25] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:29:25] [Control Logic] Light too low: 45.5
+[2025-07-13 19:29:25] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:29:25] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:29:29] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-13 19:29:35] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:29:35] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:29:35] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:29:35] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:29:35] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:29:35] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:29:35] [Control Logic] Light too low: 45.5
+[2025-07-13 19:29:35] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:29:35] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:29:37] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-13 19:29:39] [Smart Garden] Executing command: :trigger grow_light
+[2025-07-13 19:29:40] [CoAP Controller] PUT to grow_light: 4.00 - 
+[2025-07-13 19:29:40] > 
+[2025-07-13 19:29:44] [MQTT Handler] Inserted 45.0 for sensor: light
+[2025-07-13 19:29:45] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:29:45] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:29:45] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:29:45] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:29:45] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:29:45] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:29:45] [Control Logic] Light too low: 45.0
+[2025-07-13 19:29:45] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:29:45] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:29:53] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-07-13 19:29:55] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:29:55] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:29:55] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:29:56] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:29:56] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:29:56] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:29:56] [Control Logic] Light too low: 45.0
+[2025-07-13 19:29:56] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:29:56] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:30:01] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-13 19:30:06] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:30:06] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:30:06] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:30:06] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:30:06] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:30:06] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:30:06] [Control Logic] Light too low: 45.0
+[2025-07-13 19:30:06] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:30:06] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:30:09] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-13 19:30:17] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:30:17] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:30:17] [MQTT Handler] Inserted 44.5 for sensor: light
+[2025-07-13 19:30:17] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:30:17] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:30:17] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:30:17] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:30:17] [Control Logic] Light too low: 44.5
+[2025-07-13 19:30:17] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:30:17] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:30:25] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-07-13 19:30:28] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:30:28] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:30:28] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:30:28] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:30:28] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:30:28] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:30:28] [Control Logic] Light too low: 44.5
+[2025-07-13 19:30:28] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:30:28] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:30:33] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-13 19:30:38] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:30:38] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:30:38] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:30:38] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:30:38] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:30:39] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:30:39] [Control Logic] Light too low: 44.5
+[2025-07-13 19:30:39] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:30:39] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:30:41] [MQTT Handler] Inserted 6.73 for sensor: pH
+[2025-07-13 19:30:49] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:30:49] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:30:49] [MQTT Handler] Inserted 44.0 for sensor: light
+[2025-07-13 19:30:49] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:30:49] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:30:49] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:30:49] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:30:49] [Control Logic] Light too low: 44.0
+[2025-07-13 19:30:49] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:30:49] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:30:57] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-07-13 19:30:59] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:30:59] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:30:59] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:30:59] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:30:59] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:30:59] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:30:59] [Control Logic] Light too low: 44.0
+[2025-07-13 19:30:59] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:30:59] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:31:01] [Smart Garden] Executing command: :trigger fertilizer
+[2025-07-13 19:31:01] [CoAP Controller] PUT to fertilizer: 2.05 - {"mode":"off"}
+[2025-07-13 19:31:01] > 
+[2025-07-13 19:31:05] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-13 19:31:09] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:31:09] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:31:09] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:31:10] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:31:10] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:31:10] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:31:10] [Control Logic] Light too low: 44.0
+[2025-07-13 19:31:10] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:31:10] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:31:13] [MQTT Handler] Inserted 6.72 for sensor: pH
+[2025-07-13 19:31:20] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:31:20] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:31:20] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:31:20] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:31:20] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:31:20] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:31:20] [Control Logic] Light too low: 44.0
+[2025-07-13 19:31:20] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:31:20] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:31:21] [MQTT Handler] Inserted 43.5 for sensor: light
+[2025-07-13 19:31:21] [Smart Garden] Executing command: :get status
+[2025-07-13 19:31:21] [Smart Garden] Current sensor readings:
+[2025-07-13 19:31:21] soilMoisture - Latest value: 35,20
+[2025-07-13 19:31:21] light - Latest value: 43,50
+[2025-07-13 19:31:21] temperature - Latest value: 25,00
+[2025-07-13 19:31:21] pH - Latest value: 6,72
+[2025-07-13 19:31:21] > 
+[2025-07-13 19:31:29] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-07-13 19:31:30] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:31:30] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:31:30] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:31:30] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:31:31] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:31:31] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:31:31] [Control Logic] Soil moisture too low: 34.8
+[2025-07-13 19:31:31] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:31:31] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:31:31] [Control Logic] Light too low: 43.5
+[2025-07-13 19:31:31] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:31:31] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:31:37] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-13 19:31:41] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:31:41] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:31:41] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:31:41] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:31:41] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:31:41] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:31:41] [Control Logic] Soil moisture too low: 34.8
+[2025-07-13 19:31:41] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:31:41] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:31:41] [Control Logic] Light too low: 43.5
+[2025-07-13 19:31:41] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:31:41] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:31:45] [Smart Garden] Executing command: :trigger fan
+[2025-07-13 19:31:45] [CoAP Controller] PUT to fan: 4.00 - 
+[2025-07-13 19:31:45] > 
+[2025-07-13 19:31:45] [MQTT Handler] Inserted 6.71 for sensor: pH
+[2025-07-13 19:31:51] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:31:51] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:31:51] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:31:52] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:31:52] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:31:52] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:31:52] [Control Logic] Soil moisture too low: 34.8
+[2025-07-13 19:31:52] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:31:52] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:31:52] [Control Logic] Light too low: 43.5
+[2025-07-13 19:31:52] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:31:52] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:31:53] [MQTT Handler] Inserted 43.0 for sensor: light
+[2025-07-13 19:31:53] [Smart Garden] Executing command: :trigger heater
+[2025-07-13 19:31:53] [CoAP Controller] PUT to heater: 4.00 - 
+[2025-07-13 19:31:53] > 
+[2025-07-13 19:32:01] [MQTT Handler] Inserted 34.4 for sensor: soilMoisture
+[2025-07-13 19:32:02] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:32:02] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:32:02] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:32:02] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:32:02] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:32:02] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:32:02] [Control Logic] Soil moisture too low: 34.4
+[2025-07-13 19:32:02] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:32:02] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:32:02] [Control Logic] Light too low: 43.0
+[2025-07-13 19:32:02] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:32:02] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:32:09] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-13 19:32:12] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:32:12] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:32:12] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:32:12] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:32:12] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:32:12] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:32:12] [Control Logic] Soil moisture too low: 34.4
+[2025-07-13 19:32:12] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:32:13] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:32:13] [Control Logic] Light too low: 43.0
+[2025-07-13 19:32:13] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:32:13] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:32:13] [Smart Garden] Invalid command. Type ':help' to see the list of available commands.
+[2025-07-13 19:32:13] > 
+[2025-07-13 19:32:17] [MQTT Handler] Inserted 6.72 for sensor: pH
+[2025-07-13 19:32:20] [Smart Garden] Executing command: :get configuration
+[2025-07-13 19:32:20] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-07-13 19:32:20] > 
+[2025-07-13 19:32:23] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:32:23] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:32:23] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:32:23] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:32:23] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:32:23] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:32:23] [Control Logic] Soil moisture too low: 34.4
+[2025-07-13 19:32:23] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:32:23] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:32:23] [Control Logic] Light too low: 43.0
+[2025-07-13 19:32:23] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:32:23] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:32:25] [MQTT Handler] Inserted 42.5 for sensor: light
+[2025-07-13 19:32:33] [MQTT Handler] Inserted 34.0 for sensor: soilMoisture
+[2025-07-13 19:32:33] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:32:33] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:32:33] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:32:33] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:32:33] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:32:33] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:32:33] [Control Logic] Soil moisture too low: 34.0
+[2025-07-13 19:32:33] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:32:34] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:32:34] [Control Logic] Light too low: 42.5
+[2025-07-13 19:32:34] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:32:34] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:32:36] [Smart Garden] Executing command: :quit
+[2025-07-13 19:32:36] [Smart Garden] Shutting down...
+[2025-07-13 19:32:41] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-13 19:32:44] [MQTT Handler] Published command to heater: off
+[2025-07-13 19:32:44] [MQTT Handler] Published command to fan: off
+[2025-07-13 19:32:44] [CoAP Controller] Command sent to heater: off
+[2025-07-13 19:32:44] [CoAP Controller] Command sent to fan: off
+[2025-07-13 19:32:44] [MQTT Handler] Published command to fertilizer: off
+[2025-07-13 19:32:44] [CoAP Controller] Command sent to fertilizer: off
+[2025-07-13 19:32:44] [Control Logic] Soil moisture too low: 34.0
+[2025-07-13 19:32:44] [MQTT Handler] Published command to irrigation: on
+[2025-07-13 19:32:44] [31m[CoAP Controller] Failed to send command to irrigation[0m
+[2025-07-13 19:32:44] [Control Logic] Light too low: 42.5
+[2025-07-13 19:32:44] [MQTT Handler] Published command to grow_light: on
+[2025-07-13 19:32:44] [CoAP Controller] Command sent to grow_light: on
+[2025-07-13 19:32:44] [Control Logic] Thread stopped.
+[2025-07-13 19:32:44] [MQTT Handler] Disconnecting...
+[2025-07-13 19:32:44] [CoAP Controller] CoAP server shut down.

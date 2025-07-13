@@ -43,7 +43,7 @@ public class ControlLogicThread extends Thread {
             try {
                 Thread.sleep(SLEEP_INTERVAL_MS);
             } catch (InterruptedException e) {
-                ConsoleUtils.err("[Control Logic] Sleep interrupted.");
+                ConsoleUtils.printError("[Control Logic] Sleep interrupted.");
                 break;
             }
 
@@ -158,3 +158,4 @@ public class ControlLogicThread extends Thread {
         }
     }
 }
+

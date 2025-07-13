@@ -45,7 +45,7 @@ public class COAPNetworkController extends CoapServer {
     public void toggleActuator(String actuatorName) throws ConnectorException, IOException {
         String endpoint = actuatorEndpoints.get(actuatorName);
         if (endpoint == null) {
-            ConsoleUtils.err(LOG + " Unknown or unregistered actuator: " + actuatorName);
+            ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
             return;
         }
 
@@ -57,7 +57,7 @@ public class COAPNetworkController extends CoapServer {
             ConsoleUtils.println(LOG + " PUT to " + actuatorName + ": " + response.getCode() +
                     " - " + response.getResponseText());
         } else {
-            ConsoleUtils.err(LOG + " No response from actuator: " + actuatorName);
+            ConsoleUtils.printError(LOG + " No response from actuator: " + actuatorName);
         }
     }
 
@@ -81,37 +81,37 @@ public class COAPNetworkController extends CoapServer {
         }
 
         @Override
-	public void handlePOST(CoapExchange exchange) {
-	    String sourceIP = exchange.getSourceAddress().getHostAddress();
-	    String payload = new String(exchange.getRequestPayload(), StandardCharsets.UTF_8);
+        public void handlePOST(CoapExchange exchange) {
+            String sourceIP = exchange.getSourceAddress().getHostAddress();
+            String payload = new String(exchange.getRequestPayload(), StandardCharsets.UTF_8);
 
-	    ConsoleUtils.println(LOG + " Registration received from " + sourceIP + ": " + payload);
+            ConsoleUtils.println(LOG + " Registration received from " + sourceIP + ": " + payload);
 
-	    try {
-		JSONObject json = new JSONObject(payload);
+            try {
+                JSONObject json = new JSONObject(payload);
 
-		if (!json.has("device") || !json.has("resources")) {
-		    exchange.respond(CoAP.ResponseCode.BAD_REQUEST, "Invalid registration payload.");
-		    return;
-		}
+                if (!json.has("device") || !json.has("resources")) {
+                    exchange.respond(CoAP.ResponseCode.BAD_REQUEST, "Invalid registration payload.");
+                    return;
+                }
 
-		JSONArray resources = json.getJSONArray("resources");
-		for (int i = 0; i < resources.length(); i++) {
-		    String path = resources.getString(i); // e.g., "actuators/fertilizer" or "cc/fan"
-		    String shortName = extractNameFromPath(path); // fertilizer, fan, heater, etc.
-		    String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
+                JSONArray resources = json.getJSONArray("resources");
+                for (int i = 0; i < resources.length(); i++) {
+                    String path = resources.getString(i); // e.g., "actuators/fertilizer" or "cc/fan"
+                    String shortName = extractNameFromPath(path); // fertilizer, fan, heater, etc.
+                    String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
 
-		    actuatorEndpoints.put(shortName, fullUri);
-		    ConsoleUtils.println(LOG + " Registered actuator: " + shortName + " at " + fullUri);
-		}
+                    actuatorEndpoints.put(shortName, fullUri);
+                    ConsoleUtils.println(LOG + " Registered actuator: " + shortName + " at " + fullUri);
+                }
 
-		exchange.respond(CoAP.ResponseCode.CREATED, "Success");
+                exchange.respond(CoAP.ResponseCode.CREATED, "Success");
 
-	    } catch (Exception e) {
-		ConsoleUtils.err(LOG + " Error while registering: " + e.getMessage());
-		exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR, "Registration failed.");
-	    }
-	}
+            } catch (Exception e) {
+                ConsoleUtils.printError(LOG + " Error while registering: " + e.getMessage());
+                exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR, "Registration failed.");
+            }
+        }
 
         private String extractNameFromPath(String path) {
             String[] parts = path.split("/");
@@ -125,7 +125,7 @@ public class COAPNetworkController extends CoapServer {
     public void sendCommand(String actuatorName, String command) throws ConnectorException, IOException {
         String endpoint = actuatorEndpoints.get(actuatorName);
         if (endpoint == null) {
-            ConsoleUtils.err(LOG + " Unknown or unregistered actuator: " + actuatorName);
+            ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
             return;
         }
 
@@ -135,7 +135,7 @@ public class COAPNetworkController extends CoapServer {
         if (response != null && response.isSuccess()) {
             ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
         } else {
-            ConsoleUtils.err(LOG + " Failed to send command to " + actuatorName);
+            ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
         }
     }
 
@@ -153,3 +153,4 @@ public class COAPNetworkController extends CoapServer {
         sendCommand("fan", on ? "on" : "off");
     }
 }
+

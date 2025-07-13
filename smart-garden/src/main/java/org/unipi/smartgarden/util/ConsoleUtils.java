@@ -52,6 +52,10 @@ public class ConsoleUtils {
         }
     }
 
+    public static void printError(String msg) {
+        println("\u001B[31m" + msg + "\u001B[0m");
+    }
+
     private static void logToFile(String msg) {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         fileOut.println("[" + timestamp + "] " + msg);
@@ -63,3 +67,4 @@ public class ConsoleUtils {
         }
     }
 }
+

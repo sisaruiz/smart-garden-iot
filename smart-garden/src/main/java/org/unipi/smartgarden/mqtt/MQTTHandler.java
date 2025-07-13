@@ -36,7 +36,7 @@ public class MQTTHandler implements MqttCallback {
             }
 
         } catch (MqttException e) {
-            ConsoleUtils.println(LOG + " Failed to connect or subscribe: " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Failed to connect or subscribe: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -58,7 +58,7 @@ public class MQTTHandler implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable cause) {
-        ConsoleUtils.println(LOG + " Connection lost: " + cause.getMessage());
+        ConsoleUtils.printError(LOG + " Connection lost: " + cause.getMessage());
     }
 
     @Override
@@ -79,14 +79,14 @@ public class MQTTHandler implements MqttCallback {
                     db.insertSample(sensorName, value, null);
                     ConsoleUtils.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
                 } else {
-                    ConsoleUtils.println(LOG + " JSON does not contain expected key: " + sensorName);
+                    ConsoleUtils.printError(LOG + " JSON does not contain expected key: " + sensorName);
                 }
             } else {
-                ConsoleUtils.println(LOG + " Received message from unknown topic: " + topic);
+                ConsoleUtils.printError(LOG + " Received message from unknown topic: " + topic);
             }
 
         } catch (Exception e) {
-            ConsoleUtils.println(LOG + " Failed to parse JSON payload: " + payload);
+            ConsoleUtils.printError(LOG + " Failed to parse JSON payload: " + payload);
             e.printStackTrace();
         }
     }
@@ -111,7 +111,7 @@ public class MQTTHandler implements MqttCallback {
             client.disconnect();
             client.close();
         } catch (MqttException e) {
-            ConsoleUtils.println(LOG + " Error during MQTT client shutdown: " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Error during MQTT client shutdown: " + e.getMessage());
         }
     }
 
@@ -122,7 +122,7 @@ public class MQTTHandler implements MqttCallback {
             client.publish(topic, new MqttMessage(command.getBytes()));
             ConsoleUtils.println(LOG + " Published command to " + topic + ": " + command);
         } catch (MqttException e) {
-            ConsoleUtils.println(LOG + " Failed to publish command to " + topic + ": " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Failed to publish command to " + topic + ": " + e.getMessage());
         }
     }
 
@@ -154,7 +154,8 @@ public class MQTTHandler implements MqttCallback {
             client.publish(sensorTopic, new MqttMessage(json.getBytes()));
             ConsoleUtils.println(LOG + " Simulated sensor value for " + sensorTopic + ": " + json);
         } catch (MqttException e) {
-            ConsoleUtils.println(LOG + " Failed to simulate sensor data for " + sensorTopic + ": " + e.getMessage());
+            ConsoleUtils.printError(LOG + " Failed to simulate sensor data for " + sensorTopic + ": " + e.getMessage());
         }
     }
 }
+
