@@ -5311,3 +5311,1606 @@
 [2025-07-13 23:28:06] [Control Logic] Thread stopped.
 [2025-07-13 23:28:06] [MQTT Handler] Disconnecting...
 [2025-07-13 23:28:06] [CoAP Controller] CoAP server shut down.
+[2025-07-25 11:26:01] [Smart Garden] Welcome to the Smart Garden System!
+[2025-07-25 11:26:01] [Smart Garden] Loading configuration...
+[2025-07-25 11:26:02] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-07-25 11:26:03] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-07-25 11:26:03] [MQTT Handler] Subscribed to topic: light
+[2025-07-25 11:26:03] [MQTT Handler] Subscribed to topic: temperature
+[2025-07-25 11:26:03] [MQTT Handler] Subscribed to topic: pH
+[2025-07-25 11:26:03] [CoAP Controller] CoAP server started on port 5683
+[2025-07-25 11:26:03] [Smart Garden] Waiting 5 seconds for CoAP device registration...
+[2025-07-25 11:26:08] [Smart Garden] Available commands:
+[2025-07-25 11:26:08] [Smart Garden] - :get status
+[2025-07-25 11:26:08] [Smart Garden] - :get actuators
+[2025-07-25 11:26:08] [Smart Garden] - :trigger irrigation
+[2025-07-25 11:26:08] [Smart Garden] - :trigger grow_light
+[2025-07-25 11:26:08] [Smart Garden] - :trigger fertilizer
+[2025-07-25 11:26:08] [Smart Garden] - :trigger fan
+[2025-07-25 11:26:08] [Smart Garden] - :trigger heater
+[2025-07-25 11:26:08] [Smart Garden] - :get configuration
+[2025-07-25 11:26:08] [Smart Garden] - :help
+[2025-07-25 11:26:08] [Smart Garden] - :quit
+[2025-07-25 11:26:08] > 
+[2025-07-25 11:26:41] [Smart Garden] Executing command: :get status
+[2025-07-25 11:26:41] [Smart Garden] Current sensor readings:
+[2025-07-25 11:26:41] soilMoisture - No data received yet.
+[2025-07-25 11:26:41] light - No data received yet.
+[2025-07-25 11:26:41] temperature - No data received yet.
+[2025-07-25 11:26:41] pH - No data received yet.
+[2025-07-25 11:26:41] > 
+[2025-07-25 11:44:55] [Smart Garden] Welcome to the Smart Garden System!
+[2025-07-25 11:44:55] [Smart Garden] Loading configuration...
+[2025-07-25 11:44:55] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-07-25 11:44:57] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-07-25 11:44:57] [MQTT Handler] Subscribed to topic: light
+[2025-07-25 11:44:57] [MQTT Handler] Subscribed to topic: temperature
+[2025-07-25 11:44:57] [MQTT Handler] Subscribed to topic: pH
+[2025-07-25 11:44:57] [CoAP Controller] CoAP server started on port 5683
+[2025-07-25 11:44:57] [Smart Garden] Waiting 5 seconds for CoAP device registration...
+[2025-07-25 11:44:57] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:3622:d523:908d: {"device":"coapDevice","resources":["actuators/fertilizer","actuators/irrigation","actuators/grow_light","cc/fan","cc/heater"]}
+[2025-07-25 11:44:57] [CoAP Controller] Registered actuator: actuators/fertilizer at coap://[fd00:0:0:0:f6ce:3622:d523:908d]:5683/actuators/fertilizer
+[2025-07-25 11:44:57] [CoAP Controller] Registered actuator: actuators/irrigation at coap://[fd00:0:0:0:f6ce:3622:d523:908d]:5683/actuators/irrigation
+[2025-07-25 11:44:57] [CoAP Controller] Registered actuator: actuators/grow_light at coap://[fd00:0:0:0:f6ce:3622:d523:908d]:5683/actuators/grow_light
+[2025-07-25 11:44:57] [CoAP Controller] Registered actuator: cc/fan at coap://[fd00:0:0:0:f6ce:3622:d523:908d]:5683/cc/fan
+[2025-07-25 11:44:57] [CoAP Controller] Registered actuator: cc/heater at coap://[fd00:0:0:0:f6ce:3622:d523:908d]:5683/cc/heater
+[2025-07-25 11:44:58] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:45:02] [Smart Garden] Available commands:
+[2025-07-25 11:45:02] [Smart Garden] - :get status
+[2025-07-25 11:45:02] [Smart Garden] - :get actuators
+[2025-07-25 11:45:02] [Smart Garden] - :trigger irrigation
+[2025-07-25 11:45:02] [Smart Garden] - :trigger grow_light
+[2025-07-25 11:45:02] [Smart Garden] - :trigger fertilizer
+[2025-07-25 11:45:02] [Smart Garden] - :trigger fan
+[2025-07-25 11:45:02] [Smart Garden] - :trigger heater
+[2025-07-25 11:45:02] [Smart Garden] - :get configuration
+[2025-07-25 11:45:02] [Smart Garden] - :help
+[2025-07-25 11:45:02] [Smart Garden] - :quit
+[2025-07-25 11:45:02] > 
+[2025-07-25 11:45:06] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-25 11:45:12] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:45:12] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:45:12] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:45:12] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:45:14] [MQTT Handler] Inserted 47.5 for sensor: light
+[2025-07-25 11:45:15] [Smart Garden] Executing command: :get status
+[2025-07-25 11:45:15] [Smart Garden] Current sensor readings:
+[2025-07-25 11:45:15] soilMoisture - No data received yet.
+[2025-07-25 11:45:15] light - Latest value: 47,50
+[2025-07-25 11:45:15] temperature - Latest value: 25,00
+[2025-07-25 11:45:15] pH - Latest value: 6,74
+[2025-07-25 11:45:15] > 
+[2025-07-25 11:45:22] [MQTT Handler] Inserted 38.0 for sensor: soilMoisture
+[2025-07-25 11:45:22] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:45:23] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:45:23] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:45:23] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:45:23] [Control Logic] Light too low: 47.5
+[2025-07-25 11:45:23] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:45:24] [CoAP Controller] Command sent to actuators/grow_light: on
+[2025-07-25 11:45:26] [Smart Garden] Executing command: :get status
+[2025-07-25 11:45:26] [Smart Garden] Current sensor readings:
+[2025-07-25 11:45:26] soilMoisture - Latest value: 38,00
+[2025-07-25 11:45:26] light - Latest value: 47,50
+[2025-07-25 11:45:26] temperature - Latest value: 25,00
+[2025-07-25 11:45:26] pH - Latest value: 6,74
+[2025-07-25 11:45:26] > 
+[2025-07-25 11:45:30] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:45:34] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:45:34] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:45:34] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:45:34] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:45:34] [Control Logic] Light too low: 47.5
+[2025-07-25 11:45:34] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:45:37] [Smart Garden] Executing command: :get actuators
+[2025-07-25 11:45:37] [Smart Garden] Current actuator states:
+[2025-07-25 11:45:38]   - fertilizer: off
+[2025-07-25 11:45:38]   - irrigation: off
+[2025-07-25 11:45:38]   - grow_light: on
+[2025-07-25 11:45:38]   - fan: off
+[2025-07-25 11:45:38]   - heater: off
+[2025-07-25 11:45:38] > 
+[2025-07-25 11:45:38] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-25 11:45:44] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:45:44] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:45:44] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:45:45] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:45:45] [Control Logic] Light too low: 47.5
+[2025-07-25 11:45:45] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:45:46] [MQTT Handler] Inserted 47.0 for sensor: light
+[2025-07-25 11:45:54] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-07-25 11:45:55] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:45:55] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:45:55] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:45:55] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:45:56] [Control Logic] Light too low: 47.0
+[2025-07-25 11:45:56] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:45:57] [Smart Garden] Executing command: :trigger irrigation
+[2025-07-25 11:45:57] [CoAP Controller] Command sent to actuators/irrigation: on
+[2025-07-25 11:45:57] > 
+[2025-07-25 11:46:02] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:46:06] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:46:06] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:46:06] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:46:06] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:46:07] [Control Logic] Light too low: 47.0
+[2025-07-25 11:46:07] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:46:10] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-25 11:46:13] [Smart Garden] Executing command: :get actuators
+[2025-07-25 11:46:13] [Smart Garden] Current actuator states:
+[2025-07-25 11:46:13]   - fertilizer: off
+[2025-07-25 11:46:13]   - irrigation: on
+[2025-07-25 11:46:14]   - grow_light: on
+[2025-07-25 11:46:14]   - fan: off
+[2025-07-25 11:46:14]   - heater: off
+[2025-07-25 11:46:14] > 
+[2025-07-25 11:46:17] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:46:17] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:46:17] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:46:17] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:46:17] [Control Logic] Light too low: 47.0
+[2025-07-25 11:46:17] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:46:18] [MQTT Handler] Inserted 46.5 for sensor: light
+[2025-07-25 11:46:26] [MQTT Handler] Inserted 37.2 for sensor: soilMoisture
+[2025-07-25 11:46:27] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:46:27] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:46:27] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:46:27] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:46:28] [Control Logic] Light too low: 46.5
+[2025-07-25 11:46:28] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:46:35] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:46:38] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:46:38] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:46:38] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:46:38] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:46:39] [Control Logic] Light too low: 46.5
+[2025-07-25 11:46:39] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:46:42] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-25 11:46:43] [Smart Garden] Executing command: :help
+[2025-07-25 11:46:43] [Smart Garden] Available commands:
+[2025-07-25 11:46:43] [Smart Garden] - :get status
+[2025-07-25 11:46:43] [Smart Garden] - :get actuators
+[2025-07-25 11:46:43] [Smart Garden] - :trigger irrigation
+[2025-07-25 11:46:43] [Smart Garden] - :trigger grow_light
+[2025-07-25 11:46:43] [Smart Garden] - :trigger fertilizer
+[2025-07-25 11:46:43] [Smart Garden] - :trigger fan
+[2025-07-25 11:46:43] [Smart Garden] - :trigger heater
+[2025-07-25 11:46:43] [Smart Garden] - :get configuration
+[2025-07-25 11:46:43] [Smart Garden] - :help
+[2025-07-25 11:46:43] [Smart Garden] - :quit
+[2025-07-25 11:46:43] > 
+[2025-07-25 11:46:49] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:46:49] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:46:49] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:46:49] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:46:49] [Control Logic] Light too low: 46.5
+[2025-07-25 11:46:49] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:46:51] [MQTT Handler] Inserted 46.0 for sensor: light
+[2025-07-25 11:46:54] [Smart Garden] Executing command: :trigger grow_light
+[2025-07-25 11:46:54] [CoAP Controller] Command sent to actuators/grow_light: on
+[2025-07-25 11:46:54] > 
+[2025-07-25 11:46:59] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-07-25 11:46:59] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:46:59] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:46:59] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:47:00] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:47:00] [Control Logic] Light too low: 46.0
+[2025-07-25 11:47:00] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:47:07] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:47:10] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:47:10] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:47:10] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:47:10] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:47:11] [Control Logic] Light too low: 46.0
+[2025-07-25 11:47:11] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:47:15] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-07-25 11:47:17] [Smart Garden] Executing command: :trigger fertilizer
+[2025-07-25 11:47:17] [Smart Garden] Select fertilizer mode:
+[2025-07-25 11:47:17] [Smart Garden]   1 - sinc (acidic)
+[2025-07-25 11:47:17] [Smart Garden]   2 - sdec (alkaline)
+[2025-07-25 11:47:17] [Smart Garden]   3 - off
+[2025-07-25 11:47:17] > 
+[2025-07-25 11:47:21] [CoAP Controller] Command sent to actuators/fertilizer: sdec
+[2025-07-25 11:47:21] > 
+[2025-07-25 11:47:21] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:47:21] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:47:21] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:47:21] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:47:21] [Control Logic] Light too low: 46.0
+[2025-07-25 11:47:21] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:47:23] [MQTT Handler] Inserted 45.5 for sensor: light
+[2025-07-25 11:47:31] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-07-25 11:47:32] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:47:32] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:47:32] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:47:32] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:47:32] [Control Logic] Light too low: 45.5
+[2025-07-25 11:47:32] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:47:39] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:47:42] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:47:42] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:47:42] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:47:43] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:47:43] [Control Logic] Light too low: 45.5
+[2025-07-25 11:47:43] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:47:47] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-25 11:47:53] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:47:53] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:47:53] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:47:53] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:47:54] [Control Logic] Light too low: 45.5
+[2025-07-25 11:47:54] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:47:55] [MQTT Handler] Inserted 45.0 for sensor: light
+[2025-07-25 11:48:01] [Smart Garden] Executing command: :trigger fan
+[2025-07-25 11:48:01] [CoAP Controller] Command sent to cc/fan: on
+[2025-07-25 11:48:01] > 
+[2025-07-25 11:48:03] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-07-25 11:48:04] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:48:04] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:48:04] [CoAP Controller] Command sent to cc/fan: off
+[2025-07-25 11:48:04] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:48:04] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:48:05] [Control Logic] Light too low: 45.0
+[2025-07-25 11:48:05] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:48:06] [Smart Garden] Executing command: :trigger fan
+[2025-07-25 11:48:06] [CoAP Controller] Command sent to cc/fan: off
+[2025-07-25 11:48:06] > 
+[2025-07-25 11:48:11] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-25 11:48:13] [Smart Garden] Executing command: :trigger heater
+[2025-07-25 11:48:13] [CoAP Controller] Command sent to cc/heater: on
+[2025-07-25 11:48:13] > 
+[2025-07-25 11:48:15] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:48:15] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:48:15] [CoAP Controller] Command sent to cc/heater: off
+[2025-07-25 11:48:15] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:48:15] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:48:16] [Control Logic] Light too low: 45.0
+[2025-07-25 11:48:16] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:48:19] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-25 11:48:20] [Smart Garden] Executing command: :get configuration
+[2025-07-25 11:48:20] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-07-25 11:48:20] > 
+[2025-07-25 11:48:26] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:48:26] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:48:26] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:48:26] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:48:26] [Control Logic] Light too low: 45.0
+[2025-07-25 11:48:26] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:48:27] [MQTT Handler] Inserted 44.5 for sensor: light
+[2025-07-25 11:48:35] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-07-25 11:48:37] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:48:37] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:48:37] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:48:37] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:48:37] [Control Logic] Light too low: 44.5
+[2025-07-25 11:48:37] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:48:43] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:48:47] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:48:47] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:48:47] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:48:48] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:48:48] [Control Logic] Light too low: 44.5
+[2025-07-25 11:48:48] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:48:51] [MQTT Handler] Inserted 6.73 for sensor: pH
+[2025-07-25 11:48:58] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:48:58] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:48:58] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:48:58] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:48:59] [Control Logic] Light too low: 44.5
+[2025-07-25 11:48:59] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:48:59] [MQTT Handler] Inserted 44.0 for sensor: light
+[2025-07-25 11:49:07] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-07-25 11:49:09] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:49:09] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:49:09] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:49:09] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:49:09] [Control Logic] Light too low: 44.0
+[2025-07-25 11:49:09] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:49:15] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-25 11:49:20] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:49:20] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:49:20] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:49:20] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:49:20] [Control Logic] Light too low: 44.0
+[2025-07-25 11:49:20] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:49:23] [MQTT Handler] Inserted 6.73 for sensor: pH
+[2025-07-25 11:49:31] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:49:31] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:49:31] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:49:31] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:49:31] [MQTT Handler] Inserted 43.5 for sensor: light
+[2025-07-25 11:49:31] [Control Logic] Light too low: 43.5
+[2025-07-25 11:49:31] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:49:39] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-07-25 11:49:41] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:49:41] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:49:41] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:49:41] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:49:42] [Control Logic] Soil moisture too low: 34.8
+[2025-07-25 11:49:42] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:49:42] [Control Logic] Light too low: 43.5
+[2025-07-25 11:49:42] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:49:47] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-07-25 11:49:52] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:49:52] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:49:52] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:49:52] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:49:52] [Control Logic] Soil moisture too low: 34.8
+[2025-07-25 11:49:52] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:49:52] [Control Logic] Light too low: 43.5
+[2025-07-25 11:49:52] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:49:55] [MQTT Handler] Inserted 6.73 for sensor: pH
+[2025-07-25 11:50:03] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:50:03] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:50:03] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:50:03] [MQTT Handler] Inserted 43.0 for sensor: light
+[2025-07-25 11:50:03] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:50:03] [Control Logic] Soil moisture too low: 34.8
+[2025-07-25 11:50:03] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:50:03] [Control Logic] Light too low: 43.0
+[2025-07-25 11:50:03] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:50:11] [MQTT Handler] Inserted 34.4 for sensor: soilMoisture
+[2025-07-25 11:50:14] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:50:14] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:50:14] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:50:14] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:50:14] [Control Logic] Soil moisture too low: 34.4
+[2025-07-25 11:50:14] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:50:14] [Control Logic] Light too low: 43.0
+[2025-07-25 11:50:14] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:50:19] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-07-25 11:50:24] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:50:24] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:50:24] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:50:25] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:50:25] [Control Logic] Soil moisture too low: 34.4
+[2025-07-25 11:50:25] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:50:25] [Control Logic] Light too low: 43.0
+[2025-07-25 11:50:25] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:50:27] [31m[DBDriver] Failed to insert sample: Server shutdown in progress[0m
+[2025-07-25 11:50:27] [MQTT Handler] Inserted 6.73 for sensor: pH
+[2025-07-25 11:50:35] [31m[DBDriver] Failed to insert sample: Communications link failure
+
+The last packet successfully received from the server was 8.026 milliseconds ago. The last packet sent successfully to the server was 8.027 milliseconds ago.[0m
+[2025-07-25 11:50:35] [MQTT Handler] Inserted 42.5 for sensor: light
+[2025-07-25 11:50:35] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:50:35] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:50:35] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:50:35] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:50:36] [Control Logic] Soil moisture too low: 34.4
+[2025-07-25 11:50:36] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:50:36] [Control Logic] Light too low: 42.5
+[2025-07-25 11:50:36] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:50:43] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:50:43] [MQTT Handler] Inserted 34.0 for sensor: soilMoisture
+[2025-07-25 11:50:46] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:50:46] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:50:46] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:50:46] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:50:46] [Control Logic] Soil moisture too low: 34.0
+[2025-07-25 11:50:46] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:50:47] [Control Logic] Light too low: 42.5
+[2025-07-25 11:50:47] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:50:51] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:50:51] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-07-25 11:50:57] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:50:57] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:50:57] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:50:57] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:50:57] [Control Logic] Soil moisture too low: 34.0
+[2025-07-25 11:50:57] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:50:57] [Control Logic] Light too low: 42.5
+[2025-07-25 11:50:57] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:50:59] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:50:59] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-07-25 11:51:07] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:07] [MQTT Handler] Inserted 42.0 for sensor: light
+[2025-07-25 11:51:08] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:51:08] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:51:08] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:51:08] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:51:08] [Control Logic] Soil moisture too low: 34.0
+[2025-07-25 11:51:08] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:51:08] [Control Logic] Light too low: 42.0
+[2025-07-25 11:51:08] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:51:15] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:15] [MQTT Handler] Inserted 33.6 for sensor: soilMoisture
+[2025-07-25 11:51:18] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:51:18] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:51:18] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:51:19] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:51:19] [Control Logic] Soil moisture too low: 33.6
+[2025-07-25 11:51:19] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:51:19] [Control Logic] Light too low: 42.0
+[2025-07-25 11:51:19] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:51:23] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:23] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-07-25 11:51:29] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:51:29] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:51:29] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:51:29] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:51:29] [Control Logic] Soil moisture too low: 33.6
+[2025-07-25 11:51:30] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:51:30] [Control Logic] Light too low: 42.0
+[2025-07-25 11:51:30] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:51:31] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:31] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-25 11:51:39] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:39] [MQTT Handler] Inserted 41.5 for sensor: light
+[2025-07-25 11:51:40] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:51:40] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:51:40] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:51:40] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:51:40] [Control Logic] Soil moisture too low: 33.6
+[2025-07-25 11:51:40] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:51:41] [Control Logic] Light too low: 41.5
+[2025-07-25 11:51:41] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:51:47] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:47] [MQTT Handler] Inserted 33.2 for sensor: soilMoisture
+[2025-07-25 11:51:51] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:51:51] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:51:51] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:51:51] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:51:51] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 11:51:51] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:51:52] [Control Logic] Light too low: 41.5
+[2025-07-25 11:51:52] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:51:55] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:51:55] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-07-25 11:52:37] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:52:37] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:52:37] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:52:37] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:52:37] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 11:52:37] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:52:37] [Control Logic] Light too low: 41.5
+[2025-07-25 11:52:37] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:52:43] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:52:43] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 11:52:47] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:52:48] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:52:48] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:52:48] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:52:48] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 11:52:48] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:52:48] [Control Logic] Light too low: 41.5
+[2025-07-25 11:52:48] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:52:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:52:50] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-25 11:52:58] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:52:58] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:52:58] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:52:58] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:52:58] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 11:52:58] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:52:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:52:58] [MQTT Handler] Inserted 49.5 for sensor: light
+[2025-07-25 11:52:59] [Control Logic] Light too low: 41.5
+[2025-07-25 11:52:59] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:53:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:06] [MQTT Handler] Inserted 39.6 for sensor: soilMoisture
+[2025-07-25 11:53:09] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:53:09] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:53:09] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:53:09] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:53:09] [Control Logic] Light too low: 49.5
+[2025-07-25 11:53:09] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:53:15] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:15] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:53:19] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:53:19] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:53:19] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:53:20] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:53:20] [Control Logic] Light too low: 49.5
+[2025-07-25 11:53:20] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:53:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:22] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-07-25 11:53:30] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:53:30] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:53:30] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:53:30] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:53:30] [Control Logic] Light too low: 49.5
+[2025-07-25 11:53:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:30] [MQTT Handler] Inserted 49.0 for sensor: light
+[2025-07-25 11:53:30] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:53:39] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:39] [MQTT Handler] Inserted 39.2 for sensor: soilMoisture
+[2025-07-25 11:53:41] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:53:41] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:53:41] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:53:41] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:53:41] [Control Logic] Light too low: 49.0
+[2025-07-25 11:53:41] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:53:47] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:47] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:53:51] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:53:51] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:53:51] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:53:51] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:53:51] [Control Logic] Light too low: 49.0
+[2025-07-25 11:53:51] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:53:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:53:54] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-07-25 11:54:02] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:54:02] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:54:02] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:54:02] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:54:02] [Control Logic] Light too low: 49.0
+[2025-07-25 11:54:02] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:54:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:02] [MQTT Handler] Inserted 48.5 for sensor: light
+[2025-07-25 11:54:11] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:11] [MQTT Handler] Inserted 38.8 for sensor: soilMoisture
+[2025-07-25 11:54:12] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:54:13] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:54:13] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:54:13] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:54:13] [Control Logic] Light too low: 48.5
+[2025-07-25 11:54:13] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:54:19] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:19] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:54:23] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:54:23] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:54:23] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:54:23] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:54:23] [Control Logic] Light too low: 48.5
+[2025-07-25 11:54:23] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:54:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:26] [MQTT Handler] Inserted 6.77 for sensor: pH
+[2025-07-25 11:54:34] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:54:34] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:54:34] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:54:34] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:54:34] [Control Logic] Light too low: 48.5
+[2025-07-25 11:54:34] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:54:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:34] [MQTT Handler] Inserted 48.0 for sensor: light
+[2025-07-25 11:54:43] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:43] [MQTT Handler] Inserted 38.4 for sensor: soilMoisture
+[2025-07-25 11:54:44] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:54:44] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:54:44] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:54:44] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:54:45] [Control Logic] Light too low: 48.0
+[2025-07-25 11:54:45] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:54:51] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:51] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:54:55] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:54:55] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:54:55] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:54:55] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:54:55] [Control Logic] Light too low: 48.0
+[2025-07-25 11:54:55] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:54:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:54:58] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 11:55:05] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:55:05] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:55:05] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:55:05] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:55:05] [Control Logic] Light too low: 48.0
+[2025-07-25 11:55:05] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:55:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:06] [MQTT Handler] Inserted 47.5 for sensor: light
+[2025-07-25 11:55:15] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:15] [MQTT Handler] Inserted 38.0 for sensor: soilMoisture
+[2025-07-25 11:55:16] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:55:16] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:55:16] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:55:16] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:55:16] [Control Logic] Light too low: 47.5
+[2025-07-25 11:55:16] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:55:23] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:23] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:55:26] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:55:26] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:55:26] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:55:27] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:55:27] [Control Logic] Light too low: 47.5
+[2025-07-25 11:55:27] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:55:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:30] [MQTT Handler] Inserted 6.77 for sensor: pH
+[2025-07-25 11:55:37] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:55:37] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:55:37] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:55:37] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:55:37] [Control Logic] Light too low: 47.5
+[2025-07-25 11:55:37] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:55:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:38] [MQTT Handler] Inserted 47.0 for sensor: light
+[2025-07-25 11:55:47] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:47] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-07-25 11:55:47] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:55:48] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:55:48] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:55:48] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:55:48] [Control Logic] Light too low: 47.0
+[2025-07-25 11:55:48] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:55:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:55:54] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:55:58] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:55:58] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:55:58] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:55:58] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:55:59] [Control Logic] Light too low: 47.0
+[2025-07-25 11:55:59] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:56:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:02] [MQTT Handler] Inserted 6.77 for sensor: pH
+[2025-07-25 11:56:09] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:56:09] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:56:09] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:56:09] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:56:09] [Control Logic] Light too low: 47.0
+[2025-07-25 11:56:09] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:56:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:10] [MQTT Handler] Inserted 46.5 for sensor: light
+[2025-07-25 11:56:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:18] [MQTT Handler] Inserted 37.2 for sensor: soilMoisture
+[2025-07-25 11:56:19] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:56:19] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:56:19] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:56:20] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:56:20] [Control Logic] Light too low: 46.5
+[2025-07-25 11:56:20] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:56:27] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:27] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:56:30] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:56:30] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:56:30] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:56:30] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:56:30] [Control Logic] Light too low: 46.5
+[2025-07-25 11:56:30] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:56:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:34] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 11:56:40] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:56:40] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:56:40] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:56:41] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:56:41] [Control Logic] Light too low: 46.5
+[2025-07-25 11:56:41] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:56:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:42] [MQTT Handler] Inserted 46.0 for sensor: light
+[2025-07-25 11:56:51] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:51] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-07-25 11:56:51] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:56:51] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:56:51] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:56:51] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:56:51] [Control Logic] Light too low: 46.0
+[2025-07-25 11:56:51] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:56:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:56:58] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 11:57:02] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:57:02] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:57:02] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:57:02] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:57:02] [Control Logic] Light too low: 46.0
+[2025-07-25 11:57:02] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:57:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:06] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 11:57:12] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:57:12] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:57:12] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:57:12] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:57:12] [Control Logic] Light too low: 46.0
+[2025-07-25 11:57:12] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:57:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:14] [MQTT Handler] Inserted 45.5 for sensor: light
+[2025-07-25 11:57:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:22] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-07-25 11:57:23] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:57:23] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:57:23] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:57:23] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:57:23] [Control Logic] Light too low: 45.5
+[2025-07-25 11:57:23] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:57:31] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:31] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:57:33] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:57:33] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:57:33] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:57:33] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:57:33] [Control Logic] Light too low: 45.5
+[2025-07-25 11:57:33] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:57:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:38] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 11:57:44] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:57:44] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:57:44] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:57:44] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:57:44] [Control Logic] Light too low: 45.5
+[2025-07-25 11:57:44] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:57:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:46] [MQTT Handler] Inserted 45.0 for sensor: light
+[2025-07-25 11:57:54] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:57:54] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:57:54] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:57:54] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:57:54] [Control Logic] Light too low: 45.0
+[2025-07-25 11:57:55] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:57:55] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:57:55] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-07-25 11:58:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:02] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 11:58:05] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:58:05] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:58:05] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:58:05] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:58:05] [Control Logic] Light too low: 45.0
+[2025-07-25 11:58:05] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:58:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:10] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 11:58:15] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:58:15] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:58:15] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:58:15] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:58:15] [Control Logic] Light too low: 45.0
+[2025-07-25 11:58:15] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:58:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:18] [MQTT Handler] Inserted 44.5 for sensor: light
+[2025-07-25 11:58:26] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:58:26] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:58:26] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:58:26] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:58:26] [Control Logic] Light too low: 44.5
+[2025-07-25 11:58:26] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:58:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:26] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-07-25 11:58:35] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:35] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 11:58:36] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:58:36] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:58:36] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:58:36] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:58:36] [Control Logic] Light too low: 44.5
+[2025-07-25 11:58:37] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:58:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:42] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 11:58:47] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:58:47] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:58:47] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:58:47] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:58:47] [Control Logic] Light too low: 44.5
+[2025-07-25 11:58:47] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:58:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:50] [MQTT Handler] Inserted 44.0 for sensor: light
+[2025-07-25 11:58:57] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:58:57] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:58:57] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:58:57] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:58:57] [Control Logic] Light too low: 44.0
+[2025-07-25 11:58:57] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:58:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:58:58] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-07-25 11:59:07] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:07] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 11:59:08] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:59:08] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:59:08] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:59:08] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:59:08] [Control Logic] Light too low: 44.0
+[2025-07-25 11:59:08] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:59:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:14] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 11:59:18] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:59:18] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:59:18] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:59:18] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:59:18] [Control Logic] Light too low: 44.0
+[2025-07-25 11:59:18] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:59:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:22] [MQTT Handler] Inserted 43.5 for sensor: light
+[2025-07-25 11:59:29] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:59:29] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:59:29] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:59:29] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:59:29] [Control Logic] Light too low: 43.5
+[2025-07-25 11:59:29] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:59:31] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:31] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-07-25 11:59:39] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:39] [MQTT Handler] Inserted 24.8 for sensor: temperature
+[2025-07-25 11:59:39] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:59:39] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:59:39] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:59:39] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:59:39] [Control Logic] Soil moisture too low: 34.8
+[2025-07-25 11:59:39] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:59:39] [Control Logic] Light too low: 43.5
+[2025-07-25 11:59:39] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:59:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:46] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 11:59:50] [MQTT Handler] Published command to heater: off
+[2025-07-25 11:59:50] [MQTT Handler] Published command to fan: off
+[2025-07-25 11:59:50] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 11:59:50] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 11:59:50] [Control Logic] Soil moisture too low: 34.8
+[2025-07-25 11:59:50] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 11:59:50] [Control Logic] Light too low: 43.5
+[2025-07-25 11:59:50] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 11:59:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 11:59:54] [MQTT Handler] Inserted 43.0 for sensor: light
+[2025-07-25 12:00:00] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:00:00] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:00:00] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:00:00] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:00:00] [Control Logic] Soil moisture too low: 34.8
+[2025-07-25 12:00:00] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:00:00] [Control Logic] Light too low: 43.0
+[2025-07-25 12:00:00] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:00:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:02] [MQTT Handler] Inserted 34.4 for sensor: soilMoisture
+[2025-07-25 12:00:11] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:11] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:00:11] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:00:11] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:00:11] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:00:11] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:00:11] [Control Logic] Soil moisture too low: 34.4
+[2025-07-25 12:00:11] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:00:11] [Control Logic] Light too low: 43.0
+[2025-07-25 12:00:11] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:00:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:18] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:00:21] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:00:21] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:00:21] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:00:21] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:00:21] [Control Logic] Soil moisture too low: 34.4
+[2025-07-25 12:00:21] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:00:21] [Control Logic] Light too low: 43.0
+[2025-07-25 12:00:21] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:00:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:26] [MQTT Handler] Inserted 42.5 for sensor: light
+[2025-07-25 12:00:32] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:00:32] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:00:32] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:00:32] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:00:32] [Control Logic] Soil moisture too low: 34.4
+[2025-07-25 12:00:32] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:00:32] [Control Logic] Light too low: 42.5
+[2025-07-25 12:00:32] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:00:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:34] [MQTT Handler] Inserted 34.0 for sensor: soilMoisture
+[2025-07-25 12:00:42] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:00:42] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:00:42] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:00:43] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:43] [MQTT Handler] Inserted 24.8 for sensor: temperature
+[2025-07-25 12:00:43] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:00:43] [Control Logic] Soil moisture too low: 34.0
+[2025-07-25 12:00:43] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:00:43] [Control Logic] Light too low: 42.5
+[2025-07-25 12:00:43] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:00:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:50] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:00:53] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:00:53] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:00:53] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:00:53] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:00:53] [Control Logic] Soil moisture too low: 34.0
+[2025-07-25 12:00:53] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:00:54] [Control Logic] Light too low: 42.5
+[2025-07-25 12:00:54] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:00:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:00:58] [MQTT Handler] Inserted 42.0 for sensor: light
+[2025-07-25 12:01:04] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:01:04] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:01:04] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:01:04] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:01:04] [Control Logic] Soil moisture too low: 34.0
+[2025-07-25 12:01:04] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:01:04] [Control Logic] Light too low: 42.0
+[2025-07-25 12:01:04] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:01:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:06] [MQTT Handler] Inserted 33.6 for sensor: soilMoisture
+[2025-07-25 12:01:14] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:01:14] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:01:14] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:01:14] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:01:15] [Control Logic] Soil moisture too low: 33.6
+[2025-07-25 12:01:15] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:15] [MQTT Handler] Inserted 24.8 for sensor: temperature
+[2025-07-25 12:01:15] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:01:15] [Control Logic] Light too low: 42.0
+[2025-07-25 12:01:15] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:01:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:22] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:01:25] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:01:25] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:01:25] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:01:25] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:01:25] [Control Logic] Soil moisture too low: 33.6
+[2025-07-25 12:01:25] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:01:25] [Control Logic] Light too low: 42.0
+[2025-07-25 12:01:25] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:01:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:30] [MQTT Handler] Inserted 41.5 for sensor: light
+[2025-07-25 12:01:36] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:01:36] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:01:36] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:01:36] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:01:36] [Control Logic] Soil moisture too low: 33.6
+[2025-07-25 12:01:36] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:01:36] [Control Logic] Light too low: 41.5
+[2025-07-25 12:01:36] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:01:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:38] [MQTT Handler] Inserted 33.2 for sensor: soilMoisture
+[2025-07-25 12:01:46] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:01:46] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:01:46] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:01:46] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:01:46] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 12:01:46] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:01:46] [Control Logic] Light too low: 41.5
+[2025-07-25 12:01:46] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:01:47] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:47] [MQTT Handler] Inserted 24.7 for sensor: temperature
+[2025-07-25 12:01:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:01:54] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:01:57] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:01:57] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:01:57] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:01:57] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:01:57] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 12:01:57] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:01:57] [Control Logic] Light too low: 41.5
+[2025-07-25 12:01:57] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:02:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:02] [MQTT Handler] Inserted 41.0 for sensor: light
+[2025-07-25 12:02:07] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:02:07] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:02:07] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:02:07] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:02:07] [Control Logic] Soil moisture too low: 33.2
+[2025-07-25 12:02:08] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:02:08] [Control Logic] Light too low: 41.0
+[2025-07-25 12:02:08] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:02:11] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:11] [MQTT Handler] Inserted 32.8 for sensor: soilMoisture
+[2025-07-25 12:02:18] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:02:18] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:02:18] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:02:18] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:02:18] [Control Logic] Soil moisture too low: 32.8
+[2025-07-25 12:02:18] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:02:18] [Control Logic] Light too low: 41.0
+[2025-07-25 12:02:18] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:02:19] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:19] [MQTT Handler] Inserted 24.7 for sensor: temperature
+[2025-07-25 12:02:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:26] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:02:28] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:02:28] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:02:28] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:02:29] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:02:29] [Control Logic] Soil moisture too low: 32.8
+[2025-07-25 12:02:29] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:02:29] [Control Logic] Light too low: 41.0
+[2025-07-25 12:02:29] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:02:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:34] [MQTT Handler] Inserted 40.5 for sensor: light
+[2025-07-25 12:02:39] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:02:39] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:02:39] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:02:39] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:02:39] [Control Logic] Soil moisture too low: 32.8
+[2025-07-25 12:02:39] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:02:39] [Control Logic] Light too low: 40.5
+[2025-07-25 12:02:39] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:02:43] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:43] [MQTT Handler] Inserted 32.4 for sensor: soilMoisture
+[2025-07-25 12:02:50] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:02:50] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:02:50] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:02:50] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:02:50] [Control Logic] Soil moisture too low: 32.4
+[2025-07-25 12:02:50] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:02:50] [Control Logic] Light too low: 40.5
+[2025-07-25 12:02:50] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:02:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:50] [MQTT Handler] Inserted 24.8 for sensor: temperature
+[2025-07-25 12:02:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:02:58] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:03:00] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:03:00] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:03:00] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:03:00] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:03:00] [Control Logic] Soil moisture too low: 32.4
+[2025-07-25 12:03:00] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:03:00] [Control Logic] Light too low: 40.5
+[2025-07-25 12:03:00] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:03:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:06] [MQTT Handler] Inserted 40.0 for sensor: light
+[2025-07-25 12:03:11] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:03:11] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:03:11] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:03:11] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:03:11] [Control Logic] Soil moisture too low: 32.4
+[2025-07-25 12:03:11] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:03:11] [Control Logic] Light too low: 40.0
+[2025-07-25 12:03:11] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:03:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:14] [MQTT Handler] Inserted 32.0 for sensor: soilMoisture
+[2025-07-25 12:03:21] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:03:21] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:03:21] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:03:21] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:03:21] [Control Logic] Soil moisture too low: 32.0
+[2025-07-25 12:03:21] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:03:21] [Control Logic] Light too low: 40.0
+[2025-07-25 12:03:21] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:03:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:22] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:03:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:30] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:03:31] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:03:31] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:03:31] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:03:31] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:03:31] [Control Logic] Soil moisture too low: 32.0
+[2025-07-25 12:03:31] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:03:32] [Control Logic] Light too low: 40.0
+[2025-07-25 12:03:32] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:03:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:38] [MQTT Handler] Inserted 39.5 for sensor: light
+[2025-07-25 12:03:42] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:03:42] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:03:42] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:03:42] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:03:42] [Control Logic] Soil moisture too low: 32.0
+[2025-07-25 12:03:42] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:03:42] [Control Logic] Light too low: 39.5
+[2025-07-25 12:03:42] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:03:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:46] [MQTT Handler] Inserted 31.6 for sensor: soilMoisture
+[2025-07-25 12:03:52] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:03:52] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:03:52] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:03:52] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:03:52] [Control Logic] Soil moisture too low: 31.6
+[2025-07-25 12:03:52] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:03:52] [Control Logic] Light too low: 39.5
+[2025-07-25 12:03:52] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:03:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:03:54] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:04:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:02] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:04:03] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:04:03] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:04:03] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:04:03] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:04:03] [Control Logic] Soil moisture too low: 31.6
+[2025-07-25 12:04:03] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:04:03] [Control Logic] Light too low: 39.5
+[2025-07-25 12:04:03] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:04:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:10] [MQTT Handler] Inserted 39.0 for sensor: light
+[2025-07-25 12:04:13] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:04:13] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:04:13] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:04:13] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:04:13] [Control Logic] Soil moisture too low: 31.6
+[2025-07-25 12:04:13] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:04:13] [Control Logic] Light too low: 39.0
+[2025-07-25 12:04:14] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:04:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:18] [MQTT Handler] Inserted 31.2 for sensor: soilMoisture
+[2025-07-25 12:04:24] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:04:24] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:04:24] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:04:24] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:04:24] [Control Logic] Soil moisture too low: 31.2
+[2025-07-25 12:04:24] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:04:24] [Control Logic] Light too low: 39.0
+[2025-07-25 12:04:24] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:04:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:26] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 12:04:34] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:04:34] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:04:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:34] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:04:34] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:04:34] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:04:34] [Control Logic] Soil moisture too low: 31.2
+[2025-07-25 12:04:34] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:04:35] [Control Logic] Light too low: 39.0
+[2025-07-25 12:04:35] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:04:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:42] [MQTT Handler] Inserted 38.5 for sensor: light
+[2025-07-25 12:04:45] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:04:45] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:04:45] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:04:45] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:04:45] [Control Logic] Soil moisture too low: 31.2
+[2025-07-25 12:04:45] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:04:45] [Control Logic] Light too low: 38.5
+[2025-07-25 12:04:45] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:04:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:50] [MQTT Handler] Inserted 30.8 for sensor: soilMoisture
+[2025-07-25 12:04:55] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:04:55] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:04:55] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:04:56] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:04:56] [Control Logic] Soil moisture too low: 30.8
+[2025-07-25 12:04:56] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:04:56] [Control Logic] Light too low: 38.5
+[2025-07-25 12:04:56] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:04:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:04:58] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:05:06] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:05:06] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:05:06] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:05:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:06] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:05:06] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:05:06] [Control Logic] Soil moisture too low: 30.8
+[2025-07-25 12:05:06] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:05:07] [Control Logic] Light too low: 38.5
+[2025-07-25 12:05:07] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:05:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:14] [MQTT Handler] Inserted 38.0 for sensor: light
+[2025-07-25 12:05:17] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:05:17] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:05:17] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:05:17] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:05:17] [Control Logic] Soil moisture too low: 30.8
+[2025-07-25 12:05:17] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:05:17] [Control Logic] Light too low: 38.0
+[2025-07-25 12:05:17] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:05:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:22] [MQTT Handler] Inserted 30.4 for sensor: soilMoisture
+[2025-07-25 12:05:28] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:05:28] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:05:28] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:05:28] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:05:28] [Control Logic] Soil moisture too low: 30.4
+[2025-07-25 12:05:28] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:05:28] [Control Logic] Light too low: 38.0
+[2025-07-25 12:05:28] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:05:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:30] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:05:38] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:05:38] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:05:38] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:05:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:38] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:05:38] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:05:39] [Control Logic] Soil moisture too low: 30.4
+[2025-07-25 12:05:39] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:05:39] [Control Logic] Light too low: 38.0
+[2025-07-25 12:05:39] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:05:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:46] [MQTT Handler] Inserted 37.5 for sensor: light
+[2025-07-25 12:05:49] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:05:49] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:05:49] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:05:49] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:05:49] [Control Logic] Soil moisture too low: 30.4
+[2025-07-25 12:05:49] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:05:49] [Control Logic] Light too low: 37.5
+[2025-07-25 12:05:49] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:05:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:05:54] [MQTT Handler] Inserted 30.0 for sensor: soilMoisture
+[2025-07-25 12:05:59] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:05:59] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:06:00] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:06:00] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:06:00] [Control Logic] Soil moisture too low: 30.0
+[2025-07-25 12:06:00] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:06:00] [Control Logic] Light too low: 37.5
+[2025-07-25 12:06:00] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:06:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:02] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 12:06:10] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:06:10] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:06:10] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:06:10] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:06:10] [Control Logic] Soil moisture too low: 30.0
+[2025-07-25 12:06:10] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:06:10] [Control Logic] Light too low: 37.5
+[2025-07-25 12:06:10] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:06:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:10] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:06:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:18] [MQTT Handler] Inserted 37.0 for sensor: light
+[2025-07-25 12:06:20] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:06:20] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:06:20] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:06:20] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:06:21] [Control Logic] Soil moisture too low: 30.0
+[2025-07-25 12:06:21] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:06:21] [Control Logic] Light too low: 37.0
+[2025-07-25 12:06:21] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:06:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:26] [MQTT Handler] Inserted 29.6 for sensor: soilMoisture
+[2025-07-25 12:06:31] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:06:31] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:06:31] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:06:31] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:06:31] [Control Logic] Soil moisture too low: 29.6
+[2025-07-25 12:06:31] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:06:31] [Control Logic] Light too low: 37.0
+[2025-07-25 12:06:31] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:06:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:34] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 12:06:41] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:06:41] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:06:41] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:06:41] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:06:41] [Control Logic] Soil moisture too low: 29.6
+[2025-07-25 12:06:41] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:06:42] [Control Logic] Light too low: 37.0
+[2025-07-25 12:06:42] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:06:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:42] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:06:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:50] [MQTT Handler] Inserted 36.5 for sensor: light
+[2025-07-25 12:06:52] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:06:52] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:06:52] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:06:52] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:06:52] [Control Logic] Soil moisture too low: 29.6
+[2025-07-25 12:06:52] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:06:52] [Control Logic] Light too low: 36.5
+[2025-07-25 12:06:52] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:06:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:06:58] [MQTT Handler] Inserted 29.2 for sensor: soilMoisture
+[2025-07-25 12:07:02] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:07:02] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:07:02] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:07:03] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:07:03] [Control Logic] Soil moisture too low: 29.2
+[2025-07-25 12:07:03] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:07:03] [Control Logic] Light too low: 36.5
+[2025-07-25 12:07:03] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:07:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:06] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-25 12:07:13] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:07:13] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:07:13] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:07:13] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:07:13] [Control Logic] Soil moisture too low: 29.2
+[2025-07-25 12:07:13] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:07:13] [Control Logic] Light too low: 36.5
+[2025-07-25 12:07:13] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:07:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:14] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:07:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:22] [MQTT Handler] Inserted 36.0 for sensor: light
+[2025-07-25 12:07:23] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:07:23] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:07:23] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:07:23] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:07:23] [Control Logic] Soil moisture too low: 29.2
+[2025-07-25 12:07:23] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:07:23] [Control Logic] Light too low: 36.0
+[2025-07-25 12:07:23] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:07:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:30] [MQTT Handler] Inserted 28.8 for sensor: soilMoisture
+[2025-07-25 12:07:34] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:07:34] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:07:34] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:07:34] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:07:34] [Control Logic] Soil moisture too low: 28.8
+[2025-07-25 12:07:34] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:07:34] [Control Logic] Light too low: 36.0
+[2025-07-25 12:07:34] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:07:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:38] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-25 12:07:44] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:07:44] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:07:44] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:07:44] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:07:44] [Control Logic] Soil moisture too low: 28.8
+[2025-07-25 12:07:44] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:07:44] [Control Logic] Light too low: 36.0
+[2025-07-25 12:07:44] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:07:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:46] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:07:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:07:54] [MQTT Handler] Inserted 35.5 for sensor: light
+[2025-07-25 12:07:54] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:07:54] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:07:54] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:07:55] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:07:55] [Control Logic] Soil moisture too low: 28.8
+[2025-07-25 12:07:55] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:07:55] [Control Logic] Light too low: 35.5
+[2025-07-25 12:07:55] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:02] [MQTT Handler] Inserted 28.4 for sensor: soilMoisture
+[2025-07-25 12:08:05] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:08:05] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:08:05] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:08:05] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:08:05] [Control Logic] Soil moisture too low: 28.4
+[2025-07-25 12:08:05] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:08:05] [Control Logic] Light too low: 35.5
+[2025-07-25 12:08:05] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:10] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-07-25 12:08:15] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:08:15] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:08:15] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:08:16] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:08:16] [Control Logic] Soil moisture too low: 28.4
+[2025-07-25 12:08:16] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:08:16] [Control Logic] Light too low: 35.5
+[2025-07-25 12:08:16] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:18] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:08:26] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:08:26] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:08:26] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:08:26] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:08:26] [Control Logic] Soil moisture too low: 28.4
+[2025-07-25 12:08:26] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:08:26] [Control Logic] Light too low: 35.5
+[2025-07-25 12:08:26] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:26] [MQTT Handler] Inserted 35.0 for sensor: light
+[2025-07-25 12:08:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:34] [MQTT Handler] Inserted 28.0 for sensor: soilMoisture
+[2025-07-25 12:08:36] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:08:36] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:08:36] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:08:36] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:08:36] [Control Logic] Soil moisture too low: 28.0
+[2025-07-25 12:08:36] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:08:37] [Control Logic] Light too low: 35.0
+[2025-07-25 12:08:37] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:42] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-07-25 12:08:47] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:08:47] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:08:47] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:08:47] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:08:47] [Control Logic] Soil moisture too low: 28.0
+[2025-07-25 12:08:47] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:08:47] [Control Logic] Light too low: 35.0
+[2025-07-25 12:08:47] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:50] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:08:57] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:08:57] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:08:57] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:08:57] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:08:57] [Control Logic] Soil moisture too low: 28.0
+[2025-07-25 12:08:57] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:08:58] [Control Logic] Light too low: 35.0
+[2025-07-25 12:08:58] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:08:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:08:58] [MQTT Handler] Inserted 34.5 for sensor: light
+[2025-07-25 12:09:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:06] [MQTT Handler] Inserted 27.6 for sensor: soilMoisture
+[2025-07-25 12:09:08] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:09:08] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:09:08] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:09:08] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:09:08] [Control Logic] Soil moisture too low: 27.6
+[2025-07-25 12:09:08] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:09:08] [Control Logic] Light too low: 34.5
+[2025-07-25 12:09:08] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:09:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:14] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 12:09:18] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:09:18] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:09:18] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:09:18] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:09:18] [Control Logic] Soil moisture too low: 27.6
+[2025-07-25 12:09:18] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:09:19] [Control Logic] Light too low: 34.5
+[2025-07-25 12:09:19] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:09:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:22] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:09:29] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:09:29] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:09:29] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:09:29] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:09:29] [Control Logic] Soil moisture too low: 27.6
+[2025-07-25 12:09:29] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:09:29] [Control Logic] Light too low: 34.5
+[2025-07-25 12:09:29] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:09:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:30] [MQTT Handler] Inserted 34.0 for sensor: light
+[2025-07-25 12:09:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:38] [MQTT Handler] Inserted 27.2 for sensor: soilMoisture
+[2025-07-25 12:09:39] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:09:39] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:09:39] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:09:39] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:09:39] [Control Logic] Soil moisture too low: 27.2
+[2025-07-25 12:09:39] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:09:40] [Control Logic] Light too low: 34.0
+[2025-07-25 12:09:40] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:09:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:46] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-07-25 12:09:50] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:09:50] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:09:50] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:09:50] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:09:50] [Control Logic] Soil moisture too low: 27.2
+[2025-07-25 12:09:50] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:09:50] [Control Logic] Light too low: 34.0
+[2025-07-25 12:09:50] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:09:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:09:54] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:10:00] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:10:00] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:10:00] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:10:00] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:10:01] [Control Logic] Soil moisture too low: 27.2
+[2025-07-25 12:10:01] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:10:01] [Control Logic] Light too low: 34.0
+[2025-07-25 12:10:01] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:10:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:02] [MQTT Handler] Inserted 33.5 for sensor: light
+[2025-07-25 12:10:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:10] [MQTT Handler] Inserted 26.8 for sensor: soilMoisture
+[2025-07-25 12:10:11] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:10:11] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:10:11] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:10:11] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:10:11] [Control Logic] Soil moisture too low: 26.8
+[2025-07-25 12:10:11] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:10:11] [Control Logic] Light too low: 33.5
+[2025-07-25 12:10:11] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:10:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:18] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 12:10:21] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:10:21] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:10:21] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:10:21] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:10:21] [Control Logic] Soil moisture too low: 26.8
+[2025-07-25 12:10:21] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:10:21] [Control Logic] Light too low: 33.5
+[2025-07-25 12:10:21] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:10:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:26] [MQTT Handler] Inserted 6.77 for sensor: pH
+[2025-07-25 12:10:32] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:10:32] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:10:32] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:10:32] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:10:32] [Control Logic] Soil moisture too low: 26.8
+[2025-07-25 12:10:32] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:10:32] [Control Logic] Light too low: 33.5
+[2025-07-25 12:10:32] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:10:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:34] [MQTT Handler] Inserted 33.0 for sensor: light
+[2025-07-25 12:10:42] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:10:42] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:10:42] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:10:42] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:10:42] [Control Logic] Soil moisture too low: 26.8
+[2025-07-25 12:10:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:42] [MQTT Handler] Inserted 26.4 for sensor: soilMoisture
+[2025-07-25 12:10:42] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:10:43] [Control Logic] Light too low: 33.0
+[2025-07-25 12:10:43] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:10:50] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:50] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-07-25 12:10:53] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:10:53] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:10:53] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:10:53] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:10:53] [Control Logic] Soil moisture too low: 26.4
+[2025-07-25 12:10:53] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:10:53] [Control Logic] Light too low: 33.0
+[2025-07-25 12:10:53] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:10:58] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:10:58] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:11:03] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:11:03] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:11:03] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:11:04] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:11:04] [Control Logic] Soil moisture too low: 26.4
+[2025-07-25 12:11:04] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:11:04] [Control Logic] Light too low: 33.0
+[2025-07-25 12:11:04] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:11:06] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:06] [MQTT Handler] Inserted 32.5 for sensor: light
+[2025-07-25 12:11:14] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:11:14] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:11:14] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:11:14] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:11:14] [Control Logic] Soil moisture too low: 26.4
+[2025-07-25 12:11:14] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:11:14] [Control Logic] Light too low: 32.5
+[2025-07-25 12:11:14] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:11:14] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:14] [MQTT Handler] Inserted 26.0 for sensor: soilMoisture
+[2025-07-25 12:11:22] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:22] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:11:24] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:11:24] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:11:24] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:11:24] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:11:24] [Control Logic] Soil moisture too low: 26.0
+[2025-07-25 12:11:24] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:11:24] [Control Logic] Light too low: 32.5
+[2025-07-25 12:11:24] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:11:30] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:30] [MQTT Handler] Inserted 6.78 for sensor: pH
+[2025-07-25 12:11:35] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:11:35] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:11:35] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:11:35] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:11:35] [Control Logic] Soil moisture too low: 26.0
+[2025-07-25 12:11:35] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:11:35] [Control Logic] Light too low: 32.5
+[2025-07-25 12:11:35] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:11:38] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:38] [MQTT Handler] Inserted 32.0 for sensor: light
+[2025-07-25 12:11:45] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:11:45] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:11:45] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:11:45] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:11:45] [Control Logic] Soil moisture too low: 26.0
+[2025-07-25 12:11:45] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:11:45] [Control Logic] Light too low: 32.0
+[2025-07-25 12:11:45] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:11:46] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:46] [MQTT Handler] Inserted 25.6 for sensor: soilMoisture
+[2025-07-25 12:11:54] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:11:54] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:11:55] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:11:55] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:11:55] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:11:55] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:11:55] [Control Logic] Soil moisture too low: 25.6
+[2025-07-25 12:11:55] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:11:55] [Control Logic] Light too low: 32.0
+[2025-07-25 12:11:56] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:12:02] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:12:02] [MQTT Handler] Inserted 6.79 for sensor: pH
+[2025-07-25 12:12:06] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:12:06] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:12:06] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:12:06] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:12:06] [Control Logic] Soil moisture too low: 25.6
+[2025-07-25 12:12:06] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:12:06] [Control Logic] Light too low: 32.0
+[2025-07-25 12:12:06] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:12:10] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:12:10] [MQTT Handler] Inserted 31.5 for sensor: light
+[2025-07-25 12:12:16] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:12:16] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:12:16] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:12:16] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:12:16] [Control Logic] Soil moisture too low: 25.6
+[2025-07-25 12:12:16] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:12:16] [Control Logic] Light too low: 31.5
+[2025-07-25 12:12:16] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:12:18] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:12:18] [MQTT Handler] Inserted 25.2 for sensor: soilMoisture
+[2025-07-25 12:12:26] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:12:26] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-07-25 12:12:27] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:12:27] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:12:27] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:12:27] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:12:27] [Control Logic] Soil moisture too low: 25.2
+[2025-07-25 12:12:27] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:12:27] [Control Logic] Light too low: 31.5
+[2025-07-25 12:12:27] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:12:34] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:12:34] [MQTT Handler] Inserted 6.8 for sensor: pH
+[2025-07-25 12:12:37] [MQTT Handler] Published command to heater: off
+[2025-07-25 12:12:37] [MQTT Handler] Published command to fan: off
+[2025-07-25 12:12:37] [MQTT Handler] Published command to fertilizer: off
+[2025-07-25 12:12:37] [CoAP Controller] Command sent to actuators/fertilizer: off
+[2025-07-25 12:12:37] [Control Logic] Soil moisture too low: 25.2
+[2025-07-25 12:12:37] [MQTT Handler] Published command to irrigation: on
+[2025-07-25 12:12:37] [Control Logic] Light too low: 31.5
+[2025-07-25 12:12:37] [MQTT Handler] Published command to grow_light: on
+[2025-07-25 12:12:42] [31m[DBDriver] Cannot insert sample: DB connection is closed.[0m
+[2025-07-25 12:12:42] [MQTT Handler] Inserted 31.0 for sensor: light
