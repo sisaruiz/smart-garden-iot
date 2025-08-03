@@ -5,6 +5,7 @@ import org.unipi.smartgarden.coap.COAPNetworkController;
 import org.unipi.smartgarden.mqtt.MQTTHandler;
 import org.unipi.smartgarden.util.ConsoleUtils;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.io.IOException;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class ControlLogicThread extends Thread {
     private final MQTTHandler mqttHandler;
     private final COAPNetworkController coapController;
     private final Map<String, String> actuatorAliasMap;
+    private final Map<String, Boolean> manualOverride = new ConcurrentHashMap<>();
     private volatile boolean running = true;
 
     private static final long SLEEP_INTERVAL_MS = 10_000; // 10 seconds
@@ -38,6 +40,8 @@ public class ControlLogicThread extends Thread {
         this.mqttHandler = mqttHandler;
         this.coapController = coapController;
         this.actuatorAliasMap = actuatorAliasMap;
+        this.manualOverride.put("fan", false);
+	this.manualOverride.put("heater", false);
     }
 
     @Override
@@ -67,45 +71,55 @@ public class ControlLogicThread extends Thread {
     public void stopThread() {
         running = false;
     }
+    
+    public void setManualOverride(String actuator, boolean override) {
+	 manualOverride.put(actuator, override);
+    }
 
     private void checkTemperature() throws ConnectorException, IOException {
-        Float temperature = mqttHandler.getLatestValue("temperature");
-        if (temperature == null) return;
+	    Float temperature = mqttHandler.getLatestValue("temperature");
+	    if (temperature == null) return;
 
-        String fanPath = actuatorAliasMap.get("fan");
-        String heaterPath = actuatorAliasMap.get("heater");
+	    String fanPath = actuatorAliasMap.get("fan");
+	    String heaterPath = actuatorAliasMap.get("heater");
 
-        String fanState = coapController.getActuatorState(fanPath);
-        String heaterState = coapController.getActuatorState(heaterPath);
+	    String fanState = coapController.getActuatorState(fanPath);
+	    String heaterState = coapController.getActuatorState(heaterPath);
 
-        if (temperature < TEMP_LOWER) {
-            ConsoleUtils.println("[Control Logic] Temperature too low: " + temperature);
-            mqttHandler.simulateHeater("on");
-            if (!"on".equalsIgnoreCase(heaterState)) {
-                coapController.sendCommand(heaterPath, "on");
-            }
-            if (!"off".equalsIgnoreCase(fanState)) {
-                coapController.sendCommand(fanPath, "off");
-            }
-        } else if (temperature > TEMP_UPPER) {
-            ConsoleUtils.println("[Control Logic] Temperature too high: " + temperature);
-            mqttHandler.simulateFan("on");
-            if (!"on".equalsIgnoreCase(fanState)) {
-                coapController.sendCommand(fanPath, "on");
-            }
-            if (!"off".equalsIgnoreCase(heaterState)) {
-                coapController.sendCommand(heaterPath, "off");
-            }
-        } else {
-            mqttHandler.simulateHeater("off");
-            mqttHandler.simulateFan("off");
-            if (!"off".equalsIgnoreCase(heaterState)) {
-                coapController.sendCommand(heaterPath, "off");
-            }
-            if (!"off".equalsIgnoreCase(fanState)) {
-                coapController.sendCommand(fanPath, "off");
-            }
-        }
+	    boolean fanOverride = manualOverride.getOrDefault("fan", false);
+	    boolean heaterOverride = manualOverride.getOrDefault("heater", false);
+
+	    boolean withinRange = temperature >= TEMP_LOWER && temperature <= TEMP_UPPER;
+
+	    // Auto mode only when not overridden
+	    if (!fanOverride && !heaterOverride) {
+		if (temperature < TEMP_LOWER) {
+		    ConsoleUtils.println("[Control Logic] Temperature too low: " + temperature);
+		    mqttHandler.simulateHeater("on");
+		    if (!"on".equalsIgnoreCase(heaterState)) coapController.sendCommand(heaterPath, "on");
+		    if (!"off".equalsIgnoreCase(fanState)) coapController.sendCommand(fanPath, "off");
+		} else if (temperature > TEMP_UPPER) {
+		    ConsoleUtils.println("[Control Logic] Temperature too high: " + temperature);
+		    mqttHandler.simulateFan("on");
+		    if (!"on".equalsIgnoreCase(fanState)) coapController.sendCommand(fanPath, "on");
+		    if (!"off".equalsIgnoreCase(heaterState)) coapController.sendCommand(heaterPath, "off");
+		} else {
+    			ConsoleUtils.println("[Control Logic] Temperature within acceptable range: " + temperature);
+    			// do nothing – keep current actuator states
+		}
+	    }
+
+	    // Reset manual override if back in range
+	    if (withinRange) {
+		if (fanOverride) {
+		    ConsoleUtils.println("[Control Logic] Resetting manual override for fan");
+		    manualOverride.put("fan", false);
+		}
+		if (heaterOverride) {
+		    ConsoleUtils.println("[Control Logic] Resetting manual override for heater");
+		    manualOverride.put("heater", false);
+		}
+	    }
     }
 
     private void checkPH() {
@@ -183,5 +197,14 @@ public class ControlLogicThread extends Thread {
             throw new RuntimeException(e);
         }
     }
+    
+    public boolean isFanOverride() {
+    	return manualOverride.getOrDefault("fan", false);
+    }
+
+    public boolean isHeaterOverride() {
+    	return manualOverride.getOrDefault("heater", false);
+    }
+
 }
 

@@ -7,14 +7,16 @@
 #define LOG_MODULE "res-cc-fan"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
-static int fan_on = 0;
+int fan_on = 0;
+extern int heater_on;
+extern coap_resource_t res_cc_heater;
 
 /* Forward declarations */
 static void res_get_handler(coap_message_t *request, coap_message_t *response,
                             uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 static void res_put_handler(coap_message_t *request, coap_message_t *response,
                             uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
-static void res_trigger_handler(void); // <--- NEW
+static void res_trigger_handler(void); //
 
 /* CoAP resource definition */
 RESOURCE(res_cc_fan,
@@ -64,6 +66,8 @@ res_put_handler(coap_message_t *request, coap_message_t *response,
   if(strcasecmp(command, "on") == 0) {
     fan_on = 1;
     leds_single_on(LEDS_GREEN);
+    heater_on = 0; 
+    coap_notify_observers(&res_cc_heater);
     LOG_INFO("fan turned on\n");
   } else if(strcasecmp(command, "off") == 0) {
     fan_on = 0;

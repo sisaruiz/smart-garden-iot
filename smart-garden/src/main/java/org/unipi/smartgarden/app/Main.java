@@ -36,8 +36,8 @@ public class Main {
             "fertilizer", "actuators/fertilizer",
             "irrigation", "actuators/irrigation",
             "grow_light", "actuators/grow_light",
-            "fan", "cc/fan",
-            "heater", "cc/heater"
+            "fan", "fan",
+            "heater", "heater"
     );
 
     public static void main(String[] args) throws ConnectorException, IOException {
@@ -65,11 +65,11 @@ public class Main {
         }
         MQTTHandler mqttHandler = new MQTTHandler(sensorTopicMap, db);
 
-        COAPNetworkController coapController = new COAPNetworkController(configuration.getActuators(), db);
+        COAPNetworkController coapController = new COAPNetworkController(configuration.getActuators(), db, mqttHandler);
 
-        ConsoleUtils.println(LOG + " Waiting 5 seconds for CoAP device registration...");
+        ConsoleUtils.println(LOG + " Waiting 15 seconds for CoAP device registration...");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(15000);
         } catch (InterruptedException e) {
             ConsoleUtils.printError(LOG + " Sleep interrupted.");
         }
@@ -129,17 +129,24 @@ public class Main {
                             e.printStackTrace();
                         }
                     } else {
-                        boolean currentState = actuatorState.getOrDefault(shortName, false);
-                        String nextCommand = currentState ? "off" : "on";
+			    boolean currentState = actuatorState.getOrDefault(shortName, false);
+			    String nextCommand = currentState ? "off" : "on";
 
-                        try {
-                            coapController.sendCommand(fullPath, nextCommand);
-                            actuatorState.put(shortName, !currentState);
-                        } catch (Exception e) {
-                            ConsoleUtils.printError(LOG + " Failed to send toggle command to " + shortName);
-                            e.printStackTrace();
-                        }
-                    }
+			    try {
+				coapController.sendCommand(fullPath, nextCommand);
+				actuatorState.put(shortName, !currentState);
+
+				// Manual override logic for fan and heater only
+				if (shortName.equals("fan") || shortName.equals("heater")) {
+				    controlLogic.setManualOverride(shortName, true);
+				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
+				}
+
+			    } catch (Exception e) {
+				ConsoleUtils.printError(LOG + " Failed to send toggle command to " + shortName);
+				e.printStackTrace();
+			    }
+			}
 
                     continue;
                 }

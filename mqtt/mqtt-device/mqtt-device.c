@@ -32,7 +32,7 @@ static const char *broker_ip = MQTT_CLIENT_BROKER_IP_ADDR;
 // Default config values
 #define DEFAULT_BROKER_PORT         1883
 #define DEFAULT_PUBLISH_INTERVAL    (30 * CLOCK_SECOND)
-#define SHORT_PUBLISH_INTERVAL (8*CLOCK_SECOND)
+#define SHORT_PUBLISH_INTERVAL (4*CLOCK_SECOND)
 
 /*---------------------------------------------------------------------------*/
 /* Various states */
@@ -115,30 +115,37 @@ static bool temp_subscribed = false;
 /*---------------------------------------------------------------------------*/
 // Pub handler for actuators only
 static void pub_handler(const char *topic, uint16_t topic_len, const uint8_t *chunk, uint16_t chunk_len) {
-  if(strcmp(topic, "growLight") == 0) {
-    if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) grow_light_state = 0;
-    else if(strncmp((const char*)chunk, "ON", chunk_len) == 0) grow_light_state = 1;
-    else if(strncmp((const char*)chunk, "DIM", chunk_len) == 0) grow_light_state = 2;
+	if(strcmp(topic, "actuators/grow_light") == 0) {
+	  if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) grow_light_state = 0;
+	  else if(strncmp((const char*)chunk, "ON", chunk_len) == 0) grow_light_state = 1;
+	  else if(strncmp((const char*)chunk, "DIM", chunk_len) == 0) grow_light_state = 2;
 
-  } else if(strcmp(topic, "irrigation") == 0) {
-    if(strncmp((const char*)chunk, "ON", chunk_len) == 0) irrigation_on = true;
-    else if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) irrigation_on = false;
+	} else if(strcmp(topic, "actuators/irrigation") == 0) {
+	  if(strncmp((const char*)chunk, "ON", chunk_len) == 0) irrigation_on = true;
+	  else if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) irrigation_on = false;
 
-  } else if(strcmp(topic, "fertilizerDispenser") == 0) {
-    if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) fertilizer_erogation_variation = 0;
-    else if(strncmp((const char*)chunk, "SDEC", chunk_len) == 0) fertilizer_erogation_variation = -1;
-    else if(strncmp((const char*)chunk, "SINC", chunk_len) == 0) fertilizer_erogation_variation = 1;
-    else if(strncmp((const char*)chunk, "DEC", chunk_len) == 0) fertilizer_erogation_variation = -2;
-    else if(strncmp((const char*)chunk, "INC", chunk_len) == 0) fertilizer_erogation_variation = 2;
+	} else if(strcmp(topic, "actuators/fertilizer") == 0) {
+	  if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) fertilizer_erogation_variation = 0;
+	  else if(strncmp((const char*)chunk, "SDEC", chunk_len) == 0) fertilizer_erogation_variation = -1;
+	  else if(strncmp((const char*)chunk, "SINC", chunk_len) == 0) fertilizer_erogation_variation = 1;
+	  else if(strncmp((const char*)chunk, "DEC", chunk_len) == 0) fertilizer_erogation_variation = -2;
+	  else if(strncmp((const char*)chunk, "INC", chunk_len) == 0) fertilizer_erogation_variation = 2;
 
-  } else if(strcmp(topic, "fan") == 0) {
-    if(strncmp((const char*)chunk, "on", chunk_len) == 0) { heater_on = false; fan_on = true; }
-    else if(strncmp((const char*)chunk, "off", chunk_len) == 0) fan_on = false;
+	} else if(strcmp(topic, "fan") == 0) {
+	  if(strncmp((const char*)chunk, "on", chunk_len) == 0) { heater_on = false; fan_on = true; }
+	  else if(strncmp((const char*)chunk, "off", chunk_len) == 0) fan_on = false;
 
-  } else if(strcmp(topic, "heater") == 0) {
-    if(strncmp((const char*)chunk, "on", chunk_len) == 0) { fan_on = false; heater_on = true; }
-    else if(strncmp((const char*)chunk, "off", chunk_len) == 0) heater_on = false;
-  }
+	} else if(strcmp(topic, "heater") == 0) {
+		  if(strncmp((const char*)chunk, "on", chunk_len) == 0) {
+		    fan_on = false;
+		    heater_on = true;
+		    LOG_INFO("Received heater → on\n");
+		  } else if(strncmp((const char*)chunk, "off", chunk_len) == 0) {
+		    heater_on = false;
+		    LOG_INFO("Received heater → off\n");
+		  }
+	}
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -258,9 +265,9 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
           
           if(state==STATE_CONNECTED){
               if(!grow_light_subscribed){
-                  strcpy(sub_topic,"growLight");
+                  strcpy(sub_topic,"grow_light");
                   status = mqtt_subscribe(&conn, NULL, sub_topic, MQTT_QOS_LEVEL_0);
-                  LOG_INFO("Subscribing to topic growLight\n");
+                  LOG_INFO("Subscribing to topic grow_light\n");
                   if(status != MQTT_STATUS_OUT_QUEUE_FULL) grow_light_subscribed = true;
               }else if(!irrigation_subscribed){
                   strcpy(sub_topic,"irrigation");
@@ -268,9 +275,9 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
                   LOG_INFO("Subscribing to topic irrigation\n");
                   if(status != MQTT_STATUS_OUT_QUEUE_FULL) irrigation_subscribed = true;
               }else if(!fertilizer_subscribed){
-                  strcpy(sub_topic,"fertilizerDispenser");
+                  strcpy(sub_topic,"fertilizer");
                   status = mqtt_subscribe(&conn, NULL, sub_topic, MQTT_QOS_LEVEL_0);
-                  LOG_INFO("Subscribing to topic fertilizerDispenser\n");
+                  LOG_INFO("Subscribing to topic fertilizer\n");
                   if(status != MQTT_STATUS_OUT_QUEUE_FULL) fertilizer_subscribed = true;
               }else if(!fan_subscribed){
                   strcpy(sub_topic,"fan");
@@ -316,20 +323,34 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
             if(turn == 1){
 		  sprintf(pub_topic, "temperature");
 
-		  // Simulate temperature variation
-		  if(fan_on) sim_temperature -= 4;
-		  else if(heater_on) sim_temperature += 4;
-		  else sim_temperature += (rand() % 3) - 1;
+		  int target_temp = 250; // 25.0°C in scaled units
 
-		  if(sim_temperature < 180) sim_temperature = 180;
-		  if(sim_temperature > 320) sim_temperature = 320;
+		  if(heater_on) {
+		    if(sim_temperature < target_temp)
+		      sim_temperature += 6; // fast warm-up
+		    else
+		      sim_temperature += 1; // slower stabilization
+		  } else if(fan_on) {
+		    if(sim_temperature > target_temp)
+		      sim_temperature -= 6; // fast cooldown
+		    else
+		      sim_temperature -= 1; // slower stabilization
+		  } else {
+		    // natural drift, small random variation
+		    sim_temperature += (rand() % 3) - 1;
+		  }
+
+		  // clamp within range
+		  if(sim_temperature < 100) sim_temperature = 100;
+		  if(sim_temperature > 400) sim_temperature = 400;
 
 		  sprintf(app_buffer, "{\"temperature\":%d.%d}", sim_temperature/10, sim_temperature%10);
 		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
 		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
-		  turn = 2;
 
-		} else if(turn == 2){
+		  turn = 2;
+		}
+	 	else if(turn == 2){
 		  sprintf(pub_topic, "pH");
 
 		  // Simulate pH variation

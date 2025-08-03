@@ -8,6 +8,7 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.elements.exception.ConnectorException;
 import org.unipi.smartgarden.db.DBDriver;
 import org.unipi.smartgarden.util.ConsoleUtils;
+import org.unipi.smartgarden.mqtt.MQTTHandler;
 
 import java.nio.charset.StandardCharsets;
 import org.json.JSONObject;
@@ -25,10 +26,12 @@ public class COAPNetworkController extends CoapServer {
 
     private final Map<String, String> actuatorEndpoints = new HashMap<>();
     private final DBDriver db;
+    private final MQTTHandler mqttHandler;
 
-    public COAPNetworkController(List<String> actuatorList, DBDriver db) {
+    public COAPNetworkController(List<String> actuatorList, DBDriver db, MQTTHandler mqttHandler) {
         super(COAP_PORT);
         this.db = db;
+        this.mqttHandler = mqttHandler;
 
         add(new RegistrationResource("registration"));
 
@@ -37,21 +40,26 @@ public class COAPNetworkController extends CoapServer {
     }
 
     public void sendCommand(String actuatorName, String command) throws ConnectorException, IOException {
-        String endpoint = actuatorEndpoints.get(actuatorName);
-        if (endpoint == null) {
-            ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
-            return;
-        }
+	    String endpoint = actuatorEndpoints.get(actuatorName);
+	    if (endpoint == null) {
+		ConsoleUtils.printError(LOG + " Unknown or unregistered actuator: " + actuatorName);
+		return;
+	    }
 
-        CoapClient client = new CoapClient(endpoint);
-        CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
+	    CoapClient client = new CoapClient(endpoint);
+	    CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
 
-        if (response != null && response.isSuccess()) {
-            ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
-        } else {
-            ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
-        }
-    }
+	    if (response != null && response.isSuccess()) {
+		ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
+
+		mqttHandler.sendCommand(actuatorName, command);
+		ConsoleUtils.println(LOG + " MQTT command published to topic: " + actuatorName);
+
+	    } else {
+		ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
+	    }
+	}
+
 
     public String getActuatorState(String actuatorName) throws ConnectorException, IOException {
         String endpoint = actuatorEndpoints.get(actuatorName);

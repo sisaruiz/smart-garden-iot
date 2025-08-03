@@ -89,8 +89,8 @@ PROCESS_THREAD(coap_device, ev, data)
   coap_activate_resource(&res_fertilizer, "actuators/fertilizer");
   coap_activate_resource(&res_irrigation, "actuators/irrigation");
   coap_activate_resource(&res_grow_light, "actuators/grow_light");
-  coap_activate_resource(&res_cc_fan, "cc/fan");
-  coap_activate_resource(&res_cc_heater, "cc/heater");
+  coap_activate_resource(&res_cc_fan, "fan");
+  coap_activate_resource(&res_cc_heater, "heater");
 
   // Assign trigger handlers for all actuators
   fertilizer_resource_init();
@@ -126,7 +126,7 @@ PROCESS_THREAD(coap_device, ev, data)
     snprintf(msg, sizeof(msg),
       "{\"device\":\"coapDevice\",\"resources\":["
       "\"actuators/fertilizer\",\"actuators/irrigation\","
-      "\"actuators/grow_light\",\"cc/fan\",\"cc/heater\"]}");
+      "\"actuators/grow_light\",\"fan\",\"heater\"]}");
 
     LOG_INFO("Sending registration payload: %s\n", msg);
 

@@ -61,35 +61,42 @@ public class MQTTHandler implements MqttCallback {
         ConsoleUtils.printError(LOG + " Connection lost: " + cause.getMessage());
     }
 
-    @Override
-    public void messageArrived(String topic, MqttMessage message) {
-        String payload = new String(message.getPayload()).trim();
-        try {
-            String sensorName = getSensorNameFromTopic(topic);
+	@Override
+	public void messageArrived(String topic, MqttMessage message) {
+	    String payload = new String(message.getPayload()).trim();
 
-            if (sensorName != null) {
-                com.google.gson.Gson gson = new com.google.gson.Gson();
-                Map<?, ?> jsonMap = gson.fromJson(payload, Map.class);
+	    // Debug: show the incoming MQTT message and topic
+	    //System.out.println("[DEBUG] Payload on topic " + topic + ": " + payload);
 
-                if (jsonMap.containsKey(sensorName)) {
-                    double doubleVal = (Double) jsonMap.get(sensorName);  // Gson returns Double by default
-                    float value = (float) doubleVal;
+	    try {
+		String sensorName = getSensorNameFromTopic(topic);
 
-                    latestValues.put(sensorName, value);
-                    db.insertSample(sensorName, value, null);
-                    ConsoleUtils.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
-                } else {
-                    ConsoleUtils.printError(LOG + " JSON does not contain expected key: " + sensorName);
-                }
-            } else {
-                ConsoleUtils.printError(LOG + " Received message from unknown topic: " + topic);
-            }
+		// Debug: show the matched sensor name (or null if no match)
+		//System.out.println("[DEBUG] Matching sensor name: " + sensorName);
 
-        } catch (Exception e) {
-            ConsoleUtils.printError(LOG + " Failed to parse JSON payload: " + payload);
-            e.printStackTrace();
-        }
-    }
+		if (sensorName != null) {
+		    com.google.gson.Gson gson = new com.google.gson.Gson();
+		    Map<?, ?> jsonMap = gson.fromJson(payload, Map.class);
+
+		    if (jsonMap.containsKey(sensorName)) {
+		        double doubleVal = (Double) jsonMap.get(sensorName); // Gson returns Double by default
+		        float value = (float) doubleVal;
+
+		        latestValues.put(sensorName, value);
+		        db.insertSample(sensorName, value, null);
+		        ConsoleUtils.println(LOG + " Inserted " + value + " for sensor: " + sensorName);
+		    } else {
+		        ConsoleUtils.printError(LOG + " JSON does not contain expected key: " + sensorName);
+		    }
+		} else {
+		    ConsoleUtils.printError(LOG + " Received message from unknown topic: " + topic);
+		}
+
+	    } catch (Exception e) {
+		ConsoleUtils.printError(LOG + " Failed to parse JSON payload: " + payload);
+		e.printStackTrace();
+	    }
+	}
 
     private String getSensorNameFromTopic(String topic) {
         for (Map.Entry<String, String> entry : sensorTopics.entrySet()) {
