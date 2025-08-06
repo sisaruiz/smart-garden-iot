@@ -39,12 +39,13 @@ static bool registered = false;
 // Timers
 static struct etimer wait_connection;
 static struct etimer wait_registration;
+static struct etimer feedback_led_timer;
+static bool feedback_led_on = false;
 
 // Button
 static button_hal_button_t *btn;
 
-// Refill logic flag
-static bool fertilizer_to_be_dispensed = true;  // Set to true to allow manual triggering
+bool fertilizer_needs_refill = false;
 
 // Registration response handler
 void client_chunk_handler(coap_message_t *response)
@@ -86,11 +87,12 @@ PROCESS_THREAD(coap_device, ev, data)
   leds_single_on(LEDS_BLUE);
 
   // Activate actuator resources
-  coap_activate_resource(&res_fertilizer, "actuators/fertilizer");
-  coap_activate_resource(&res_irrigation, "actuators/irrigation");
-  coap_activate_resource(&res_grow_light, "actuators/grow_light");
-  coap_activate_resource(&res_cc_fan, "fan");
-  coap_activate_resource(&res_cc_heater, "heater");
+ coap_activate_resource(&res_fertilizer, "fertilizer");
+ coap_activate_resource(&res_irrigation, "irrigation");
+ coap_activate_resource(&res_grow_light, "grow_light");
+ coap_activate_resource(&res_cc_fan, "fan");
+ coap_activate_resource(&res_cc_heater, "heater");
+
 
   // Assign trigger handlers for all actuators
   fertilizer_resource_init();
@@ -124,9 +126,9 @@ PROCESS_THREAD(coap_device, ev, data)
 
     static char msg[256];
     snprintf(msg, sizeof(msg),
-      "{\"device\":\"coapDevice\",\"resources\":["
-      "\"actuators/fertilizer\",\"actuators/irrigation\","
-      "\"actuators/grow_light\",\"fan\",\"heater\"]}");
+     "{\"device\":\"coapDevice\",\"resources\":["
+     "\"fertilizer\",\"irrigation\","
+     "\"grow_light\",\"fan\",\"heater\"]}");
 
     LOG_INFO("Sending registration payload: %s\n", msg);
 
@@ -141,25 +143,34 @@ PROCESS_THREAD(coap_device, ev, data)
 
   while(1) {
     PROCESS_WAIT_EVENT();
+    
+	  // 1) Auto-turn off feedback LEDs when the timer fires
+	  if (ev == PROCESS_EVENT_TIMER && data == &feedback_led_timer && feedback_led_on) {
+	    leds_off(LEDS_GREEN | LEDS_RED);
+	    feedback_led_on = false;
+	    continue; // optional: skip the rest of this loop iteration
+	  }
 
-    // Check for fertilizer refill confirmation
-    if((ev == button_hal_periodic_event || ev == button_hal_press_event) &&
-       fertilizer_to_be_dispensed) {
+    	// Check for fertilizer refill confirmation
+        // Only react when the tank NEEDS a refill and the button is RELEASED
+	if (ev == button_hal_release_event && fertilizer_needs_refill) {
+	  btn = (button_hal_button_t *)data;
+	  if (btn && btn->press_duration_seconds >= 3) {
+	    LOG_INFO("Manual refill confirmed (>=3s hold)\n");
+	    fertilizer_needs_refill = false;
+	    leds_on(LEDS_GREEN);
+	    res_fertilizer.trigger();   // notify/resource-side reset
 
-      btn = (button_hal_button_t *)data;
+	    etimer_set(&feedback_led_timer, CLOCK_SECOND / 2);
+	    feedback_led_on = true;
+	  } else {
+	    LOG_INFO("Refill rejected (<3s hold)\n");
+	    leds_on(LEDS_RED);
 
-      if(btn->press_duration_seconds == 3) {
-        LOG_INFO("Button held 3s: manually triggering fertilizer refill\n");
-
-        fertilizer_to_be_dispensed = false; // Refill complete
-        leds_on(LEDS_GREEN);
-        res_fertilizer.trigger();
-
-      } else if(ev == button_hal_release_event && btn->press_duration_seconds < 3) {
-        LOG_INFO("Button released early: refill not accepted\n");
-        leds_on(LEDS_RED);  // Indicate failure
-      }
-    }
+	    etimer_set(&feedback_led_timer, CLOCK_SECOND / 2);
+	    feedback_led_on = true;
+	  }
+	}
   }
 
   PROCESS_END();

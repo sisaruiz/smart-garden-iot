@@ -32,13 +32,6 @@ public class Main {
             ":quit"
     };
 
-    private static final Map<String, String> actuatorAliasMap = Map.of(
-            "fertilizer", "actuators/fertilizer",
-            "irrigation", "actuators/irrigation",
-            "grow_light", "actuators/grow_light",
-            "fan", "fan",
-            "heater", "heater"
-    );
 
     public static void main(String[] args) throws ConnectorException, IOException {
 
@@ -74,7 +67,7 @@ public class Main {
             ConsoleUtils.printError(LOG + " Sleep interrupted.");
         }
 
-        ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController, actuatorAliasMap);
+        ControlLogicThread controlLogic = new ControlLogicThread(mqttHandler, coapController);
         controlLogic.start();
 
         Map<String, Boolean> actuatorState = new HashMap<>();
@@ -93,7 +86,6 @@ public class Main {
 
                 if (userInput.startsWith(":trigger ")) {
                     String shortName = userInput.replace(":trigger ", "").trim();
-                    String fullPath = actuatorAliasMap.getOrDefault(shortName, shortName);
 
                     if (!configuration.getActuators().contains(shortName)) {
                         ConsoleUtils.printError(LOG + " Unknown actuator: " + shortName);
@@ -101,39 +93,46 @@ public class Main {
                     }
 
                     if (shortName.equals("fertilizer")) {
-                        ConsoleUtils.println(LOG + " Select fertilizer mode:");
-                        ConsoleUtils.println(LOG + "   1 - sinc (acidic)");
-                        ConsoleUtils.println(LOG + "   2 - sdec (alkaline)");
-                        ConsoleUtils.println(LOG + "   3 - off");
-                        ConsoleUtils.print("> ");
-                        ConsoleUtils.setTyping(true);
-                        String choice = scanner.nextLine().trim();
-                        ConsoleUtils.setTyping(false);
+			    ConsoleUtils.println(LOG + " Select fertilizer mode:");
+			    ConsoleUtils.println(LOG + "   1 - sinc (acidic)");
+			    ConsoleUtils.println(LOG + "   2 - sdec (alkaline)");
+			    ConsoleUtils.println(LOG + "   3 - off");
+			    ConsoleUtils.print("> ");
+			    ConsoleUtils.setTyping(true);
+			    String choice = scanner.nextLine().trim();
+			    ConsoleUtils.setTyping(false);
 
-                        String mode = switch (choice) {
-                            case "1" -> "sinc";
-                            case "2" -> "sdec";
-                            case "3" -> "off";
-                            default -> null;
-                        };
+			    String mode = switch (choice) {
+				case "1" -> "sinc";
+				case "2" -> "sdec";
+				case "3" -> "off";
+				default -> null;
+			    };
 
-                        if (mode == null) {
-                            ConsoleUtils.printError(LOG + " Invalid fertilizer mode.");
-                            continue;
-                        }
+			    if (mode == null) {
+				ConsoleUtils.printError(LOG + " Invalid fertilizer mode.");
+				continue;
+			    }
 
-                        try {
-                            coapController.sendCommand(fullPath, mode);
-                        } catch (Exception e) {
-                            ConsoleUtils.printError(LOG + " Failed to send fertilizer command.");
-                            e.printStackTrace();
-                        }
-                    } else {
+			    try {
+				coapController.sendCommand(shortName, mode);
+				mqttHandler.simulateFertilizer(mode);
+				
+				// Manual override logic for fertilizer
+				if (!"off".equalsIgnoreCase(mode)) {
+				    controlLogic.setManualOverride(shortName, true);
+				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
+				}  
+			    } catch (Exception e) {
+				ConsoleUtils.printError(LOG + " Failed to send fertilizer command.");
+				e.printStackTrace();
+			    }
+			} else {
 			    boolean currentState = actuatorState.getOrDefault(shortName, false);
 			    String nextCommand = currentState ? "off" : "on";
 
 			    try {
-				coapController.sendCommand(fullPath, nextCommand);
+				coapController.sendCommand(shortName, nextCommand);
 				actuatorState.put(shortName, !currentState);
 
 				// Manual override logic for fan and heater only
@@ -176,9 +175,8 @@ public class Main {
                     case ":get actuators":
                         ConsoleUtils.println(LOG + " Current actuator states:");
                         for (String shortName : configuration.getActuators()) {
-                            String fullPath = actuatorAliasMap.getOrDefault(shortName, shortName);
                             try {
-                                String state = coapController.getActuatorState(fullPath);
+                                String state = coapController.getActuatorState(shortName);
                                 ConsoleUtils.println("  - " + shortName + ": " + state);
                             } catch (Exception e) {
                                 ConsoleUtils.printError(LOG + " Could not retrieve state for " + shortName);

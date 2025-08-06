@@ -114,39 +114,44 @@ static bool temp_subscribed = false;
 
 /*---------------------------------------------------------------------------*/
 // Pub handler for actuators only
-static void pub_handler(const char *topic, uint16_t topic_len, const uint8_t *chunk, uint16_t chunk_len) {
-	if(strcmp(topic, "actuators/grow_light") == 0) {
-	  if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) grow_light_state = 0;
-	  else if(strncmp((const char*)chunk, "ON", chunk_len) == 0) grow_light_state = 1;
-	  else if(strncmp((const char*)chunk, "DIM", chunk_len) == 0) grow_light_state = 2;
+static void pub_handler(const char *topic, uint16_t topic_len,
+                        const uint8_t *chunk, uint16_t chunk_len)
+{
+  char msg[32];
+  uint16_t n = (chunk_len < sizeof(msg) - 1) ? chunk_len : (sizeof(msg) - 1);
+  memcpy(msg, chunk, n);
+  msg[n] = '\0';
 
-	} else if(strcmp(topic, "actuators/irrigation") == 0) {
-	  if(strncmp((const char*)chunk, "ON", chunk_len) == 0) irrigation_on = true;
-	  else if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) irrigation_on = false;
+  #define EQI(a,b) (strncasecmp((a),(b), strlen(b)) == 0)
 
-	} else if(strcmp(topic, "actuators/fertilizer") == 0) {
-	  if(strncmp((const char*)chunk, "OFF", chunk_len) == 0) fertilizer_erogation_variation = 0;
-	  else if(strncmp((const char*)chunk, "SDEC", chunk_len) == 0) fertilizer_erogation_variation = -1;
-	  else if(strncmp((const char*)chunk, "SINC", chunk_len) == 0) fertilizer_erogation_variation = 1;
-	  else if(strncmp((const char*)chunk, "DEC", chunk_len) == 0) fertilizer_erogation_variation = -2;
-	  else if(strncmp((const char*)chunk, "INC", chunk_len) == 0) fertilizer_erogation_variation = 2;
+  if(strcmp(topic, "grow_light") == 0) {
+    if(EQI(msg, "off")) grow_light_state = 0;
+    else if(EQI(msg, "on")) grow_light_state = 1;
+    else if(EQI(msg, "dim")) grow_light_state = 2;
 
-	} else if(strcmp(topic, "fan") == 0) {
-	  if(strncmp((const char*)chunk, "on", chunk_len) == 0) { heater_on = false; fan_on = true; }
-	  else if(strncmp((const char*)chunk, "off", chunk_len) == 0) fan_on = false;
+  } else if(strcmp(topic, "irrigation") == 0) {
+    if(EQI(msg, "off")) irrigation_on = false;
+    else if(EQI(msg, "on")) irrigation_on = true;
 
-	} else if(strcmp(topic, "heater") == 0) {
-		  if(strncmp((const char*)chunk, "on", chunk_len) == 0) {
-		    fan_on = false;
-		    heater_on = true;
-		    LOG_INFO("Received heater → on\n");
-		  } else if(strncmp((const char*)chunk, "off", chunk_len) == 0) {
-		    heater_on = false;
-		    LOG_INFO("Received heater → off\n");
-		  }
-	}
+  } else if(strcmp(topic, "fertilizer") == 0) {
 
+    if(EQI(msg, "off"))  {
+      fertilizer_erogation_variation = 0;
+    } else if(EQI(msg, "sdec") || EQI(msg, "alkaline")) {
+          fertilizer_erogation_variation = -2; // raises pH faster
+    } else if(EQI(msg, "sinc") || EQI(msg, "acidic")) {
+          fertilizer_erogation_variation =  2; // lowers pH faster
+    }
+  } else if(strcmp(topic, "fan") == 0) {
+    if(EQI(msg, "on"))  { heater_on = false; fan_on = true; }
+    else if(EQI(msg, "off")) fan_on = false;
+
+  } else if(strcmp(topic, "heater") == 0) {
+    if(EQI(msg, "on"))  { fan_on = false; heater_on = true; LOG_INFO("Received heater → on\n"); }
+    else if(EQI(msg, "off")) { heater_on = false; LOG_INFO("Received heater → off\n"); }
+  }
 }
+
 
 /*---------------------------------------------------------------------------*/
 static void
@@ -353,19 +358,30 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 	 	else if(turn == 2){
 		  sprintf(pub_topic, "pH");
 
-		  // Simulate pH variation
-		  if(fertilizer_erogation_variation == -1 || fertilizer_erogation_variation == -2) sim_pH += 5;
-		  else if(fertilizer_erogation_variation == 1 || fertilizer_erogation_variation == 2) sim_pH -= 5;
-		  else sim_pH += (rand() % 3) - 1;
+		  // Baseline and targets in ×100
+		  int baseline = 675; // ~6.75
+		  int target = baseline;
 
-		  if(sim_pH < 600) sim_pH = 600;
-		  if(sim_pH > 800) sim_pH = 800;
+		  // acidic lowers pH, alkaline raises
+		  if(fertilizer_erogation_variation ==  2) target = baseline - 120; // strong acidic
+		  else if(fertilizer_erogation_variation == -2) target = baseline + 120; // strong alkaline
+
+		  // Move gradually (first-order lag) + tiny noise
+		  int diff = target - sim_pH;
+		  int step = diff / 10;                 // ~10% per tick
+		  if(step == 0 && diff != 0) step = (diff > 0) ? 1 : -1;
+		  sim_pH += step;
+
+		  sim_pH += (rand() % 3) - 1;           // ±1 noise
+
+		  if(sim_pH < 400) sim_pH = 400;
+		  if(sim_pH > 900) sim_pH = 900;
 
 		  sprintf(app_buffer, "{\"pH\":%d.%02d}", sim_pH/100, sim_pH%100);
-		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer),
+			       MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
 		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
 		  turn = 3;
-
 		} else if(turn == 3){
 		  sprintf(pub_topic, "light");
 

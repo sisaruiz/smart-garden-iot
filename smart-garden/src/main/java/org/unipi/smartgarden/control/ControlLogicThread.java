@@ -17,11 +17,17 @@ public class ControlLogicThread extends Thread {
 
     private final MQTTHandler mqttHandler;
     private final COAPNetworkController coapController;
-    private final Map<String, String> actuatorAliasMap;
     private final Map<String, Boolean> manualOverride = new ConcurrentHashMap<>();
     private volatile boolean running = true;
 
     private static final long SLEEP_INTERVAL_MS = 10_000; // 10 seconds
+
+    // CoAP resource paths (bare names)
+    private static final String FERTILIZER = "fertilizer";
+    private static final String IRRIGATION = "irrigation";
+    private static final String GROW_LIGHT = "grow_light";
+    private static final String FAN = "fan";
+    private static final String HEATER = "heater";
 
     // Thresholds
     private static final float TEMP_LOWER = 18.0f;
@@ -33,15 +39,16 @@ public class ControlLogicThread extends Thread {
     private static final float MOISTURE_LOWER = 35.0f;
     private static final float MOISTURE_UPPER = 70.0f;
 
-    private static final float LIGHT_LOWER = 300.0f;  // lux
+    private static final float LIGHT_LOWER = 300.0f;  // lux (arbitrary scale)
     private static final float LIGHT_UPPER = 1000.0f;
 
-    public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController, Map<String, String> actuatorAliasMap) {
+    // Constructor WITHOUT alias map
+    public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController) {
         this.mqttHandler = mqttHandler;
         this.coapController = coapController;
-        this.actuatorAliasMap = actuatorAliasMap;
-        this.manualOverride.put("fan", false);
-	this.manualOverride.put("heater", false);
+        this.manualOverride.put(FAN, false);
+        this.manualOverride.put(HEATER, false);
+        this.manualOverride.put(FERTILIZER, false);
     }
 
     @Override
@@ -71,100 +78,173 @@ public class ControlLogicThread extends Thread {
     public void stopThread() {
         running = false;
     }
-    
+
     public void setManualOverride(String actuator, boolean override) {
-	 manualOverride.put(actuator, override);
+        manualOverride.put(actuator, override);
     }
 
     private void checkTemperature() throws ConnectorException, IOException {
 	    Float temperature = mqttHandler.getLatestValue("temperature");
 	    if (temperature == null) return;
 
-	    String fanPath = actuatorAliasMap.get("fan");
-	    String heaterPath = actuatorAliasMap.get("heater");
+	    String fanState = coapController.getActuatorState(FAN);
+	    String heaterState = coapController.getActuatorState(HEATER);
 
-	    String fanState = coapController.getActuatorState(fanPath);
-	    String heaterState = coapController.getActuatorState(heaterPath);
-
-	    boolean fanOverride = manualOverride.getOrDefault("fan", false);
-	    boolean heaterOverride = manualOverride.getOrDefault("heater", false);
+	    boolean fanOverride = manualOverride.getOrDefault(FAN, false);
+	    boolean heaterOverride = manualOverride.getOrDefault(HEATER, false);
 
 	    boolean withinRange = temperature >= TEMP_LOWER && temperature <= TEMP_UPPER;
 
-	    // Auto mode only when not overridden
-	    if (!fanOverride && !heaterOverride) {
+	    // --- CASO 1: C'È MANUAL OVERRIDE ---
+	    if (fanOverride || heaterOverride) {
 		if (temperature < TEMP_LOWER) {
-		    ConsoleUtils.println("[Control Logic] Temperature too low: " + temperature);
-		    mqttHandler.simulateHeater("on");
-		    if (!"on".equalsIgnoreCase(heaterState)) coapController.sendCommand(heaterPath, "on");
-		    if (!"off".equalsIgnoreCase(fanState)) coapController.sendCommand(fanPath, "off");
+		    ConsoleUtils.println("[Control Logic] (override) Temp too low: " + temperature);
+		    if (!"on".equalsIgnoreCase(heaterState)) {
+		        mqttHandler.simulateHeater("on");
+		        coapController.sendCommand(HEATER, "on");
+		    }
+		    if (!"off".equalsIgnoreCase(fanState)) {
+		        coapController.sendCommand(FAN, "off");
+		    }
+		    // Reset override heater
+		    if (heaterOverride) {
+		        ConsoleUtils.println("[Control Logic] Resetting manual override for heater");
+		        manualOverride.put(HEATER, false);
+		    }
 		} else if (temperature > TEMP_UPPER) {
-		    ConsoleUtils.println("[Control Logic] Temperature too high: " + temperature);
-		    mqttHandler.simulateFan("on");
-		    if (!"on".equalsIgnoreCase(fanState)) coapController.sendCommand(fanPath, "on");
-		    if (!"off".equalsIgnoreCase(heaterState)) coapController.sendCommand(heaterPath, "off");
+		    ConsoleUtils.println("[Control Logic] (override) Temp too high: " + temperature);
+		    if (!"on".equalsIgnoreCase(fanState)) {
+		        mqttHandler.simulateFan("on");
+		        coapController.sendCommand(FAN, "on");
+		    }
+		    if (!"off".equalsIgnoreCase(heaterState)) {
+		        coapController.sendCommand(HEATER, "off");
+		    }
+		    // Reset override fan
+		    if (fanOverride) {
+		        ConsoleUtils.println("[Control Logic] Resetting manual override for fan");
+		        manualOverride.put(FAN, false);
+		    }
 		} else {
-    			ConsoleUtils.println("[Control Logic] Temperature within acceptable range: " + temperature);
-    			// do nothing – keep current actuator states
+		    ConsoleUtils.println("[Control Logic] (override) Temp within range: " + temperature);
 		}
+		return;
 	    }
 
-	    // Reset manual override if back in range
-	    if (withinRange) {
-		if (fanOverride) {
-		    ConsoleUtils.println("[Control Logic] Resetting manual override for fan");
-		    manualOverride.put("fan", false);
+	    // --- CASO 2: NESSUN OVERRIDE → automatico sempre attivo ---
+	    if (temperature < TEMP_LOWER) {
+		ConsoleUtils.println("[Control Logic] Temp too low: " + temperature);
+		if (!"on".equalsIgnoreCase(heaterState)) {
+		    mqttHandler.simulateHeater("on");
+		    coapController.sendCommand(HEATER, "on");
 		}
-		if (heaterOverride) {
-		    ConsoleUtils.println("[Control Logic] Resetting manual override for heater");
-		    manualOverride.put("heater", false);
+		if (!"off".equalsIgnoreCase(fanState)) {
+		    coapController.sendCommand(FAN, "off");
+		}
+
+	    } else if (temperature > TEMP_UPPER) {
+		ConsoleUtils.println("[Control Logic] Temp too high: " + temperature);
+		if (!"on".equalsIgnoreCase(fanState)) {
+		    mqttHandler.simulateFan("on");
+		    coapController.sendCommand(FAN, "on");
+		}
+		if (!"off".equalsIgnoreCase(heaterState)) {
+		    coapController.sendCommand(HEATER, "off");
+		}
+
+	    } else {
+		ConsoleUtils.println("[Control Logic] Temp within range: " + temperature);
+		if (!"off".equalsIgnoreCase(fanState)) {
+		    coapController.sendCommand(FAN, "off");
+		}
+		if (!"off".equalsIgnoreCase(heaterState)) {
+		    coapController.sendCommand(HEATER, "off");
 		}
 	    }
-    }
+	}
 
-    private void checkPH() {
-        Float pH = mqttHandler.getLatestValue("pH");
-        if (pH == null) return;
+	private void checkPH() {
+	    Float pH = mqttHandler.getLatestValue("pH");
+	    if (pH == null) return;
 
-        String fertPath = actuatorAliasMap.get("fertilizer");
+	    boolean fertOverride = manualOverride.getOrDefault(FERTILIZER, false);
+	    boolean withinRange = pH >= PH_LOWER && pH <= PH_UPPER;
 
-        try {
-            if (pH < PH_LOWER) {
-                ConsoleUtils.println("[Control Logic] pH too low: " + pH);
-                mqttHandler.simulateFertilizer("sinc");
-                coapController.sendCommand(fertPath, "sinc");
-            } else if (pH > PH_UPPER) {
-                ConsoleUtils.println("[Control Logic] pH too high: " + pH);
-                mqttHandler.simulateFertilizer("sdec");
-                coapController.sendCommand(fertPath, "sdec");
-            } else {
-                mqttHandler.simulateFertilizer("off");
-                coapController.sendCommand(fertPath, "off");
-            }
-        } catch (ConnectorException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	    try {
+		String fertState = coapController.getActuatorState(FERTILIZER);
+
+		// --- CASE 1: MANUAL OVERRIDE ---
+		if (fertOverride) {
+		    if (pH < PH_LOWER) {
+		        ConsoleUtils.println("[Control Logic] (override) pH too low: " + pH);
+		        if (!"acidic".equalsIgnoreCase(fertState)) {
+		            mqttHandler.simulateFertilizer("sinc");
+		            coapController.sendCommand(FERTILIZER, "sinc");
+		        }
+		        ConsoleUtils.println("[Control Logic] Resetting manual override for fertilizer");
+		        manualOverride.put(FERTILIZER, false);
+
+		    } else if (pH > PH_UPPER) {
+		        ConsoleUtils.println("[Control Logic] (override) pH too high: " + pH);
+		        if (!"alkaline".equalsIgnoreCase(fertState)) {
+		            mqttHandler.simulateFertilizer("sdec");
+		            coapController.sendCommand(FERTILIZER, "sdec");
+		        }
+		        ConsoleUtils.println("[Control Logic] Resetting manual override for fertilizer");
+		        manualOverride.put(FERTILIZER, false);
+
+		    } else {
+		        ConsoleUtils.println("[Control Logic] (override) pH within range: " + pH);
+		    }
+		    return;
+		}
+
+		// --- CASE 2: NO OVERRIDE → automatic always active ---
+		if (pH < PH_LOWER) {
+		    ConsoleUtils.println("[Control Logic] pH too low: " + pH);
+		    if (!"acidic".equalsIgnoreCase(fertState)) {
+		        mqttHandler.simulateFertilizer("sinc");
+		        coapController.sendCommand(FERTILIZER, "sinc");
+		    }
+
+		} else if (pH > PH_UPPER) {
+		    ConsoleUtils.println("[Control Logic] pH too high: " + pH);
+		    if (!"alkaline".equalsIgnoreCase(fertState)) {
+		        mqttHandler.simulateFertilizer("sdec");
+		        coapController.sendCommand(FERTILIZER, "sdec");
+		    }
+
+		} else {
+		    ConsoleUtils.println("[Control Logic] pH within acceptable range: " + pH);
+		    if (!"off".equalsIgnoreCase(fertState)) {
+		        mqttHandler.simulateFertilizer("off");
+		        coapController.sendCommand(FERTILIZER, "off");
+		    }
+		}
+
+	    } catch (ConnectorException | IOException e) {
+		throw new RuntimeException(e);
+	    }
+	}
+
 
     private void checkSoilMoisture() {
         Float moisture = mqttHandler.getLatestValue("soilMoisture");
         if (moisture == null) return;
 
-        String irrigationPath = actuatorAliasMap.get("irrigation");
-
         try {
-            String irrigationState = coapController.getActuatorState(irrigationPath);
+            String irrigationState = coapController.getActuatorState(IRRIGATION);
 
             if (moisture < MOISTURE_LOWER) {
                 ConsoleUtils.println("[Control Logic] Soil moisture too low: " + moisture);
                 mqttHandler.simulateIrrigation("on");
                 if (!"on".equalsIgnoreCase(irrigationState)) {
-                    coapController.sendCommand(irrigationPath, "on");
+                    coapController.sendCommand(IRRIGATION, "on");
                 }
             } else if (moisture > MOISTURE_UPPER) {
                 mqttHandler.simulateIrrigation("off");
                 if (!"off".equalsIgnoreCase(irrigationState)) {
-                    coapController.sendCommand(irrigationPath, "off");
+                    coapController.sendCommand(IRRIGATION, "off");
                 }
             }
         } catch (ConnectorException | IOException e) {
@@ -176,35 +256,32 @@ public class ControlLogicThread extends Thread {
         Float light = mqttHandler.getLatestValue("light");
         if (light == null) return;
 
-        String lightPath = actuatorAliasMap.get("grow_light");
-
         try {
-            String lightState = coapController.getActuatorState(lightPath);
+            String lightState = coapController.getActuatorState(GROW_LIGHT);
 
             if (light < LIGHT_LOWER) {
                 ConsoleUtils.println("[Control Logic] Light too low: " + light);
                 mqttHandler.simulateGrowLight("on");
                 if (!"on".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand(lightPath, "on");
+                    coapController.sendCommand(GROW_LIGHT, "on");
                 }
             } else if (light > LIGHT_UPPER) {
                 mqttHandler.simulateGrowLight("off");
                 if (!"off".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand(lightPath, "off");
+                    coapController.sendCommand(GROW_LIGHT, "off");
                 }
             }
         } catch (ConnectorException | IOException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
     public boolean isFanOverride() {
-    	return manualOverride.getOrDefault("fan", false);
+        return manualOverride.getOrDefault(FAN, false);
     }
 
     public boolean isHeaterOverride() {
-    	return manualOverride.getOrDefault("heater", false);
+        return manualOverride.getOrDefault(HEATER, false);
     }
-
 }
 

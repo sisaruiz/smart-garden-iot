@@ -4,16 +4,29 @@
 #include "sys/log.h"
 #include <string.h>
 #include <strings.h>
+#include <stdbool.h> 
 
 #define LOG_MODULE "fertilizer_res"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
-/* Enum for fertilizer modes */
-static enum {
+/* Exposed by coap-device.c (must be non-static there) */
+extern bool fertilizer_needs_refill;
+
+/* How many OFF -> ON transitions before the tank is empty */
+#ifndef MAX_FERTILIZER_USES
+#define MAX_FERTILIZER_USES 3
+#endif
+
+/* Local usage counter (counts OFF->ON transitions only) */
+static int fertilizer_use_count = 0;
+
+enum FertilizerMode {
   MODE_OFF,
   MODE_ACIDIC,
   MODE_ALKALINE
-} current_mode = MODE_OFF;
+};
+
+static enum FertilizerMode current_mode = MODE_OFF;
 
 /* Forward declarations */
 static void res_get_handler(coap_message_t *request,
@@ -72,57 +85,94 @@ res_put_handler(coap_message_t *request,
 
   LOG_INFO("Fertilizer PUT received\n");
 
+  /* Block usage if tank is empty (manual refill required) */
+  if(fertilizer_needs_refill) {
+    LOG_WARN("Fertilizer empty: manual refill required\n");
+    coap_set_status_code(response, SERVICE_UNAVAILABLE_5_03);
+    return;
+  }
+
   if(len == 0 || payload == NULL) {
     coap_set_status_code(response, BAD_REQUEST_4_00);
     return;
   }
 
+  /* Parse requested mode */
   char mode[16];
   if(len >= sizeof(mode)) len = sizeof(mode) - 1;
   memcpy(mode, payload, len);
-  mode[len] = '\0';  // Null-terminate
+  mode[len] = '\0';
 
-  int success = 1;
+  enum FertilizerMode requested = current_mode;
+  int known = 1;
 
   if(strcasecmp(mode, "sinc") == 0) {
-    current_mode = MODE_ACIDIC;
-    LOG_INFO("Mode set to acidic\n");
-    leds_single_on(LEDS_GREEN);
+    requested = MODE_ACIDIC;
   } else if(strcasecmp(mode, "sdec") == 0) {
-    current_mode = MODE_ALKALINE;
-    LOG_INFO("Mode set to alkaline\n");
-    leds_single_on(LEDS_BLUE);
+    requested = MODE_ALKALINE;
   } else if(strcasecmp(mode, "off") == 0) {
-    current_mode = MODE_OFF;
-    LOG_INFO("Mode set to off\n");
-    leds_off(LEDS_GREEN | LEDS_BLUE);
+    requested = MODE_OFF;
   } else {
-    LOG_WARN("Unknown mode: %s\n", mode);
-    success = 0;
+    known = 0;
   }
 
-  if(!success) {
+  if(!known) {
+    LOG_WARN("Unknown mode: %s\n", mode);
     coap_set_status_code(response, BAD_REQUEST_4_00);
     return;
   }
+
+  enum FertilizerMode prev = current_mode;
+
+  /* LEDs for visual hint */
+  if(requested == MODE_ACIDIC) {
+    leds_single_on(LEDS_GREEN);
+    leds_single_off(LEDS_BLUE);
+  } else if(requested == MODE_ALKALINE) {
+    leds_single_on(LEDS_BLUE);
+    leds_single_off(LEDS_GREEN);
+  } else { /* MODE_OFF */
+    leds_off(LEDS_GREEN | LEDS_BLUE);
+  }
+
+  /* Count ONLY OFF -> (ACIDIC|ALKALINE) transitions */
+  if(prev == MODE_OFF && (requested == MODE_ACIDIC || requested == MODE_ALKALINE)) {
+    fertilizer_use_count++;
+    LOG_INFO("Dispense cycle started: %d/%d\n", fertilizer_use_count, MAX_FERTILIZER_USES);
+
+    if(fertilizer_use_count >= MAX_FERTILIZER_USES) {
+      /* Depleted now: require manual refill, force OFF, show red */
+      fertilizer_needs_refill = true;
+      fertilizer_use_count = 0;
+      current_mode = MODE_OFF;
+      leds_on(LEDS_RED);  // steady red until manual refill
+      LOG_WARN("Fertilizer depleted -> needs refill (forcing OFF)\n");
+
+      coap_notify_observers(&res_fertilizer);
+      res_get_handler(request, response, buffer, preferred_size, offset);
+      return;
+    }
+  }
+
+  /* Commit requested mode (not depleted) */
+  current_mode = requested;
 
   coap_notify_observers(&res_fertilizer);
   res_get_handler(request, response, buffer, preferred_size, offset);
 }
 
 /*---------------------------------------------------------------------------*/
-/* Triggered by button press (manual refill simulation) */
+/* Triggered by button press (manual refill confirmation) */
 static void
 res_trigger_handler(void)
 {
-  LOG_INFO("Fertilizer manually dispensed (trigger)\n");
+  LOG_INFO("Fertilizer refill confirmed (trigger)\n");
 
-  // Simulate dispensing: flash LED to indicate action
-  leds_on(LEDS_RED);
-  clock_wait(CLOCK_SECOND / 2);
-  leds_off(LEDS_RED);
+  /* Clear empty state; keep counter at current value (was reset on depletion) */
+  fertilizer_needs_refill = false;
+  leds_off(LEDS_RED);  // red off after refill
 
-  // Notify observers (even if state hasn't changed)
+  /* Notify observers (even if mode unchanged) */
   coap_notify_observers(&res_fertilizer);
 }
 
