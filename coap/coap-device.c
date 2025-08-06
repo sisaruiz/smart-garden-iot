@@ -154,22 +154,13 @@ PROCESS_THREAD(coap_device, ev, data)
     	// Check for fertilizer refill confirmation
         // Only react when the tank NEEDS a refill and the button is RELEASED
 	if (ev == button_hal_release_event && fertilizer_needs_refill) {
-	  btn = (button_hal_button_t *)data;
-	  if (btn && btn->press_duration_seconds >= 3) {
-	    LOG_INFO("Manual refill confirmed (>=3s hold)\n");
-	    fertilizer_needs_refill = false;
-	    leds_on(LEDS_GREEN);
-	    res_fertilizer.trigger();   // notify/resource-side reset
+	  LOG_INFO("Manual refill confirmed (button released)\n");
+	  fertilizer_needs_refill = false;
+	  leds_on(LEDS_GREEN);
+	  res_fertilizer.trigger();   // notify/resource-side reset
 
-	    etimer_set(&feedback_led_timer, CLOCK_SECOND / 2);
-	    feedback_led_on = true;
-	  } else {
-	    LOG_INFO("Refill rejected (<3s hold)\n");
-	    leds_on(LEDS_RED);
-
-	    etimer_set(&feedback_led_timer, CLOCK_SECOND / 2);
-	    feedback_led_on = true;
-	  }
+	  etimer_set(&feedback_led_timer, CLOCK_SECOND / 2);
+	  feedback_led_on = true;
 	}
   }
 
