@@ -88,7 +88,7 @@ static char app_buffer[APP_BUFFER_SIZE];
 static char pub_topic[BUFFER_SIZE];
 
 // Actuator simulation variables
-static int grow_light_state = 0; // 0=OFF, 1=ON, 2=DIM
+static int grow_light_state = 0; // 0=OFF, 1=ON
 static bool irrigation_on = false;
 static int fertilizer_erogation_variation = 0;
 static bool heater_on = false;
@@ -127,7 +127,6 @@ static void pub_handler(const char *topic, uint16_t topic_len,
   if(strcmp(topic, "grow_light") == 0) {
     if(EQI(msg, "off")) grow_light_state = 0;
     else if(EQI(msg, "on")) grow_light_state = 1;
-    else if(EQI(msg, "dim")) grow_light_state = 2;
 
   } else if(strcmp(topic, "irrigation") == 0) {
     if(EQI(msg, "off")) irrigation_on = false;
@@ -386,9 +385,19 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 		  sprintf(pub_topic, "light");
 
 		  // Simulate light based on grow light state
-		  if(grow_light_state == 1) sim_light += 10;
-		  else if(grow_light_state == 2) sim_light += 5;
-		  else sim_light -= 5;
+		  if(grow_light_state == 1) {
+			  if(sim_light < 200) {
+			    sim_light += 400;
+			  } else if(sim_light < 500) {
+			    sim_light += 300;
+			  } else if(sim_light < 700) {
+			    sim_light += 150;
+			  } else {
+			    sim_light += 50;
+			  }
+			} else {
+			  sim_light -= 100;
+		  }
 
 		  if(sim_light < 100) sim_light = 100;
 		  if(sim_light > 1000) sim_light = 1000;

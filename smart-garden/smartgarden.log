@@ -19387,3 +19387,2637 @@ The last packet successfully received from the server was 8.026 milliseconds ago
 [2025-08-07 01:07:01] [MQTT Handler] Inserted 7.36 for sensor: pH
 [2025-08-07 01:07:05] [MQTT Handler] Inserted 62.5 for sensor: light
 [2025-08-07 01:07:10] [MQTT Handler] Inserted 46.0 for sensor: soilMoisture
+[2025-08-07 01:22:47] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-07 01:22:47] [Smart Garden] Loading configuration...
+[2025-08-07 01:22:47] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 01:22:48] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-07 01:22:48] [MQTT Handler] Subscribed to topic: light
+[2025-08-07 01:22:48] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-07 01:22:48] [MQTT Handler] Subscribed to topic: pH
+[2025-08-07 01:22:48] [CoAP Controller] CoAP server started on port 5683
+[2025-08-07 01:22:48] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-07 01:22:50] [MQTT Handler] Inserted 48.0 for sensor: light
+[2025-08-07 01:22:54] [MQTT Handler] Inserted 38.4 for sensor: soilMoisture
+[2025-08-07 01:22:58] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 01:23:01] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-07 01:23:01] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-07 01:23:01] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-07 01:23:01] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-07 01:23:01] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-07 01:23:01] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-07 01:23:02] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:23:03] [Smart Garden] Available commands:
+[2025-08-07 01:23:03] [Smart Garden] - :get status
+[2025-08-07 01:23:03] [Smart Garden] - :get actuators
+[2025-08-07 01:23:03] [Smart Garden] - :trigger irrigation
+[2025-08-07 01:23:03] [Smart Garden] - :trigger grow_light
+[2025-08-07 01:23:03] [Smart Garden] - :trigger fertilizer
+[2025-08-07 01:23:03] [Smart Garden] - :trigger fan
+[2025-08-07 01:23:03] [Smart Garden] - :trigger heater
+[2025-08-07 01:23:03] [Smart Garden] - :get configuration
+[2025-08-07 01:23:03] [Smart Garden] - :help
+[2025-08-07 01:23:03] [Smart Garden] - :quit
+[2025-08-07 01:23:03] > 
+[2025-08-07 01:23:06] [MQTT Handler] Inserted 47.5 for sensor: light
+[2025-08-07 01:23:10] [MQTT Handler] Inserted 38.0 for sensor: soilMoisture
+[2025-08-07 01:23:14] [Control Logic] Temp within range: 24.9
+[2025-08-07 01:23:14] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:23:14] [Control Logic] Light too low: 47.5
+[2025-08-07 01:23:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:23:14] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 01:23:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:23:14] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 01:23:14] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 01:23:18] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:23:22] [MQTT Handler] Inserted 48.5 for sensor: light
+[2025-08-07 01:23:24] [Control Logic] Temp within range: 25.0
+[2025-08-07 01:23:24] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:23:24] [Control Logic] Light too low: 48.5
+[2025-08-07 01:23:24] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:23:26] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 01:23:27] [Smart Garden] Executing command: :get status
+[2025-08-07 01:23:27] [Smart Garden] Current sensor readings:
+[2025-08-07 01:23:27] soilMoisture - Latest value: 37,60
+[2025-08-07 01:23:27] light - Latest value: 48,50
+[2025-08-07 01:23:27] temperature - Latest value: 25,00
+[2025-08-07 01:23:27] pH - Latest value: 6,74
+[2025-08-07 01:23:27] > 
+[2025-08-07 01:23:30] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:23:34] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:23:34] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:23:34] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:23:35] [Control Logic] Light too low: 48.5
+[2025-08-07 01:23:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:23:38] [MQTT Handler] Inserted 49.5 for sensor: light
+[2025-08-07 01:23:42] [MQTT Handler] Inserted 37.2 for sensor: soilMoisture
+[2025-08-07 01:23:45] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:23:45] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:23:45] [Control Logic] Light too low: 49.5
+[2025-08-07 01:23:45] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:23:46] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:23:50] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:23:54] [MQTT Handler] Inserted 50.5 for sensor: light
+[2025-08-07 01:23:55] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:23:55] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:23:56] [Control Logic] Light too low: 50.5
+[2025-08-07 01:23:56] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:23:58] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-08-07 01:24:02] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:24:06] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:24:06] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:24:06] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:24:06] [Control Logic] Light too low: 50.5
+[2025-08-07 01:24:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:24:10] [MQTT Handler] Inserted 51.5 for sensor: light
+[2025-08-07 01:24:14] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-08-07 01:24:16] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:24:16] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:24:17] [Control Logic] Light too low: 51.5
+[2025-08-07 01:24:17] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:24:18] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:24:22] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:24:26] [MQTT Handler] Inserted 52.5 for sensor: light
+[2025-08-07 01:24:27] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:24:27] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:24:27] [Control Logic] Light too low: 52.5
+[2025-08-07 01:24:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:24:31] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-08-07 01:24:34] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:24:37] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:24:37] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:24:38] [Control Logic] Light too low: 52.5
+[2025-08-07 01:24:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:24:39] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:24:43] [MQTT Handler] Inserted 53.5 for sensor: light
+[2025-08-07 01:24:47] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-08-07 01:24:48] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:24:48] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:24:48] [Control Logic] Light too low: 53.5
+[2025-08-07 01:24:48] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:24:51] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:24:55] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:24:58] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:24:58] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:24:58] [Control Logic] Light too low: 53.5
+[2025-08-07 01:24:58] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:24:59] [MQTT Handler] Inserted 54.5 for sensor: light
+[2025-08-07 01:25:03] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-08-07 01:25:07] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:25:09] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:25:09] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:25:09] [Control Logic] Light too low: 54.5
+[2025-08-07 01:25:09] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:25:11] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:25:15] [MQTT Handler] Inserted 55.5 for sensor: light
+[2025-08-07 01:25:19] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-08-07 01:25:19] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:25:20] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:25:20] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 01:25:20] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 01:25:20] [CoAP Controller] Command sent to irrigation: on
+[2025-08-07 01:25:20] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 01:25:20] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-07 01:25:20] [Control Logic] Light too low: 55.5
+[2025-08-07 01:25:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:25:23] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:25:27] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:25:31] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:25:31] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:25:31] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 01:25:31] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 01:25:31] [MQTT Handler] Inserted 56.5 for sensor: light
+[2025-08-07 01:25:31] [Control Logic] Light too low: 56.5
+[2025-08-07 01:25:31] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:25:35] [MQTT Handler] Inserted 35.5 for sensor: soilMoisture
+[2025-08-07 01:25:39] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:25:41] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:25:41] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:25:42] [Control Logic] Light too low: 56.5
+[2025-08-07 01:25:42] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:25:43] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:25:47] [MQTT Handler] Inserted 57.5 for sensor: light
+[2025-08-07 01:25:51] [MQTT Handler] Inserted 36.2 for sensor: soilMoisture
+[2025-08-07 01:25:52] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:25:52] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:25:52] [Control Logic] Light too low: 57.5
+[2025-08-07 01:25:52] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:25:55] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:25:59] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:26:03] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:26:03] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:26:03] [MQTT Handler] Inserted 58.5 for sensor: light
+[2025-08-07 01:26:03] [Control Logic] Light too low: 58.5
+[2025-08-07 01:26:03] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:26:07] [MQTT Handler] Inserted 36.9 for sensor: soilMoisture
+[2025-08-07 01:26:11] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:26:13] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:26:14] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:26:14] [Control Logic] Light too low: 58.5
+[2025-08-07 01:26:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:26:15] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:26:19] [MQTT Handler] Inserted 59.5 for sensor: light
+[2025-08-07 01:26:23] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 01:26:24] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:26:24] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:26:24] [Control Logic] Light too low: 59.5
+[2025-08-07 01:26:24] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:26:27] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:26:31] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:26:35] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:26:35] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:26:35] [Control Logic] Light too low: 59.5
+[2025-08-07 01:26:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:26:35] [MQTT Handler] Inserted 60.5 for sensor: light
+[2025-08-07 01:26:39] [MQTT Handler] Inserted 38.3 for sensor: soilMoisture
+[2025-08-07 01:26:43] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:26:45] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:26:45] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:26:46] [Control Logic] Light too low: 60.5
+[2025-08-07 01:26:46] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:26:47] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:26:51] [MQTT Handler] Inserted 61.5 for sensor: light
+[2025-08-07 01:26:56] [MQTT Handler] Inserted 39.0 for sensor: soilMoisture
+[2025-08-07 01:26:56] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:26:56] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:26:56] [Control Logic] Light too low: 61.5
+[2025-08-07 01:26:57] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:26:59] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:27:04] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:27:07] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:27:07] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:27:07] [Control Logic] Light too low: 61.5
+[2025-08-07 01:27:07] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:27:08] [MQTT Handler] Inserted 62.5 for sensor: light
+[2025-08-07 01:27:12] [MQTT Handler] Inserted 39.7 for sensor: soilMoisture
+[2025-08-07 01:27:16] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:27:18] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:27:18] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:27:18] [Control Logic] Light too low: 62.5
+[2025-08-07 01:27:18] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:27:20] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:27:24] [MQTT Handler] Inserted 63.5 for sensor: light
+[2025-08-07 01:27:28] [MQTT Handler] Inserted 40.4 for sensor: soilMoisture
+[2025-08-07 01:27:28] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:27:28] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:27:29] [Control Logic] Light too low: 63.5
+[2025-08-07 01:27:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:27:32] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:27:36] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:27:39] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:27:39] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:27:39] [Control Logic] Light too low: 63.5
+[2025-08-07 01:27:39] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:27:40] [MQTT Handler] Inserted 64.5 for sensor: light
+[2025-08-07 01:27:44] [MQTT Handler] Inserted 41.1 for sensor: soilMoisture
+[2025-08-07 01:27:48] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:27:50] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:27:50] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:27:50] [Control Logic] Light too low: 64.5
+[2025-08-07 01:27:50] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:27:52] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:27:56] [MQTT Handler] Inserted 65.5 for sensor: light
+[2025-08-07 01:28:00] [MQTT Handler] Inserted 41.8 for sensor: soilMoisture
+[2025-08-07 01:28:00] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:28:01] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:28:01] [Control Logic] Light too low: 65.5
+[2025-08-07 01:28:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:28:04] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:28:08] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:28:11] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:28:11] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:28:12] [Control Logic] Light too low: 65.5
+[2025-08-07 01:28:12] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:28:12] [MQTT Handler] Inserted 66.5 for sensor: light
+[2025-08-07 01:28:16] [MQTT Handler] Inserted 42.5 for sensor: soilMoisture
+[2025-08-07 01:28:20] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:28:22] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:28:22] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:28:22] [Control Logic] Light too low: 66.5
+[2025-08-07 01:28:22] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:28:24] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:28:28] [MQTT Handler] Inserted 67.5 for sensor: light
+[2025-08-07 01:28:32] [MQTT Handler] Inserted 43.2 for sensor: soilMoisture
+[2025-08-07 01:28:33] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:28:33] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:28:33] [Control Logic] Light too low: 67.5
+[2025-08-07 01:28:33] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:28:36] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:28:40] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:28:43] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:28:43] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:28:44] [Control Logic] Light too low: 67.5
+[2025-08-07 01:28:44] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:28:44] [MQTT Handler] Inserted 68.5 for sensor: light
+[2025-08-07 01:28:48] [MQTT Handler] Inserted 43.9 for sensor: soilMoisture
+[2025-08-07 01:28:52] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:28:54] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:28:54] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:28:55] [Control Logic] Light too low: 68.5
+[2025-08-07 01:28:55] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:28:56] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:29:00] [MQTT Handler] Inserted 69.5 for sensor: light
+[2025-08-07 01:29:04] [MQTT Handler] Inserted 44.6 for sensor: soilMoisture
+[2025-08-07 01:29:05] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:29:05] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:29:05] [Control Logic] Light too low: 69.5
+[2025-08-07 01:29:05] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:29:08] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:29:12] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:29:16] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:29:16] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:29:16] [Control Logic] Light too low: 69.5
+[2025-08-07 01:29:16] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:29:16] [MQTT Handler] Inserted 70.5 for sensor: light
+[2025-08-07 01:29:20] [MQTT Handler] Inserted 45.3 for sensor: soilMoisture
+[2025-08-07 01:29:24] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:29:26] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:29:27] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:29:27] [Control Logic] Light too low: 70.5
+[2025-08-07 01:29:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:29:29] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:29:32] [MQTT Handler] Inserted 71.5 for sensor: light
+[2025-08-07 01:29:36] [MQTT Handler] Inserted 46.0 for sensor: soilMoisture
+[2025-08-07 01:29:37] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:29:37] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:29:37] [Control Logic] Light too low: 71.5
+[2025-08-07 01:29:37] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:29:41] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 01:29:44] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:29:48] [Control Logic] Temp within range: 25.0
+[2025-08-07 01:29:48] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:29:48] [Control Logic] Light too low: 71.5
+[2025-08-07 01:29:48] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:29:48] [MQTT Handler] Inserted 72.5 for sensor: light
+[2025-08-07 01:29:53] [MQTT Handler] Inserted 46.7 for sensor: soilMoisture
+[2025-08-07 01:29:57] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 01:29:59] [Control Logic] Temp within range: 25.0
+[2025-08-07 01:29:59] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:29:59] [Control Logic] Light too low: 72.5
+[2025-08-07 01:29:59] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:30:01] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:30:05] [MQTT Handler] Inserted 73.5 for sensor: light
+[2025-08-07 01:30:09] [MQTT Handler] Inserted 47.4 for sensor: soilMoisture
+[2025-08-07 01:30:09] [Control Logic] Temp within range: 25.0
+[2025-08-07 01:30:09] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:30:10] [Control Logic] Light too low: 73.5
+[2025-08-07 01:30:10] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:30:13] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:30:17] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:30:20] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:30:20] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:30:20] [Control Logic] Light too low: 73.5
+[2025-08-07 01:30:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:30:21] [MQTT Handler] Inserted 74.5 for sensor: light
+[2025-08-07 01:30:25] [MQTT Handler] Inserted 48.1 for sensor: soilMoisture
+[2025-08-07 01:30:29] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 01:30:31] [Control Logic] Temp within range: 25.0
+[2025-08-07 01:30:31] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:30:31] [Control Logic] Light too low: 74.5
+[2025-08-07 01:30:31] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:30:33] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:30:37] [MQTT Handler] Inserted 75.5 for sensor: light
+[2025-08-07 01:30:41] [MQTT Handler] Inserted 48.8 for sensor: soilMoisture
+[2025-08-07 01:30:41] [Control Logic] Temp within range: 25.0
+[2025-08-07 01:30:42] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:30:42] [Control Logic] Light too low: 75.5
+[2025-08-07 01:30:42] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:30:45] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:30:49] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:30:52] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:30:52] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:30:52] [Control Logic] Light too low: 75.5
+[2025-08-07 01:30:53] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:30:53] [MQTT Handler] Inserted 76.5 for sensor: light
+[2025-08-07 01:30:57] [MQTT Handler] Inserted 49.5 for sensor: soilMoisture
+[2025-08-07 01:31:01] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:31:03] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:31:03] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:31:03] [Control Logic] Light too low: 76.5
+[2025-08-07 01:31:03] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:31:05] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:31:09] [MQTT Handler] Inserted 77.5 for sensor: light
+[2025-08-07 01:31:13] [MQTT Handler] Inserted 50.2 for sensor: soilMoisture
+[2025-08-07 01:31:14] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:31:14] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:31:14] [Control Logic] Light too low: 77.5
+[2025-08-07 01:31:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:31:17] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:31:21] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:31:25] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:31:25] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:31:25] [MQTT Handler] Inserted 78.5 for sensor: light
+[2025-08-07 01:31:25] [Control Logic] Light too low: 78.5
+[2025-08-07 01:31:25] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:31:29] [MQTT Handler] Inserted 50.9 for sensor: soilMoisture
+[2025-08-07 01:31:33] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:31:35] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:31:36] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:31:36] [Control Logic] Light too low: 78.5
+[2025-08-07 01:31:36] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:31:37] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:31:41] [MQTT Handler] Inserted 79.5 for sensor: light
+[2025-08-07 01:31:45] [MQTT Handler] Inserted 51.6 for sensor: soilMoisture
+[2025-08-07 01:31:46] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:31:46] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:31:47] [Control Logic] Light too low: 79.5
+[2025-08-07 01:31:47] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:31:49] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:31:53] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:31:57] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:31:57] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:31:57] [MQTT Handler] Inserted 80.5 for sensor: light
+[2025-08-07 01:31:57] [Control Logic] Light too low: 80.5
+[2025-08-07 01:31:57] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:32:01] [MQTT Handler] Inserted 52.3 for sensor: soilMoisture
+[2025-08-07 01:32:05] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:32:08] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:32:08] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:32:08] [Control Logic] Light too low: 80.5
+[2025-08-07 01:32:08] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:32:09] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:32:13] [MQTT Handler] Inserted 81.5 for sensor: light
+[2025-08-07 01:32:17] [MQTT Handler] Inserted 53.0 for sensor: soilMoisture
+[2025-08-07 01:32:19] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:32:19] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:32:19] [Control Logic] Light too low: 81.5
+[2025-08-07 01:32:19] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:32:21] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:32:25] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:32:29] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:32:29] [MQTT Handler] Inserted 82.5 for sensor: light
+[2025-08-07 01:32:29] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:32:30] [Control Logic] Light too low: 82.5
+[2025-08-07 01:32:30] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:32:33] [MQTT Handler] Inserted 53.7 for sensor: soilMoisture
+[2025-08-07 01:32:37] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:32:40] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:32:40] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:32:40] [Control Logic] Light too low: 82.5
+[2025-08-07 01:32:40] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:32:41] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:32:45] [MQTT Handler] Inserted 83.5 for sensor: light
+[2025-08-07 01:32:50] [MQTT Handler] Inserted 54.4 for sensor: soilMoisture
+[2025-08-07 01:34:02] [31m[CoAP Controller] Failed to GET from actuator: fan[0m
+[2025-08-07 01:35:09] [31m[CoAP Controller] Failed to GET from actuator: heater[0m
+[2025-08-07 01:35:09] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:36:28] [31m[CoAP Controller] Failed to send command to fan[0m
+[2025-08-07 01:37:53] [31m[CoAP Controller] Failed to send command to heater[0m
+[2025-08-07 01:38:08] [MQTT Handler] Inserted 60.0 for sensor: soilMoisture
+[2025-08-07 01:38:12] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 01:38:16] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:38:20] [MQTT Handler] Inserted 92.5 for sensor: light
+[2025-08-07 01:38:24] [MQTT Handler] Inserted 60.7 for sensor: soilMoisture
+[2025-08-07 01:38:28] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 01:38:32] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:38:36] [MQTT Handler] Inserted 93.5 for sensor: light
+[2025-08-07 01:38:41] [MQTT Handler] Inserted 61.4 for sensor: soilMoisture
+[2025-08-07 01:38:45] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:38:49] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:38:53] [MQTT Handler] Inserted 94.5 for sensor: light
+[2025-08-07 01:38:57] [MQTT Handler] Inserted 62.1 for sensor: soilMoisture
+[2025-08-07 01:39:00] [31m[CoAP Controller] Failed to GET from actuator: fertilizer[0m
+[2025-08-07 01:39:00] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:39:00] [MQTT Handler] Published command to fertilizer: off
+[2025-08-07 01:39:00] [CoAP Controller] Command sent to fertilizer: off
+[2025-08-07 01:39:00] [MQTT Handler] Published command to fertilizer: off
+[2025-08-07 01:39:00] [CoAP Controller] MQTT command published to topic: fertilizer
+[2025-08-07 01:39:01] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:39:01] [Control Logic] Light too low: 94.5
+[2025-08-07 01:39:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:39:05] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:39:09] [MQTT Handler] Inserted 95.5 for sensor: light
+[2025-08-07 01:39:11] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:39:11] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:39:11] [Control Logic] Light too low: 95.5
+[2025-08-07 01:39:11] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:39:13] [MQTT Handler] Inserted 62.8 for sensor: soilMoisture
+[2025-08-07 01:39:17] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:39:21] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:39:21] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:39:22] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:39:22] [Control Logic] Light too low: 95.5
+[2025-08-07 01:39:22] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:39:25] [MQTT Handler] Inserted 96.5 for sensor: light
+[2025-08-07 01:39:29] [MQTT Handler] Inserted 63.5 for sensor: soilMoisture
+[2025-08-07 01:39:32] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:39:32] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:39:32] [Control Logic] Light too low: 96.5
+[2025-08-07 01:39:32] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:39:33] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:39:37] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:39:41] [MQTT Handler] Inserted 97.5 for sensor: light
+[2025-08-07 01:39:42] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:39:42] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:39:43] [Control Logic] Light too low: 97.5
+[2025-08-07 01:39:43] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:39:45] [MQTT Handler] Inserted 64.2 for sensor: soilMoisture
+[2025-08-07 01:39:49] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:39:53] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:39:53] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:39:53] [Control Logic] Light too low: 97.5
+[2025-08-07 01:39:53] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:39:53] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:39:57] [MQTT Handler] Inserted 98.5 for sensor: light
+[2025-08-07 01:40:01] [MQTT Handler] Inserted 64.9 for sensor: soilMoisture
+[2025-08-07 01:40:03] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:40:03] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:40:04] [Control Logic] Light too low: 98.5
+[2025-08-07 01:40:04] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:40:05] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:40:09] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:40:13] [MQTT Handler] Inserted 99.5 for sensor: light
+[2025-08-07 01:40:14] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:40:14] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:40:14] [Control Logic] Light too low: 99.5
+[2025-08-07 01:40:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:40:17] [MQTT Handler] Inserted 65.6 for sensor: soilMoisture
+[2025-08-07 01:40:21] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:40:24] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:40:24] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:40:24] [Control Logic] Light too low: 99.5
+[2025-08-07 01:40:24] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:40:25] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:40:29] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:40:33] [MQTT Handler] Inserted 66.3 for sensor: soilMoisture
+[2025-08-07 01:40:34] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:40:34] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:40:35] [Control Logic] Light too low: 100.0
+[2025-08-07 01:40:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:40:37] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:40:41] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:40:45] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:40:45] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:40:45] [Control Logic] Light too low: 100.0
+[2025-08-07 01:40:45] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:40:45] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:40:49] [MQTT Handler] Inserted 67.0 for sensor: soilMoisture
+[2025-08-07 01:40:53] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:40:55] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:40:55] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:40:55] [Control Logic] Light too low: 100.0
+[2025-08-07 01:40:55] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:40:57] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:41:01] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:41:05] [MQTT Handler] Inserted 67.7 for sensor: soilMoisture
+[2025-08-07 01:41:06] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:41:06] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:41:06] [Control Logic] Light too low: 100.0
+[2025-08-07 01:41:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:41:09] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:41:13] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:41:16] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:41:16] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:41:16] [Control Logic] Light too low: 100.0
+[2025-08-07 01:41:16] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:41:17] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:41:21] [MQTT Handler] Inserted 68.4 for sensor: soilMoisture
+[2025-08-07 01:41:26] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:41:26] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:41:27] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:41:27] [Control Logic] Light too low: 100.0
+[2025-08-07 01:41:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:41:30] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:41:33] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:41:37] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:41:37] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:41:37] [Control Logic] Light too low: 100.0
+[2025-08-07 01:41:37] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:41:38] [MQTT Handler] Inserted 69.1 for sensor: soilMoisture
+[2025-08-07 01:41:42] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:41:45] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:41:48] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:41:48] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:41:48] [Control Logic] Light too low: 100.0
+[2025-08-07 01:41:48] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:41:50] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:41:54] [MQTT Handler] Inserted 69.8 for sensor: soilMoisture
+[2025-08-07 01:41:58] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:41:58] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:41:58] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:41:58] [Control Logic] Light too low: 100.0
+[2025-08-07 01:41:58] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:42:02] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:42:06] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:42:08] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:42:09] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:42:09] [Control Logic] Light too low: 100.0
+[2025-08-07 01:42:09] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:42:10] [MQTT Handler] Inserted 70.5 for sensor: soilMoisture
+[2025-08-07 01:42:14] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:42:18] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:42:19] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:42:19] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:42:19] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:42:19] [CoAP Controller] Command sent to irrigation: off
+[2025-08-07 01:42:19] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:42:19] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-07 01:42:19] [Control Logic] Light too low: 100.0
+[2025-08-07 01:42:19] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:42:22] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:42:26] [MQTT Handler] Inserted 71.2 for sensor: soilMoisture
+[2025-08-07 01:42:29] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:42:30] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:42:30] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:42:30] [Control Logic] Light too low: 100.0
+[2025-08-07 01:42:30] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:42:30] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:42:34] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:42:38] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:42:40] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:42:40] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:42:40] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:42:40] [Control Logic] Light too low: 100.0
+[2025-08-07 01:42:40] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:42:42] [MQTT Handler] Inserted 71.9 for sensor: soilMoisture
+[2025-08-07 01:42:46] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:42:50] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:42:50] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:42:51] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:42:51] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:42:51] [Control Logic] Light too low: 100.0
+[2025-08-07 01:42:51] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:42:54] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:42:58] [MQTT Handler] Inserted 72.6 for sensor: soilMoisture
+[2025-08-07 01:43:01] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:43:01] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:43:01] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:43:01] [Control Logic] Light too low: 100.0
+[2025-08-07 01:43:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:43:02] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:43:06] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:43:10] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:43:11] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:43:12] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:43:12] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:43:12] [Control Logic] Light too low: 100.0
+[2025-08-07 01:43:12] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:43:14] [MQTT Handler] Inserted 73.3 for sensor: soilMoisture
+[2025-08-07 01:43:18] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:43:22] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:43:22] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:43:22] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:43:22] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:43:22] [Control Logic] Light too low: 100.0
+[2025-08-07 01:43:22] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:43:26] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:43:30] [MQTT Handler] Inserted 74.0 for sensor: soilMoisture
+[2025-08-07 01:43:32] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:43:33] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:43:33] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:43:33] [Control Logic] Light too low: 100.0
+[2025-08-07 01:43:33] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:43:34] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 01:43:38] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:43:42] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:43:43] [Control Logic] Temp within range: 25.7
+[2025-08-07 01:43:43] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:43:43] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:43:43] [Control Logic] Light too low: 100.0
+[2025-08-07 01:43:43] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:43:46] [MQTT Handler] Inserted 74.7 for sensor: soilMoisture
+[2025-08-07 01:43:51] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:43:54] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:43:54] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:43:54] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:43:54] [Control Logic] Light too low: 100.0
+[2025-08-07 01:43:54] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:43:54] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:43:58] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:44:03] [MQTT Handler] Inserted 75.4 for sensor: soilMoisture
+[2025-08-07 01:44:04] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:44:04] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:44:04] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:44:04] [Control Logic] Light too low: 100.0
+[2025-08-07 01:44:04] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:44:07] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:44:11] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:44:15] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:44:15] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:44:15] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:44:15] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:44:15] [Control Logic] Light too low: 100.0
+[2025-08-07 01:44:15] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:44:19] [MQTT Handler] Inserted 76.1 for sensor: soilMoisture
+[2025-08-07 01:44:23] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:44:25] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:44:25] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:44:25] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:44:25] [Control Logic] Light too low: 100.0
+[2025-08-07 01:44:25] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:44:27] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:44:31] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:44:35] [MQTT Handler] Inserted 76.8 for sensor: soilMoisture
+[2025-08-07 01:44:35] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:44:35] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:44:36] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:44:36] [Control Logic] Light too low: 100.0
+[2025-08-07 01:44:36] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:44:39] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:44:43] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:44:46] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:44:46] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:44:46] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:44:46] [Control Logic] Light too low: 100.0
+[2025-08-07 01:44:46] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:44:47] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:44:51] [MQTT Handler] Inserted 77.5 for sensor: soilMoisture
+[2025-08-07 01:44:55] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:44:56] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:44:56] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:44:56] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:44:57] [Control Logic] Light too low: 100.0
+[2025-08-07 01:44:57] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:44:59] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:45:03] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:45:07] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:45:07] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:45:07] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:45:07] [MQTT Handler] Inserted 78.2 for sensor: soilMoisture
+[2025-08-07 01:45:07] [Control Logic] Light too low: 100.0
+[2025-08-07 01:45:07] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:45:11] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:45:15] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:45:17] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:45:17] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:45:17] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:45:17] [Control Logic] Light too low: 100.0
+[2025-08-07 01:45:17] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:45:19] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:45:23] [MQTT Handler] Inserted 78.9 for sensor: soilMoisture
+[2025-08-07 01:45:27] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 01:45:28] [Control Logic] Temp within range: 25.7
+[2025-08-07 01:45:28] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:45:28] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:45:28] [Control Logic] Light too low: 100.0
+[2025-08-07 01:45:28] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:45:31] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:45:35] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:45:38] [Control Logic] Temp within range: 25.7
+[2025-08-07 01:45:38] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:45:38] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:45:38] [Control Logic] Light too low: 100.0
+[2025-08-07 01:45:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:45:39] [MQTT Handler] Inserted 79.6 for sensor: soilMoisture
+[2025-08-07 01:45:43] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:45:47] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:45:48] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:45:49] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:45:49] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:45:49] [Control Logic] Light too low: 100.0
+[2025-08-07 01:45:49] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:45:51] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:45:55] [MQTT Handler] Inserted 80.3 for sensor: soilMoisture
+[2025-08-07 01:45:59] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:45:59] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:45:59] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:45:59] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:45:59] [Control Logic] Light too low: 100.0
+[2025-08-07 01:45:59] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:46:03] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:46:07] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:46:09] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:46:10] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:46:10] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:46:10] [Control Logic] Light too low: 100.0
+[2025-08-07 01:46:10] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:46:11] [MQTT Handler] Inserted 81.0 for sensor: soilMoisture
+[2025-08-07 01:46:15] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:46:19] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:46:20] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:46:20] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:46:20] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:46:20] [Control Logic] Light too low: 100.0
+[2025-08-07 01:46:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:46:23] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:46:27] [MQTT Handler] Inserted 81.7 for sensor: soilMoisture
+[2025-08-07 01:46:31] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:46:31] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:46:31] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:46:31] [Control Logic] Light too low: 100.0
+[2025-08-07 01:46:31] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:46:31] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:46:35] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:46:39] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:46:41] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:46:41] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:46:41] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:46:41] [Control Logic] Light too low: 100.0
+[2025-08-07 01:46:41] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:46:43] [MQTT Handler] Inserted 82.4 for sensor: soilMoisture
+[2025-08-07 01:46:48] [MQTT Handler] Inserted 26.1 for sensor: temperature
+[2025-08-07 01:46:51] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:46:52] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:46:52] [MQTT Handler] Published command to fan: on
+[2025-08-07 01:46:52] [CoAP Controller] Command sent to fan: on
+[2025-08-07 01:46:52] [MQTT Handler] Published command to fan: on
+[2025-08-07 01:46:52] [CoAP Controller] MQTT command published to topic: fan
+[2025-08-07 01:46:52] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:46:52] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:46:52] [Control Logic] Light too low: 100.0
+[2025-08-07 01:46:52] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:46:56] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:47:00] [MQTT Handler] Inserted 83.1 for sensor: soilMoisture
+[2025-08-07 01:47:02] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:47:02] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:47:02] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:47:02] [Control Logic] Light too low: 100.0
+[2025-08-07 01:47:02] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:47:04] [MQTT Handler] Inserted 26.1 for sensor: temperature
+[2025-08-07 01:47:08] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:47:12] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:47:13] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:47:13] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:47:13] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:47:13] [Control Logic] Light too low: 100.0
+[2025-08-07 01:47:13] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:47:16] [MQTT Handler] Inserted 83.8 for sensor: soilMoisture
+[2025-08-07 01:47:20] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:47:23] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:47:24] [CoAP Controller] Command sent to fan: off
+[2025-08-07 01:47:24] [MQTT Handler] Published command to fan: off
+[2025-08-07 01:47:24] [CoAP Controller] MQTT command published to topic: fan
+[2025-08-07 01:47:24] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:47:24] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:47:24] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:47:24] [Control Logic] Light too low: 100.0
+[2025-08-07 01:47:24] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:47:28] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:47:32] [MQTT Handler] Inserted 84.5 for sensor: soilMoisture
+[2025-08-07 01:47:34] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:47:34] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:47:34] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:47:34] [Control Logic] Light too low: 100.0
+[2025-08-07 01:47:34] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:47:36] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:47:40] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:47:44] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:47:45] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:47:45] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:47:45] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:47:45] [Control Logic] Light too low: 100.0
+[2025-08-07 01:47:45] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:47:48] [MQTT Handler] Inserted 85.2 for sensor: soilMoisture
+[2025-08-07 01:47:52] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:47:55] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:47:55] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:47:55] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:47:55] [Control Logic] Light too low: 100.0
+[2025-08-07 01:47:55] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:47:56] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:48:00] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:48:04] [MQTT Handler] Inserted 85.9 for sensor: soilMoisture
+[2025-08-07 01:48:06] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:48:06] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:48:06] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:48:06] [Control Logic] Light too low: 100.0
+[2025-08-07 01:48:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:48:08] [MQTT Handler] Inserted 26.1 for sensor: temperature
+[2025-08-07 01:48:12] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:48:16] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:48:16] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:48:16] [MQTT Handler] Published command to fan: on
+[2025-08-07 01:48:16] [CoAP Controller] Command sent to fan: on
+[2025-08-07 01:48:16] [MQTT Handler] Published command to fan: on
+[2025-08-07 01:48:16] [CoAP Controller] MQTT command published to topic: fan
+[2025-08-07 01:48:16] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:48:16] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:48:16] [Control Logic] Light too low: 100.0
+[2025-08-07 01:48:16] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:48:20] [MQTT Handler] Inserted 86.6 for sensor: soilMoisture
+[2025-08-07 01:48:24] [MQTT Handler] Inserted 26.1 for sensor: temperature
+[2025-08-07 01:48:27] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:48:27] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:48:27] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:48:27] [Control Logic] Light too low: 100.0
+[2025-08-07 01:48:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:48:28] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:48:32] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:48:36] [MQTT Handler] Inserted 87.3 for sensor: soilMoisture
+[2025-08-07 01:48:37] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:48:37] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:48:37] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:48:37] [Control Logic] Light too low: 100.0
+[2025-08-07 01:48:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:48:40] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:48:44] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:48:48] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:48:48] [CoAP Controller] Command sent to fan: off
+[2025-08-07 01:48:48] [MQTT Handler] Published command to fan: off
+[2025-08-07 01:48:48] [CoAP Controller] MQTT command published to topic: fan
+[2025-08-07 01:48:48] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:48:48] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:48:48] [Control Logic] Light too low: 100.0
+[2025-08-07 01:48:48] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:48:48] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:48:52] [MQTT Handler] Inserted 88.0 for sensor: soilMoisture
+[2025-08-07 01:48:56] [MQTT Handler] Inserted 26.1 for sensor: temperature
+[2025-08-07 01:48:58] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:48:58] [MQTT Handler] Published command to fan: on
+[2025-08-07 01:48:58] [CoAP Controller] Command sent to fan: on
+[2025-08-07 01:48:58] [MQTT Handler] Published command to fan: on
+[2025-08-07 01:48:58] [CoAP Controller] MQTT command published to topic: fan
+[2025-08-07 01:48:58] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:48:58] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:48:59] [Control Logic] Light too low: 100.0
+[2025-08-07 01:48:59] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:49:00] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:49:04] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:49:08] [MQTT Handler] Inserted 88.7 for sensor: soilMoisture
+[2025-08-07 01:49:09] [Control Logic] Temp too high: 26.1
+[2025-08-07 01:49:09] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:49:09] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:49:09] [Control Logic] Light too low: 100.0
+[2025-08-07 01:49:09] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:49:12] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:49:16] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:49:19] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:49:19] [CoAP Controller] Command sent to fan: off
+[2025-08-07 01:49:19] [MQTT Handler] Published command to fan: off
+[2025-08-07 01:49:19] [CoAP Controller] MQTT command published to topic: fan
+[2025-08-07 01:49:19] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:49:20] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:49:20] [Control Logic] Light too low: 100.0
+[2025-08-07 01:49:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:49:20] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:49:25] [MQTT Handler] Inserted 89.4 for sensor: soilMoisture
+[2025-08-07 01:49:29] [MQTT Handler] Inserted 26.0 for sensor: temperature
+[2025-08-07 01:49:30] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:49:30] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:49:30] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:49:30] [Control Logic] Light too low: 100.0
+[2025-08-07 01:49:30] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:49:33] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:49:37] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:49:40] [Control Logic] Temp within range: 26.0
+[2025-08-07 01:49:40] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:49:40] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:49:40] [Control Logic] Light too low: 100.0
+[2025-08-07 01:49:41] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:49:41] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:49:45] [MQTT Handler] Inserted 25.9 for sensor: temperature
+[2025-08-07 01:49:49] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:49:51] [Control Logic] Temp within range: 25.9
+[2025-08-07 01:49:51] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:49:51] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:49:51] [Control Logic] Light too low: 100.0
+[2025-08-07 01:49:51] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:49:53] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:49:57] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:50:01] [MQTT Handler] Inserted 25.8 for sensor: temperature
+[2025-08-07 01:50:01] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:50:01] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:50:01] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:50:01] [Control Logic] Light too low: 100.0
+[2025-08-07 01:50:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:50:05] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:50:09] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:50:11] [Control Logic] Temp within range: 25.8
+[2025-08-07 01:50:11] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:50:11] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:50:12] [Control Logic] Light too low: 100.0
+[2025-08-07 01:50:12] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:50:13] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:50:17] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 01:50:21] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:50:22] [Control Logic] Temp within range: 25.7
+[2025-08-07 01:50:22] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:50:22] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:50:22] [Control Logic] Light too low: 100.0
+[2025-08-07 01:50:22] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:50:25] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:50:29] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:50:32] [Control Logic] Temp within range: 25.7
+[2025-08-07 01:50:32] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:50:32] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:50:32] [Control Logic] Light too low: 100.0
+[2025-08-07 01:50:33] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:50:33] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 01:50:37] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:50:41] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:50:43] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:50:43] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:50:43] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:50:43] [Control Logic] Light too low: 100.0
+[2025-08-07 01:50:43] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:50:45] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:50:49] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 01:50:53] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:50:53] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:50:53] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:50:53] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:50:54] [Control Logic] Light too low: 100.0
+[2025-08-07 01:50:54] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:50:57] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:51:01] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:51:04] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:51:04] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:51:04] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:51:04] [Control Logic] Light too low: 100.0
+[2025-08-07 01:51:04] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:51:05] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 01:51:09] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:51:13] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:51:15] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:51:15] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:51:15] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:51:15] [Control Logic] Light too low: 100.0
+[2025-08-07 01:51:15] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:51:17] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:51:21] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:51:25] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:51:25] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:51:25] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:51:25] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:51:25] [Control Logic] Light too low: 100.0
+[2025-08-07 01:51:25] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:51:29] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:51:33] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:51:36] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:51:36] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:51:36] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:51:36] [Control Logic] Light too low: 100.0
+[2025-08-07 01:51:36] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:51:37] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:51:41] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:51:45] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:51:46] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:51:46] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:51:46] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:51:47] [Control Logic] Light too low: 100.0
+[2025-08-07 01:51:47] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:51:49] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:51:53] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:51:57] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:51:57] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:51:57] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:51:57] [Control Logic] Light too low: 100.0
+[2025-08-07 01:51:57] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:51:57] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:52:01] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:52:05] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:52:07] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:52:07] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:52:07] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:52:08] [Control Logic] Light too low: 100.0
+[2025-08-07 01:52:08] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:52:09] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:52:13] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:52:17] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:52:18] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:52:18] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:52:18] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:52:18] [Control Logic] Light too low: 100.0
+[2025-08-07 01:52:18] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:52:22] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:52:25] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:52:28] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:52:28] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:52:28] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:52:29] [Control Logic] Light too low: 100.0
+[2025-08-07 01:52:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:52:30] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:52:34] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:52:38] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:52:39] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:52:39] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:52:39] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:52:39] [Control Logic] Light too low: 100.0
+[2025-08-07 01:52:39] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:52:42] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:52:46] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:52:49] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:52:49] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:52:49] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:52:50] [Control Logic] Light too low: 100.0
+[2025-08-07 01:52:50] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:52:50] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:52:54] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:52:58] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 01:53:00] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:53:00] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:53:00] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:53:00] [Control Logic] Light too low: 100.0
+[2025-08-07 01:53:00] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:53:02] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:53:06] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:53:10] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:53:10] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:53:11] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:53:11] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:53:11] [Control Logic] Light too low: 100.0
+[2025-08-07 01:53:11] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:53:14] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 01:53:18] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:53:21] [Control Logic] Temp within range: 25.7
+[2025-08-07 01:53:21] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:53:21] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:53:22] [Control Logic] Light too low: 100.0
+[2025-08-07 01:53:22] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:53:22] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:53:26] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:53:30] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 01:53:32] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:53:32] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:53:32] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:53:32] [Control Logic] Light too low: 100.0
+[2025-08-07 01:53:32] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:53:34] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:53:38] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:53:42] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:53:42] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:53:42] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:53:42] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:53:43] [Control Logic] Light too low: 100.0
+[2025-08-07 01:53:43] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:53:46] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 01:53:50] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:53:53] [Control Logic] Temp within range: 25.6
+[2025-08-07 01:53:53] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:53:53] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:53:53] [Control Logic] Light too low: 100.0
+[2025-08-07 01:53:53] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:53:54] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:53:58] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:54:02] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:54:03] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:54:03] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:54:03] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:54:04] [Control Logic] Light too low: 100.0
+[2025-08-07 01:54:04] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:54:06] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:54:10] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:54:14] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:54:14] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:54:14] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:54:14] [Control Logic] Light too low: 100.0
+[2025-08-07 01:54:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:54:14] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:54:18] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:54:22] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:54:24] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:54:24] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:54:24] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:54:25] [Control Logic] Light too low: 100.0
+[2025-08-07 01:54:25] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:54:26] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:54:30] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:54:34] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:54:35] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:54:35] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:54:35] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:54:35] [Control Logic] Light too low: 100.0
+[2025-08-07 01:54:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:54:38] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:54:42] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:54:45] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:54:45] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:54:45] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:54:45] [Control Logic] Light too low: 100.0
+[2025-08-07 01:54:45] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:54:47] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:54:51] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:54:55] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:54:55] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:54:56] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:54:56] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:54:56] [Control Logic] Light too low: 100.0
+[2025-08-07 01:54:56] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:54:59] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:55:03] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:55:06] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:55:06] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:55:07] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:55:07] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:55:07] [Control Logic] Light too low: 100.0
+[2025-08-07 01:55:07] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:55:11] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:55:15] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:55:17] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:55:17] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:55:18] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:55:18] [Control Logic] Light too low: 100.0
+[2025-08-07 01:55:18] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:55:19] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:55:23] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:55:27] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:55:28] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:55:28] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:55:28] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:55:28] [Control Logic] Light too low: 100.0
+[2025-08-07 01:55:28] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:55:31] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:55:35] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:55:39] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:55:39] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 01:55:39] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:55:39] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:55:40] [Control Logic] Light too low: 100.0
+[2025-08-07 01:55:40] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:55:43] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:55:47] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:55:50] [Control Logic] Temp within range: 25.5
+[2025-08-07 01:55:50] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:55:50] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:55:50] [Control Logic] Light too low: 100.0
+[2025-08-07 01:55:50] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:55:51] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:55:55] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:55:59] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 01:56:01] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:56:01] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:56:01] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:56:01] [Control Logic] Light too low: 100.0
+[2025-08-07 01:56:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:56:03] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:56:07] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:56:11] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:56:12] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:56:12] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 01:56:12] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:56:12] [Control Logic] Light too low: 100.0
+[2025-08-07 01:56:12] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:56:15] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:56:19] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:56:22] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:56:22] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:56:23] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:56:23] [Control Logic] Light too low: 100.0
+[2025-08-07 01:56:23] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:56:23] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:56:27] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 01:56:31] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:56:33] [Control Logic] Temp within range: 25.4
+[2025-08-07 01:56:33] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:56:34] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:56:34] [Control Logic] Light too low: 100.0
+[2025-08-07 01:56:34] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:56:35] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:56:39] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:56:43] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:56:44] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:56:44] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:56:44] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:56:44] [Control Logic] Light too low: 100.0
+[2025-08-07 01:56:44] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:56:47] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:56:51] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:56:55] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:56:55] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:56:55] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:56:55] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:56:55] [Control Logic] Light too low: 100.0
+[2025-08-07 01:56:55] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:56:59] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 01:57:03] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:57:06] [Control Logic] Temp within range: 25.3
+[2025-08-07 01:57:06] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:57:06] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:57:06] [Control Logic] Light too low: 100.0
+[2025-08-07 01:57:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:57:07] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:57:11] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:57:15] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 01:57:16] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:57:17] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:57:17] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:57:17] [Control Logic] Light too low: 100.0
+[2025-08-07 01:57:17] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:57:19] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 01:57:23] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:57:27] [Control Logic] Temp within range: 25.2
+[2025-08-07 01:57:27] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 01:57:27] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:57:27] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:57:28] [Control Logic] Light too low: 100.0
+[2025-08-07 01:57:28] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:57:32] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:57:36] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:57:38] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:57:38] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:57:38] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:57:38] [Control Logic] Light too low: 100.0
+[2025-08-07 01:57:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:57:39] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 01:57:44] [MQTT Handler] Inserted 90.0 for sensor: soilMoisture
+[2025-08-07 01:57:48] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 01:57:49] [Control Logic] Temp within range: 25.1
+[2025-08-07 01:57:49] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 01:57:49] [MQTT Handler] Published command to irrigation: off
+[2025-08-07 01:57:50] [Control Logic] Light too low: 100.0
+[2025-08-07 01:57:50] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 01:57:51] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 01:59:26] [31m[CoAP Controller] Failed to GET from actuator: fan[0m
+[2025-08-07 02:55:08] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-07 02:55:08] [Smart Garden] Loading configuration...
+[2025-08-07 02:55:08] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 02:55:09] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-07 02:55:09] [MQTT Handler] Subscribed to topic: light
+[2025-08-07 02:55:09] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-07 02:55:09] [MQTT Handler] Subscribed to topic: pH
+[2025-08-07 02:55:09] [CoAP Controller] CoAP server started on port 5683
+[2025-08-07 02:55:09] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-07 02:55:10] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 02:55:14] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-08-07 02:55:18] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 02:55:18] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-07 02:55:18] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-07 02:55:18] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-07 02:55:18] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-07 02:55:18] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-07 02:55:18] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-07 02:55:22] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:55:24] [Smart Garden] Available commands:
+[2025-08-07 02:55:24] [Smart Garden] - :get status
+[2025-08-07 02:55:24] [Smart Garden] - :get actuators
+[2025-08-07 02:55:24] [Smart Garden] - :trigger irrigation
+[2025-08-07 02:55:24] [Smart Garden] - :trigger grow_light
+[2025-08-07 02:55:24] [Smart Garden] - :trigger fertilizer
+[2025-08-07 02:55:24] [Smart Garden] - :trigger fan
+[2025-08-07 02:55:24] [Smart Garden] - :trigger heater
+[2025-08-07 02:55:24] [Smart Garden] - :get configuration
+[2025-08-07 02:55:24] [Smart Garden] - :set grow_light auto
+[2025-08-07 02:55:24] [Smart Garden] - :help
+[2025-08-07 02:55:24] [Smart Garden] - :quit
+[2025-08-07 02:55:24] > 
+[2025-08-07 02:55:26] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 02:55:29] [Smart Garden] Executing command: :get status
+[2025-08-07 02:55:29] [Smart Garden] Current sensor readings:
+[2025-08-07 02:55:29] soilMoisture - Latest value: 36,80
+[2025-08-07 02:55:29] light - Latest value: 10,00
+[2025-08-07 02:55:29] temperature - Latest value: 25,40
+[2025-08-07 02:55:29] pH - Latest value: 6,75
+[2025-08-07 02:55:29] > 
+[2025-08-07 02:55:30] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-08-07 02:55:34] [Smart Garden] Executing command: :get actuators
+[2025-08-07 02:55:34] [Smart Garden] Current actuator states:
+[2025-08-07 02:55:34]   - fertilizer: off
+[2025-08-07 02:55:34]   - irrigation: off
+[2025-08-07 02:55:34]   - grow_light: off
+[2025-08-07 02:55:34] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 02:55:34]   - fan: off
+[2025-08-07 02:55:34]   - heater: off
+[2025-08-07 02:55:34] > 
+[2025-08-07 02:55:34] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:55:35] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:55:35] [Control Logic] Light too low: 10.0
+[2025-08-07 02:55:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:55:35] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 02:55:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:55:35] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 02:55:38] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 02:55:42] [MQTT Handler] Inserted 15.0 for sensor: light
+[2025-08-07 02:55:45] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:55:45] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 02:55:46] [Control Logic] Light too low: 15.0
+[2025-08-07 02:55:46] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:55:46] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-08-07 02:55:50] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 02:55:54] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 02:55:56] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:55:56] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 02:55:56] [Control Logic] Light too low: 15.0
+[2025-08-07 02:55:56] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:55:58] [MQTT Handler] Inserted 20.0 for sensor: light
+[2025-08-07 02:56:02] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-08-07 02:56:06] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 02:56:07] [Control Logic] Temp within range: 25.6
+[2025-08-07 02:56:07] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 02:56:07] [Control Logic] Light too low: 20.0
+[2025-08-07 02:56:07] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:56:10] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:56:14] [MQTT Handler] Inserted 25.0 for sensor: light
+[2025-08-07 02:56:17] [Control Logic] Temp within range: 25.6
+[2025-08-07 02:56:17] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:56:18] [Control Logic] Light too low: 25.0
+[2025-08-07 02:56:18] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:56:18] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-08-07 02:56:22] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 02:56:26] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:56:28] [Control Logic] Temp within range: 25.6
+[2025-08-07 02:56:28] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:56:28] [Control Logic] Light too low: 25.0
+[2025-08-07 02:56:28] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:56:30] [MQTT Handler] Inserted 30.0 for sensor: light
+[2025-08-07 02:56:34] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-08-07 02:56:38] [Smart Garden] Executing command: :trigger grow_light
+[2025-08-07 02:56:38] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 02:56:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:56:38] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 02:56:38] [Smart Garden] Manual override activated for grow_light.
+[2025-08-07 02:56:38] > 
+[2025-08-07 02:56:38] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 02:56:39] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:56:39] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:56:39] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 02:56:39] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 02:56:39] [CoAP Controller] Command sent to irrigation: on
+[2025-08-07 02:56:39] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 02:56:39] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-07 02:56:39] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:56:39] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:56:42] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:56:46] [MQTT Handler] Inserted 35.0 for sensor: light
+[2025-08-07 02:56:50] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:56:50] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:56:50] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 02:56:50] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 02:56:50] [MQTT Handler] Inserted 35.5 for sensor: soilMoisture
+[2025-08-07 02:56:50] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:56:50] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:56:54] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 02:56:58] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:57:01] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:57:01] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:57:01] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:57:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:57:02] [MQTT Handler] Inserted 40.0 for sensor: light
+[2025-08-07 02:57:06] [MQTT Handler] Inserted 36.2 for sensor: soilMoisture
+[2025-08-07 02:57:10] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 02:57:12] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:57:12] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:57:12] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:57:12] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:57:14] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:57:18] [MQTT Handler] Inserted 45.0 for sensor: light
+[2025-08-07 02:57:22] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:57:22] [MQTT Handler] Inserted 36.9 for sensor: soilMoisture
+[2025-08-07 02:57:22] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:57:23] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:57:23] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:57:27] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 02:57:30] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:57:33] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:57:33] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:57:33] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:57:33] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:57:35] [MQTT Handler] Inserted 50.0 for sensor: light
+[2025-08-07 02:57:39] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 02:57:43] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 02:57:44] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:57:44] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:57:44] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:57:44] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:57:47] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 02:57:51] [MQTT Handler] Inserted 55.0 for sensor: light
+[2025-08-07 02:57:55] [Control Logic] Temp within range: 25.4
+[2025-08-07 02:57:55] [MQTT Handler] Inserted 38.3 for sensor: soilMoisture
+[2025-08-07 02:57:55] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 02:57:55] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:57:55] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:57:59] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 02:58:03] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 02:58:05] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:58:05] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 02:58:06] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:58:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:58:07] [MQTT Handler] Inserted 60.0 for sensor: light
+[2025-08-07 02:58:11] [MQTT Handler] Inserted 39.0 for sensor: soilMoisture
+[2025-08-07 02:58:15] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 02:58:16] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:58:16] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 02:58:16] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:58:16] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:58:19] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 02:58:23] [MQTT Handler] Inserted 65.0 for sensor: light
+[2025-08-07 02:58:27] [MQTT Handler] Inserted 39.7 for sensor: soilMoisture
+[2025-08-07 02:58:27] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:58:27] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 02:58:27] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:58:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:58:31] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 02:58:35] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:58:37] [Control Logic] Temp within range: 25.5
+[2025-08-07 02:58:38] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:58:38] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:58:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:58:39] [MQTT Handler] Inserted 70.0 for sensor: light
+[2025-08-07 02:58:43] [MQTT Handler] Inserted 40.4 for sensor: soilMoisture
+[2025-08-07 02:58:47] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 02:58:48] [Control Logic] Temp within range: 25.6
+[2025-08-07 02:58:48] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:58:49] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:58:49] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:58:51] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 02:58:55] [MQTT Handler] Inserted 75.0 for sensor: light
+[2025-08-07 02:58:59] [Control Logic] Temp within range: 25.6
+[2025-08-07 02:58:59] [MQTT Handler] Inserted 41.1 for sensor: soilMoisture
+[2025-08-07 02:58:59] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 02:59:00] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:59:00] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:59:03] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 02:59:07] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 02:59:10] [Control Logic] Temp within range: 25.7
+[2025-08-07 02:59:10] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 02:59:11] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:59:11] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:59:11] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 02:59:15] [MQTT Handler] Inserted 41.8 for sensor: soilMoisture
+[2025-08-07 02:59:19] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 02:59:21] [Control Logic] Temp within range: 25.7
+[2025-08-07 02:59:21] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 02:59:21] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:59:21] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:59:23] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 02:59:27] [Smart Garden] Executing command: :get actuators
+[2025-08-07 02:59:27] [Smart Garden] Current actuator states:
+[2025-08-07 02:59:27]   - fertilizer: off
+[2025-08-07 02:59:27]   - irrigation: on
+[2025-08-07 02:59:27]   - grow_light: on
+[2025-08-07 02:59:27] [MQTT Handler] Inserted 85.0 for sensor: light
+[2025-08-07 02:59:27]   - fan: off
+[2025-08-07 02:59:27]   - heater: off
+[2025-08-07 02:59:27] > 
+[2025-08-07 02:59:31] [MQTT Handler] Inserted 42.5 for sensor: soilMoisture
+[2025-08-07 02:59:32] [Control Logic] Temp within range: 25.7
+[2025-08-07 02:59:32] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 02:59:32] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:59:32] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:59:35] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 02:59:39] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 02:59:42] [Control Logic] Temp within range: 25.6
+[2025-08-07 02:59:43] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:59:43] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:59:43] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:59:43] [MQTT Handler] Inserted 90.0 for sensor: light
+[2025-08-07 02:59:47] [MQTT Handler] Inserted 43.2 for sensor: soilMoisture
+[2025-08-07 02:59:51] [MQTT Handler] Inserted 25.7 for sensor: temperature
+[2025-08-07 02:59:53] [Control Logic] Temp within range: 25.7
+[2025-08-07 02:59:53] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 02:59:54] [Control Logic] (manual) grow_light is ON
+[2025-08-07 02:59:54] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 02:59:55] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 02:59:59] [MQTT Handler] Inserted 95.0 for sensor: light
+[2025-08-07 03:00:03] [MQTT Handler] Inserted 43.9 for sensor: soilMoisture
+[2025-08-07 03:00:04] [Control Logic] Temp within range: 25.7
+[2025-08-07 03:00:04] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:00:04] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:00:04] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:00:07] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:00:11] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:00:14] [Control Logic] Temp within range: 25.6
+[2025-08-07 03:00:14] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:00:15] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:00:15] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:00:15] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:00:19] [MQTT Handler] Inserted 44.6 for sensor: soilMoisture
+[2025-08-07 03:00:23] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:00:25] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:00:25] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:00:25] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:00:26] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:00:27] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:00:32] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:00:36] [MQTT Handler] Inserted 45.3 for sensor: soilMoisture
+[2025-08-07 03:00:36] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:00:36] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:00:36] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:00:36] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:00:40] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:00:44] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:00:47] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:00:47] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:00:47] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:00:47] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:00:47] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:00:52] [MQTT Handler] Inserted 46.0 for sensor: soilMoisture
+[2025-08-07 03:00:56] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 03:00:57] [Control Logic] Temp within range: 25.3
+[2025-08-07 03:00:57] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:00:58] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:00:58] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:01:00] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:01:04] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:01:08] [MQTT Handler] Inserted 46.7 for sensor: soilMoisture
+[2025-08-07 03:01:08] [Control Logic] Temp within range: 25.3
+[2025-08-07 03:01:08] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:01:08] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:01:08] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:01:12] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:01:16] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:01:19] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:01:19] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:01:19] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:01:19] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:01:20] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:01:24] [MQTT Handler] Inserted 47.4 for sensor: soilMoisture
+[2025-08-07 03:01:28] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:01:29] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:01:29] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:01:29] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:01:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:01:32] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:01:36] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:01:40] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:01:40] [MQTT Handler] Inserted 48.1 for sensor: soilMoisture
+[2025-08-07 03:01:40] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:01:40] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:01:40] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:01:44] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:01:48] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:01:51] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:01:51] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:01:51] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:01:51] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:01:52] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:01:56] [MQTT Handler] Inserted 48.8 for sensor: soilMoisture
+[2025-08-07 03:02:00] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:02:02] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:02:02] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:02:02] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:02:02] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:02:04] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:02:08] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:02:12] [MQTT Handler] Inserted 49.5 for sensor: soilMoisture
+[2025-08-07 03:02:12] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:02:12] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:02:13] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:02:13] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:02:16] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:02:20] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:02:23] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:02:23] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:02:24] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:02:24] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:02:24] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:02:28] [MQTT Handler] Inserted 50.2 for sensor: soilMoisture
+[2025-08-07 03:02:32] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:02:34] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:02:34] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:02:34] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:02:34] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:02:36] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:02:40] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:02:44] [MQTT Handler] Inserted 50.9 for sensor: soilMoisture
+[2025-08-07 03:02:45] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:02:45] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:02:45] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:02:45] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:02:48] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:02:52] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:02:55] [Control Logic] Temp within range: 25.6
+[2025-08-07 03:02:56] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:02:56] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:02:56] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:02:56] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:03:00] [MQTT Handler] Inserted 51.6 for sensor: soilMoisture
+[2025-08-07 03:03:04] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:03:06] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:03:06] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:03:06] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:03:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:03:08] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:03:12] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:03:16] [MQTT Handler] Inserted 52.3 for sensor: soilMoisture
+[2025-08-07 03:03:17] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:03:17] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:03:17] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:03:17] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:03:20] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:12:02] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-07 03:12:02] [Smart Garden] Loading configuration...
+[2025-08-07 03:12:02] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 03:12:03] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-07 03:12:03] [MQTT Handler] Subscribed to topic: light
+[2025-08-07 03:12:03] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-07 03:12:03] [MQTT Handler] Subscribed to topic: pH
+[2025-08-07 03:12:03] [CoAP Controller] CoAP server started on port 5683
+[2025-08-07 03:12:03] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-07 03:12:05] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-08-07 03:12:09] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:12:13] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:12:17] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:12:18] [Smart Garden] Available commands:
+[2025-08-07 03:12:18] [Smart Garden] - :get status
+[2025-08-07 03:12:18] [Smart Garden] - :get actuators
+[2025-08-07 03:12:18] [Smart Garden] - :trigger irrigation
+[2025-08-07 03:12:18] [Smart Garden] - :trigger grow_light
+[2025-08-07 03:12:18] [Smart Garden] - :trigger fertilizer
+[2025-08-07 03:12:18] [Smart Garden] - :trigger fan
+[2025-08-07 03:12:18] [Smart Garden] - :trigger heater
+[2025-08-07 03:12:18] [Smart Garden] - :get configuration
+[2025-08-07 03:12:18] [Smart Garden] - :set grow_light auto
+[2025-08-07 03:12:18] [Smart Garden] - :help
+[2025-08-07 03:12:18] [Smart Garden] - :quit
+[2025-08-07 03:12:18] > 
+[2025-08-07 03:12:21] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-08-07 03:12:25] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:12:25] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-07 03:12:25] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-07 03:12:25] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-07 03:12:25] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-07 03:12:25] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-07 03:12:25] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-07 03:12:29] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:12:29] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:12:29] [Control Logic] Light too low: 10.0
+[2025-08-07 03:12:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:12:29] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 03:12:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:12:29] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 03:12:29] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:12:33] [MQTT Handler] Inserted 50.0 for sensor: light
+[2025-08-07 03:12:36] [Smart Garden] Executing command: :get status
+[2025-08-07 03:12:36] [Smart Garden] Current sensor readings:
+[2025-08-07 03:12:36] soilMoisture - Latest value: 36,40
+[2025-08-07 03:12:36] light - Latest value: 50,00
+[2025-08-07 03:12:36] temperature - Latest value: 25,50
+[2025-08-07 03:12:36] pH - Latest value: 6,76
+[2025-08-07 03:12:36] > 
+[2025-08-07 03:12:37] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-08-07 03:12:39] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:12:39] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:12:39] [Control Logic] Light too low: 50.0
+[2025-08-07 03:12:39] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:12:40] [Smart Garden] Executing command: :get actuators
+[2025-08-07 03:12:40] [Smart Garden] Current actuator states:
+[2025-08-07 03:12:40]   - fertilizer: off
+[2025-08-07 03:12:40]   - irrigation: off
+[2025-08-07 03:12:40]   - grow_light: on
+[2025-08-07 03:12:40]   - fan: off
+[2025-08-07 03:12:40]   - heater: off
+[2025-08-07 03:12:40] > 
+[2025-08-07 03:12:41] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:12:45] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:12:49] [MQTT Handler] Inserted 65.0 for sensor: light
+[2025-08-07 03:12:49] [Control Logic] Temp within range: 25.6
+[2025-08-07 03:12:49] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:12:49] [Control Logic] Light too low: 65.0
+[2025-08-07 03:12:49] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:12:53] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-08-07 03:12:57] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:13:00] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:13:00] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:13:00] [Control Logic] Light too low: 65.0
+[2025-08-07 03:13:00] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:13:01] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:13:05] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 03:13:09] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-08-07 03:13:10] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:13:10] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:13:10] [Control Logic] Light too low: 80.0
+[2025-08-07 03:13:10] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:13:13] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:13:17] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:13:20] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:13:21] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:13:21] [Control Logic] Light too low: 80.0
+[2025-08-07 03:13:21] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:13:21] [MQTT Handler] Inserted 85.0 for sensor: light
+[2025-08-07 03:13:25] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-08-07 03:13:29] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:13:31] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:13:31] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:13:31] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 03:13:31] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 03:13:31] [CoAP Controller] Command sent to irrigation: on
+[2025-08-07 03:13:31] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 03:13:31] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-07 03:13:31] [Control Logic] Light too low: 85.0
+[2025-08-07 03:13:31] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:13:33] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:13:37] [MQTT Handler] Inserted 90.0 for sensor: light
+[2025-08-07 03:13:41] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:13:41] [MQTT Handler] Inserted 35.5 for sensor: soilMoisture
+[2025-08-07 03:13:41] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:13:42] [Control Logic] Light too low: 90.0
+[2025-08-07 03:13:42] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:13:45] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:13:49] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:13:52] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:13:52] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:13:52] [Control Logic] Light too low: 90.0
+[2025-08-07 03:13:52] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:13:53] [MQTT Handler] Inserted 95.0 for sensor: light
+[2025-08-07 03:13:57] [MQTT Handler] Inserted 36.2 for sensor: soilMoisture
+[2025-08-07 03:14:01] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:14:02] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:14:02] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:14:02] [Control Logic] Light too low: 95.0
+[2025-08-07 03:14:02] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:05] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:14:09] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:14:13] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:14:13] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:14:13] [Control Logic] Light too low: 100.0
+[2025-08-07 03:14:13] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:14] [MQTT Handler] Inserted 36.9 for sensor: soilMoisture
+[2025-08-07 03:14:18] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:14:21] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:14:23] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:14:23] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:14:23] [Control Logic] Light too low: 100.0
+[2025-08-07 03:14:23] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:26] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:14:28] [Smart Garden] Executing command: :trigger grow_light
+[2025-08-07 03:14:28] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 03:14:28] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:28] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 03:14:28] [Smart Garden] Manual override activated for grow_light.
+[2025-08-07 03:14:28] > 
+[2025-08-07 03:14:30] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 03:14:33] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:14:34] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:14:34] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:14:34] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:14:34] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:38] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:14:42] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:14:44] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:14:44] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:14:44] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:14:44] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:46] [MQTT Handler] Inserted 38.3 for sensor: soilMoisture
+[2025-08-07 03:14:50] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:14:54] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:14:54] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:14:54] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:14:54] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:14:54] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:14:58] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:15:02] [MQTT Handler] Inserted 39.0 for sensor: soilMoisture
+[2025-08-07 03:15:05] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:15:05] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:15:05] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:15:05] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:15:06] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:15:10] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:15:14] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:15:15] [Control Logic] Temp within range: 25.6
+[2025-08-07 03:15:15] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:15:16] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:15:16] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:15:18] [MQTT Handler] Inserted 39.7 for sensor: soilMoisture
+[2025-08-07 03:15:22] [MQTT Handler] Inserted 25.6 for sensor: temperature
+[2025-08-07 03:15:26] [Control Logic] Temp within range: 25.6
+[2025-08-07 03:15:26] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:15:26] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:15:26] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:15:26] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:15:30] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:15:34] [MQTT Handler] Inserted 40.4 for sensor: soilMoisture
+[2025-08-07 03:15:36] [Control Logic] Temp within range: 25.6
+[2025-08-07 03:15:36] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:15:36] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:15:37] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:15:38] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:15:42] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:15:46] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:15:47] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:15:47] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:15:47] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:15:47] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:15:50] [MQTT Handler] Inserted 41.1 for sensor: soilMoisture
+[2025-08-07 03:15:54] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:15:57] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:15:57] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:15:57] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:15:57] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:15:58] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:16:02] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:16:06] [MQTT Handler] Inserted 41.8 for sensor: soilMoisture
+[2025-08-07 03:16:07] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:16:08] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:16:08] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:16:08] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:16:10] [MQTT Handler] Inserted 25.5 for sensor: temperature
+[2025-08-07 03:16:14] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:16:18] [Control Logic] Temp within range: 25.5
+[2025-08-07 03:16:18] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:16:18] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:16:18] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:16:18] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:16:23] [MQTT Handler] Inserted 42.5 for sensor: soilMoisture
+[2025-08-07 03:16:26] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:16:28] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:16:28] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:16:29] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:16:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:16:30] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:16:34] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:16:38] [MQTT Handler] Inserted 43.2 for sensor: soilMoisture
+[2025-08-07 03:16:39] [Control Logic] Temp within range: 25.4
+[2025-08-07 03:16:39] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:16:39] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:16:39] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:16:42] [MQTT Handler] Inserted 25.4 for sensor: temperature
+[2025-08-07 03:16:46] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:33:01] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-07 03:33:01] [Smart Garden] Loading configuration...
+[2025-08-07 03:33:01] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 03:33:02] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-07 03:33:02] [MQTT Handler] Subscribed to topic: light
+[2025-08-07 03:33:02] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-07 03:33:02] [MQTT Handler] Subscribed to topic: pH
+[2025-08-07 03:33:02] [CoAP Controller] CoAP server started on port 5683
+[2025-08-07 03:33:02] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-07 03:33:15] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-07 03:33:15] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-07 03:33:15] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-07 03:33:15] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-07 03:33:15] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-07 03:33:15] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-07 03:33:17] [Smart Garden] Available commands:
+[2025-08-07 03:33:17] [Smart Garden] - :get status
+[2025-08-07 03:33:17] [Smart Garden] - :get actuators
+[2025-08-07 03:33:17] [Smart Garden] - :trigger irrigation
+[2025-08-07 03:33:17] [Smart Garden] - :trigger grow_light
+[2025-08-07 03:33:17] [Smart Garden] - :trigger fertilizer
+[2025-08-07 03:33:17] [Smart Garden] - :trigger fan
+[2025-08-07 03:33:17] [Smart Garden] - :trigger heater
+[2025-08-07 03:33:17] [Smart Garden] - :get configuration
+[2025-08-07 03:33:17] [Smart Garden] - :set grow_light auto
+[2025-08-07 03:33:17] [Smart Garden] - :help
+[2025-08-07 03:33:17] [Smart Garden] - :quit
+[2025-08-07 03:33:17] > 
+[2025-08-07 03:33:31] [Smart Garden] Executing command: :get status
+[2025-08-07 03:33:31] [Smart Garden] Current sensor readings:
+[2025-08-07 03:33:31] soilMoisture - No data received yet.
+[2025-08-07 03:33:31] light - No data received yet.
+[2025-08-07 03:33:31] temperature - No data received yet.
+[2025-08-07 03:33:31] pH - No data received yet.
+[2025-08-07 03:33:31] > 
+[2025-08-07 03:34:00] [Smart Garden] Executing command: :get status
+[2025-08-07 03:34:00] [Smart Garden] Current sensor readings:
+[2025-08-07 03:34:00] soilMoisture - No data received yet.
+[2025-08-07 03:34:00] light - No data received yet.
+[2025-08-07 03:34:00] temperature - No data received yet.
+[2025-08-07 03:34:00] pH - No data received yet.
+[2025-08-07 03:34:00] > 
+[2025-08-07 03:48:12] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-07 03:48:12] [Smart Garden] Loading configuration...
+[2025-08-07 03:48:12] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 03:48:13] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-07 03:48:13] [MQTT Handler] Subscribed to topic: light
+[2025-08-07 03:48:13] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-07 03:48:13] [MQTT Handler] Subscribed to topic: pH
+[2025-08-07 03:48:13] [CoAP Controller] CoAP server started on port 5683
+[2025-08-07 03:48:13] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-07 03:48:18] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 03:48:22] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:48:24] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-07 03:48:24] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-07 03:48:24] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-07 03:48:24] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-07 03:48:24] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-07 03:48:24] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-07 03:48:26] [MQTT Handler] Inserted 40.0 for sensor: light
+[2025-08-07 03:48:28] [Smart Garden] Available commands:
+[2025-08-07 03:48:28] [Smart Garden] - :get status
+[2025-08-07 03:48:28] [Smart Garden] - :get actuators
+[2025-08-07 03:48:28] [Smart Garden] - :trigger irrigation
+[2025-08-07 03:48:28] [Smart Garden] - :trigger grow_light
+[2025-08-07 03:48:28] [Smart Garden] - :trigger fertilizer
+[2025-08-07 03:48:28] [Smart Garden] - :trigger fan
+[2025-08-07 03:48:28] [Smart Garden] - :trigger heater
+[2025-08-07 03:48:28] [Smart Garden] - :get configuration
+[2025-08-07 03:48:28] [Smart Garden] - :set grow_light auto
+[2025-08-07 03:48:28] [Smart Garden] - :help
+[2025-08-07 03:48:28] [Smart Garden] - :quit
+[2025-08-07 03:48:28] > 
+[2025-08-07 03:48:30] [MQTT Handler] Inserted 39.6 for sensor: soilMoisture
+[2025-08-07 03:48:34] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 03:48:36] [Smart Garden] Invalid command. Type ':help' to see the list of available commands.
+[2025-08-07 03:48:36] > 
+[2025-08-07 03:48:38] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:48:38] [Control Logic] Temp within range: 24.9
+[2025-08-07 03:48:38] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:48:38] [Control Logic] Light too low: 40.0
+[2025-08-07 03:48:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:48:38] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 03:48:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:48:38] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 03:48:39] [Smart Garden] Invalid command. Type ':help' to see the list of available commands.
+[2025-08-07 03:48:39] > 
+[2025-08-07 03:48:42] [Smart Garden] Executing command: :get status
+[2025-08-07 03:48:42] [Smart Garden] Current sensor readings:
+[2025-08-07 03:48:42] soilMoisture - Latest value: 39,60
+[2025-08-07 03:48:42] light - Latest value: 70,00
+[2025-08-07 03:48:42] temperature - Latest value: 24,90
+[2025-08-07 03:48:42] pH - Latest value: 6,74
+[2025-08-07 03:48:42] > 
+[2025-08-07 03:48:42] [MQTT Handler] Inserted 70.0 for sensor: light
+[2025-08-07 03:48:46] [MQTT Handler] Inserted 39.2 for sensor: soilMoisture
+[2025-08-07 03:48:48] [Smart Garden] Executing command: :get actuators
+[2025-08-07 03:48:48] [Smart Garden] Current actuator states:
+[2025-08-07 03:48:48]   - fertilizer: off
+[2025-08-07 03:48:48]   - irrigation: off
+[2025-08-07 03:48:48]   - grow_light: on
+[2025-08-07 03:48:48]   - fan: off
+[2025-08-07 03:48:48]   - heater: off
+[2025-08-07 03:48:48] > 
+[2025-08-07 03:48:49] [Control Logic] Temp within range: 24.9
+[2025-08-07 03:48:49] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:48:49] [Control Logic] Light too low: 70.0
+[2025-08-07 03:48:49] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:48:50] [MQTT Handler] Inserted 24.8 for sensor: temperature
+[2025-08-07 03:48:53] [Smart Garden] Executing command: :get configuration
+[2025-08-07 03:48:53] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 03:48:53] > 
+[2025-08-07 03:48:54] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:48:58] [MQTT Handler] Inserted 75.0 for sensor: light
+[2025-08-07 03:48:59] [Control Logic] Temp within range: 24.8
+[2025-08-07 03:48:59] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:48:59] [Control Logic] Light too low: 75.0
+[2025-08-07 03:48:59] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:49:02] [MQTT Handler] Inserted 38.8 for sensor: soilMoisture
+[2025-08-07 03:49:06] [MQTT Handler] Inserted 24.7 for sensor: temperature
+[2025-08-07 03:49:09] [Control Logic] Temp within range: 24.7
+[2025-08-07 03:49:09] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:49:09] [Control Logic] Light too low: 75.0
+[2025-08-07 03:49:09] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:49:10] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:49:14] [Smart Garden] Executing command: :get actuators
+[2025-08-07 03:49:14] [Smart Garden] Current actuator states:
+[2025-08-07 03:49:14]   - fertilizer: off
+[2025-08-07 03:49:14]   - irrigation: off
+[2025-08-07 03:49:14]   - grow_light: on
+[2025-08-07 03:49:14]   - fan: off
+[2025-08-07 03:49:14] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 03:49:14]   - heater: off
+[2025-08-07 03:49:14] > 
+[2025-08-07 03:49:18] [MQTT Handler] Inserted 38.4 for sensor: soilMoisture
+[2025-08-07 03:49:20] [Control Logic] Temp within range: 24.7
+[2025-08-07 03:49:20] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:49:20] [Control Logic] Light too low: 80.0
+[2025-08-07 03:49:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:49:22] [MQTT Handler] Inserted 24.7 for sensor: temperature
+[2025-08-07 03:49:26] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:49:30] [Control Logic] Temp within range: 24.7
+[2025-08-07 03:49:30] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:49:30] [Control Logic] Light too low: 80.0
+[2025-08-07 03:49:30] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:49:30] [MQTT Handler] Inserted 85.0 for sensor: light
+[2025-08-07 03:49:34] [MQTT Handler] Inserted 38.0 for sensor: soilMoisture
+[2025-08-07 03:49:38] [MQTT Handler] Inserted 24.7 for sensor: temperature
+[2025-08-07 03:49:40] [Control Logic] Temp within range: 24.7
+[2025-08-07 03:49:40] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:49:41] [Control Logic] Light too low: 85.0
+[2025-08-07 03:49:41] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:49:42] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:49:46] [MQTT Handler] Inserted 90.0 for sensor: light
+[2025-08-07 03:49:49] [Smart Garden] Executing command: :trigger grow_light
+[2025-08-07 03:49:49] [CoAP Controller] Command sent to grow_light: off
+[2025-08-07 03:49:49] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:49:49] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 03:49:49] [Smart Garden] Manual override activated for grow_light
+[2025-08-07 03:49:49] > 
+[2025-08-07 03:49:50] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 03:49:51] [Control Logic] Temp within range: 24.7
+[2025-08-07 03:49:51] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:49:51] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:49:51] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:49:55] [MQTT Handler] Inserted 24.6 for sensor: temperature
+[2025-08-07 03:49:57] [Smart Garden] Executing command: :get actuators
+[2025-08-07 03:49:57] [Smart Garden] Current actuator states:
+[2025-08-07 03:49:57]   - fertilizer: off
+[2025-08-07 03:49:57]   - irrigation: off
+[2025-08-07 03:49:57]   - grow_light: off
+[2025-08-07 03:49:57]   - fan: off
+[2025-08-07 03:49:57]   - heater: off
+[2025-08-07 03:49:57] > 
+[2025-08-07 03:49:58] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:50:01] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:50:01] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:50:01] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:50:01] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:50:02] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 03:50:07] [MQTT Handler] Inserted 37.2 for sensor: soilMoisture
+[2025-08-07 03:50:11] [MQTT Handler] Inserted 24.6 for sensor: temperature
+[2025-08-07 03:50:12] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:50:12] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:50:12] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:50:12] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:50:14] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:50:18] [MQTT Handler] Inserted 70.0 for sensor: light
+[2025-08-07 03:50:22] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:50:22] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:50:22] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:50:22] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:50:23] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-08-07 03:50:27] [MQTT Handler] Inserted 24.6 for sensor: temperature
+[2025-08-07 03:50:31] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:50:32] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:50:32] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:50:33] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:50:33] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:50:35] [MQTT Handler] Inserted 60.0 for sensor: light
+[2025-08-07 03:50:39] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-08-07 03:50:43] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:50:43] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:50:43] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:50:43] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:50:43] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:50:47] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:50:51] [MQTT Handler] Inserted 50.0 for sensor: light
+[2025-08-07 03:50:53] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:50:53] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:50:53] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:50:53] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:50:55] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-08-07 03:50:59] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:51:03] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:51:03] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:51:04] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:51:04] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:51:04] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:51:07] [MQTT Handler] Inserted 40.0 for sensor: light
+[2025-08-07 03:51:11] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-08-07 03:51:14] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:51:14] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:51:14] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:51:14] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:51:15] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:51:19] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:51:23] [MQTT Handler] Inserted 30.0 for sensor: light
+[2025-08-07 03:51:24] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:51:24] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:51:25] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:51:25] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:51:27] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-08-07 03:51:31] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:51:35] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:51:35] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:51:35] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:51:35] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:51:35] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:51:39] [MQTT Handler] Inserted 20.0 for sensor: light
+[2025-08-07 03:51:43] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-08-07 03:51:45] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:51:46] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:51:46] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 03:51:46] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 03:51:46] [CoAP Controller] Command sent to irrigation: on
+[2025-08-07 03:51:46] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 03:51:46] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-07 03:51:46] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:51:46] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:51:47] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:51:51] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:51:55] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:51:56] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:51:56] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:51:56] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 03:51:56] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 03:51:56] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:51:56] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:51:59] [MQTT Handler] Inserted 35.5 for sensor: soilMoisture
+[2025-08-07 03:52:03] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:52:07] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:52:07] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:52:07] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:52:07] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:52:07] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:52:11] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:52:15] [MQTT Handler] Inserted 36.2 for sensor: soilMoisture
+[2025-08-07 03:52:17] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:52:17] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:52:17] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:52:17] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:52:19] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:52:23] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:52:27] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:52:27] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:52:27] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:52:28] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:52:28] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:52:31] [MQTT Handler] Inserted 36.9 for sensor: soilMoisture
+[2025-08-07 03:52:35] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:52:38] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:52:38] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:52:38] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:52:38] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:52:39] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:52:43] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:52:48] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 03:52:48] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:52:48] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:52:48] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:52:48] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:52:52] [MQTT Handler] Inserted 24.6 for sensor: temperature
+[2025-08-07 03:52:55] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:52:59] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:52:59] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:52:59] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:52:59] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:52:59] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:53:04] [MQTT Handler] Inserted 38.3 for sensor: soilMoisture
+[2025-08-07 03:53:08] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:53:09] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:53:09] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:53:09] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:53:09] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:53:11] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:53:15] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:53:19] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:53:19] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:53:19] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:53:19] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:53:20] [MQTT Handler] Inserted 39.0 for sensor: soilMoisture
+[2025-08-07 03:53:24] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:53:28] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:53:30] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:53:30] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:53:30] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 03:53:30] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 03:53:31] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 03:53:36] [MQTT Handler] Inserted 39.7 for sensor: soilMoisture
+[2025-08-07 03:53:38] [Smart Garden] Executing command: :trigger grow_light
+[2025-08-07 03:53:38] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 03:53:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:53:38] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 03:53:38] [Smart Garden] Manual override activated for grow_light
+[2025-08-07 03:53:38] > 
+[2025-08-07 03:53:40] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:53:40] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:53:40] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:53:40] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:53:41] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:53:44] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:53:48] [MQTT Handler] Inserted 50.0 for sensor: light
+[2025-08-07 03:53:51] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:53:51] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:53:51] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:53:51] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:53:52] [MQTT Handler] Inserted 40.4 for sensor: soilMoisture
+[2025-08-07 03:53:56] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:54:00] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:54:01] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:54:01] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:54:01] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:54:01] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:54:04] [MQTT Handler] Inserted 65.0 for sensor: light
+[2025-08-07 03:54:08] [MQTT Handler] Inserted 41.1 for sensor: soilMoisture
+[2025-08-07 03:54:11] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:54:11] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:54:12] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:54:12] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:54:12] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:54:16] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:54:17] [Smart Garden] Executing command: :help
+[2025-08-07 03:54:17] [Smart Garden] Available commands:
+[2025-08-07 03:54:17] [Smart Garden] - :get status
+[2025-08-07 03:54:17] [Smart Garden] - :get actuators
+[2025-08-07 03:54:17] [Smart Garden] - :trigger irrigation
+[2025-08-07 03:54:17] [Smart Garden] - :trigger grow_light
+[2025-08-07 03:54:17] [Smart Garden] - :trigger fertilizer
+[2025-08-07 03:54:17] [Smart Garden] - :trigger fan
+[2025-08-07 03:54:17] [Smart Garden] - :trigger heater
+[2025-08-07 03:54:17] [Smart Garden] - :get configuration
+[2025-08-07 03:54:17] [Smart Garden] - :set grow_light auto
+[2025-08-07 03:54:17] [Smart Garden] - :help
+[2025-08-07 03:54:17] [Smart Garden] - :quit
+[2025-08-07 03:54:17] > 
+[2025-08-07 03:54:20] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 03:54:22] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:54:22] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:54:22] [Control Logic] (manual) grow_light is ON
+[2025-08-07 03:54:22] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:54:24] [MQTT Handler] Inserted 41.8 for sensor: soilMoisture
+[2025-08-07 03:54:27] [Smart Garden] Executing command: :set grow_light auto
+[2025-08-07 03:54:27] [Smart Garden] Grow light set to automatic mode.
+[2025-08-07 03:54:27] > 
+[2025-08-07 03:54:28] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:54:32] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:54:32] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:54:32] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:54:32] [Control Logic] Light too low: 80.0
+[2025-08-07 03:54:32] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:54:36] [MQTT Handler] Inserted 85.0 for sensor: light
+[2025-08-07 03:54:40] [MQTT Handler] Inserted 42.5 for sensor: soilMoisture
+[2025-08-07 03:54:43] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:54:43] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:54:43] [Control Logic] Light too low: 85.0
+[2025-08-07 03:54:43] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:54:44] [MQTT Handler] Inserted 24.6 for sensor: temperature
+[2025-08-07 03:54:48] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:54:52] [MQTT Handler] Inserted 90.0 for sensor: light
+[2025-08-07 03:54:53] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:54:53] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:54:53] [Control Logic] Light too low: 90.0
+[2025-08-07 03:54:53] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:54:54] [Smart Garden] Executing command: :get actuators
+[2025-08-07 03:54:54] [Smart Garden] Current actuator states:
+[2025-08-07 03:54:54]   - fertilizer: off
+[2025-08-07 03:54:54]   - irrigation: on
+[2025-08-07 03:54:54]   - grow_light: on
+[2025-08-07 03:54:54]   - fan: off
+[2025-08-07 03:54:54]   - heater: off
+[2025-08-07 03:54:54] > 
+[2025-08-07 03:54:56] [MQTT Handler] Inserted 43.2 for sensor: soilMoisture
+[2025-08-07 03:55:00] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:55:03] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:55:03] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:55:04] [Control Logic] Light too low: 90.0
+[2025-08-07 03:55:04] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:55:04] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:55:08] [MQTT Handler] Inserted 95.0 for sensor: light
+[2025-08-07 03:55:12] [MQTT Handler] Inserted 43.9 for sensor: soilMoisture
+[2025-08-07 03:55:14] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:55:14] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:55:14] [Control Logic] Light too low: 95.0
+[2025-08-07 03:55:14] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:55:16] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:55:20] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:55:23] [Smart Garden] Executing command: :get actuators
+[2025-08-07 03:55:23] [Smart Garden] Current actuator states:
+[2025-08-07 03:55:23]   - fertilizer: off
+[2025-08-07 03:55:23]   - irrigation: on
+[2025-08-07 03:55:23]   - grow_light: on
+[2025-08-07 03:55:23]   - fan: off
+[2025-08-07 03:55:23]   - heater: off
+[2025-08-07 03:55:23] > 
+[2025-08-07 03:55:24] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:55:24] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:55:24] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:55:24] [Control Logic] Light too low: 100.0
+[2025-08-07 03:55:24] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:55:28] [MQTT Handler] Inserted 44.6 for sensor: soilMoisture
+[2025-08-07 03:55:32] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:55:35] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:55:35] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:55:35] [Control Logic] Light too low: 100.0
+[2025-08-07 03:55:35] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:55:36] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:55:40] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:55:44] [MQTT Handler] Inserted 45.3 for sensor: soilMoisture
+[2025-08-07 03:55:45] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:55:45] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:55:45] [Control Logic] Light too low: 100.0
+[2025-08-07 03:55:45] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:55:48] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:55:52] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:55:55] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:55:55] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:55:56] [Control Logic] Light too low: 100.0
+[2025-08-07 03:55:56] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:55:56] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:56:00] [MQTT Handler] Inserted 46.0 for sensor: soilMoisture
+[2025-08-07 03:56:04] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:56:06] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:56:06] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:56:06] [Control Logic] Light too low: 100.0
+[2025-08-07 03:56:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:56:08] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:56:12] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:56:16] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:56:17] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:56:17] [MQTT Handler] Inserted 46.7 for sensor: soilMoisture
+[2025-08-07 03:56:17] [Control Logic] Light too low: 100.0
+[2025-08-07 03:56:17] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:56:21] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:56:25] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:56:27] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:56:27] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:56:27] [Control Logic] Light too low: 100.0
+[2025-08-07 03:56:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:56:28] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:56:33] [MQTT Handler] Inserted 47.4 for sensor: soilMoisture
+[2025-08-07 03:56:37] [MQTT Handler] Inserted 24.4 for sensor: temperature
+[2025-08-07 03:56:37] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:56:37] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:56:37] [Control Logic] Light too low: 100.0
+[2025-08-07 03:56:38] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:56:41] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:56:45] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:56:48] [Control Logic] Temp within range: 24.4
+[2025-08-07 03:56:48] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:56:48] [Control Logic] Light too low: 100.0
+[2025-08-07 03:56:48] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:56:49] [MQTT Handler] Inserted 48.1 for sensor: soilMoisture
+[2025-08-07 03:56:53] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:56:57] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 03:56:58] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:56:58] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:56:58] [Control Logic] Light too low: 100.0
+[2025-08-07 03:56:58] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:57:01] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:57:05] [MQTT Handler] Inserted 48.8 for sensor: soilMoisture
+[2025-08-07 03:57:09] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:57:09] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 03:57:09] [Control Logic] Light too low: 100.0
+[2025-08-07 03:57:09] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:57:09] [MQTT Handler] Inserted 24.6 for sensor: temperature
+[2025-08-07 03:57:13] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 03:57:17] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 03:57:19] [Control Logic] Temp within range: 24.6
+[2025-08-07 03:57:19] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 03:57:20] [Control Logic] Light too low: 100.0
+[2025-08-07 03:57:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:57:21] [MQTT Handler] Inserted 49.5 for sensor: soilMoisture
+[2025-08-07 03:57:25] [MQTT Handler] Inserted 24.5 for sensor: temperature
+[2025-08-07 03:57:29] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 03:57:30] [Control Logic] Temp within range: 24.5
+[2025-08-07 03:57:30] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 03:57:30] [Control Logic] Light too low: 100.0
+[2025-08-07 03:57:30] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 03:57:33] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 04:40:40] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-07 04:40:40] [Smart Garden] Loading configuration...
+[2025-08-07 04:40:40] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-07 04:40:41] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-07 04:40:41] [MQTT Handler] Subscribed to topic: light
+[2025-08-07 04:40:41] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-07 04:40:41] [MQTT Handler] Subscribed to topic: pH
+[2025-08-07 04:40:41] [CoAP Controller] CoAP server started on port 5683
+[2025-08-07 04:40:41] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-07 04:40:43] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 04:40:47] [MQTT Handler] Inserted 38.0 for sensor: soilMoisture
+[2025-08-07 04:40:51] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 04:40:55] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 04:40:56] [Smart Garden] Available commands:
+[2025-08-07 04:40:56] [Smart Garden] - :get status
+[2025-08-07 04:40:56] [Smart Garden] - :get actuators
+[2025-08-07 04:40:56] [Smart Garden] - :trigger irrigation
+[2025-08-07 04:40:56] [Smart Garden] - :trigger grow_light
+[2025-08-07 04:40:56] [Smart Garden] - :trigger fertilizer
+[2025-08-07 04:40:56] [Smart Garden] - :trigger fan
+[2025-08-07 04:40:56] [Smart Garden] - :trigger heater
+[2025-08-07 04:40:56] [Smart Garden] - :get configuration
+[2025-08-07 04:40:56] [Smart Garden] - :set grow_light auto
+[2025-08-07 04:40:56] [Smart Garden] - :help
+[2025-08-07 04:40:56] [Smart Garden] - :quit
+[2025-08-07 04:40:56] > 
+[2025-08-07 04:40:59] [MQTT Handler] Inserted 10.0 for sensor: light
+[2025-08-07 04:41:03] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:06] [Control Logic] Temp within range: 25.1
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:06] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 04:41:06] [MQTT Handler] Published command to fertilizer: off
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: irrigation[0m
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:06] [Control Logic] Light too low: 10.0
+[2025-08-07 04:41:06] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:06] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:07] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 04:41:11] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:41:15] [MQTT Handler] Inserted 50.0 for sensor: light
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:16] [Control Logic] Temp within range: 25.0
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:16] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:41:16] [MQTT Handler] Published command to fertilizer: off
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: irrigation[0m
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:16] [Control Logic] Light too low: 50.0
+[2025-08-07 04:41:16] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:16] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:19] [MQTT Handler] Inserted 37.2 for sensor: soilMoisture
+[2025-08-07 04:41:23] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:26] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:26] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:41:26] [MQTT Handler] Published command to fertilizer: off
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: irrigation[0m
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:26] [Control Logic] Light too low: 50.0
+[2025-08-07 04:41:26] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:26] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:27] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:41:31] [MQTT Handler] Inserted 65.0 for sensor: light
+[2025-08-07 04:41:35] [MQTT Handler] Inserted 36.8 for sensor: soilMoisture
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:36] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: fan[0m
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: heater[0m
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:36] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:41:36] [MQTT Handler] Published command to fertilizer: off
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: fertilizer[0m
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: irrigation[0m
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:36] [Control Logic] Light too low: 65.0
+[2025-08-07 04:41:36] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:36] [31m[CoAP Controller] Unknown or unregistered actuator: grow_light[0m
+[2025-08-07 04:41:38] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-07 04:41:38] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-07 04:41:38] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-07 04:41:38] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-07 04:41:38] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-07 04:41:38] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-07 04:41:39] [MQTT Handler] Inserted 24.8 for sensor: temperature
+[2025-08-07 04:41:43] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:41:46] [Control Logic] Temp within range: 24.8
+[2025-08-07 04:41:46] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:41:47] [Control Logic] Light too low: 65.0
+[2025-08-07 04:41:47] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:47] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 04:41:47] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:47] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 04:41:47] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 04:41:51] [MQTT Handler] Inserted 36.4 for sensor: soilMoisture
+[2025-08-07 04:41:55] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 04:41:57] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:41:58] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:41:58] [Control Logic] Light too low: 80.0
+[2025-08-07 04:41:58] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:41:59] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 04:42:03] [MQTT Handler] Inserted 85.0 for sensor: light
+[2025-08-07 04:42:08] [MQTT Handler] Inserted 36.0 for sensor: soilMoisture
+[2025-08-07 04:42:08] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:42:08] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 04:42:09] [Control Logic] Light too low: 85.0
+[2025-08-07 04:42:09] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:42:12] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 04:42:15] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 04:42:19] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:42:19] [MQTT Handler] Inserted 90.0 for sensor: light
+[2025-08-07 04:42:20] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 04:42:20] [Control Logic] Light too low: 90.0
+[2025-08-07 04:42:20] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:42:24] [MQTT Handler] Inserted 35.6 for sensor: soilMoisture
+[2025-08-07 04:42:28] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 04:42:30] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:42:30] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 04:42:31] [Control Logic] Light too low: 90.0
+[2025-08-07 04:42:31] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:42:32] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:42:36] [MQTT Handler] Inserted 95.0 for sensor: light
+[2025-08-07 04:42:40] [MQTT Handler] Inserted 35.2 for sensor: soilMoisture
+[2025-08-07 04:42:41] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:42:41] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:42:41] [Control Logic] Light too low: 95.0
+[2025-08-07 04:42:41] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:42:44] [MQTT Handler] Inserted 24.9 for sensor: temperature
+[2025-08-07 04:42:48] [MQTT Handler] Inserted 6.74 for sensor: pH
+[2025-08-07 04:42:52] [Control Logic] Temp within range: 24.9
+[2025-08-07 04:42:52] [MQTT Handler] Inserted 100.0 for sensor: light
+[2025-08-07 04:42:52] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 04:42:52] [Control Logic] Light too low: 100.0
+[2025-08-07 04:42:52] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:42:56] [MQTT Handler] Inserted 34.8 for sensor: soilMoisture
+[2025-08-07 04:42:59] [Smart Garden] Executing command: :trigger grow_light
+[2025-08-07 04:42:59] [CoAP Controller] Command sent to grow_light: off
+[2025-08-07 04:42:59] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:42:59] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 04:42:59] [Smart Garden] Manual override activated for grow_light
+[2025-08-07 04:42:59] > 
+[2025-08-07 04:43:00] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 04:43:02] [Control Logic] Temp within range: 25.0
+[2025-08-07 04:43:03] [Control Logic] pH within acceptable range: 6.74
+[2025-08-07 04:43:03] [Control Logic] Soil moisture too low: 34.8
+[2025-08-07 04:43:03] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 04:43:03] [CoAP Controller] Command sent to irrigation: on
+[2025-08-07 04:43:03] [MQTT Handler] Published command to irrigation: on
+[2025-08-07 04:43:03] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-07 04:43:03] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:43:03] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:43:04] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:43:08] [MQTT Handler] Inserted 90.0 for sensor: light
+[2025-08-07 04:43:12] [MQTT Handler] Inserted 35.5 for sensor: soilMoisture
+[2025-08-07 04:43:13] [Control Logic] Temp within range: 25.0
+[2025-08-07 04:43:13] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:43:14] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:43:14] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:43:16] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 04:43:20] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 04:43:24] [MQTT Handler] Inserted 80.0 for sensor: light
+[2025-08-07 04:43:24] [Control Logic] Temp within range: 25.1
+[2025-08-07 04:43:24] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 04:43:24] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:43:24] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:43:28] [MQTT Handler] Inserted 36.2 for sensor: soilMoisture
+[2025-08-07 04:43:32] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 04:43:35] [Control Logic] Temp within range: 25.1
+[2025-08-07 04:43:35] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 04:43:35] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:43:35] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:43:36] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:43:40] [MQTT Handler] Inserted 70.0 for sensor: light
+[2025-08-07 04:43:44] [MQTT Handler] Inserted 36.9 for sensor: soilMoisture
+[2025-08-07 04:43:45] [Control Logic] Temp within range: 25.1
+[2025-08-07 04:43:45] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:43:46] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:43:46] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:43:48] [MQTT Handler] Inserted 25.0 for sensor: temperature
+[2025-08-07 04:43:52] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:43:53] [Smart Garden] Executing command: :get actuators
+[2025-08-07 04:43:53] [Smart Garden] Current actuator states:
+[2025-08-07 04:43:53]   - fertilizer: off
+[2025-08-07 04:43:53]   - irrigation: on
+[2025-08-07 04:43:53]   - grow_light: off [manual mode]
+[2025-08-07 04:43:53]   - fan: off
+[2025-08-07 04:43:54]   - heater: off
+[2025-08-07 04:43:54] > 
+[2025-08-07 04:43:56] [MQTT Handler] Inserted 60.0 for sensor: light
+[2025-08-07 04:43:56] [Control Logic] Temp within range: 25.0
+[2025-08-07 04:43:56] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:43:57] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:43:57] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:44:00] [MQTT Handler] Inserted 37.6 for sensor: soilMoisture
+[2025-08-07 04:44:04] [MQTT Handler] Inserted 25.1 for sensor: temperature
+[2025-08-07 04:44:07] [Control Logic] Temp within range: 25.1
+[2025-08-07 04:44:07] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:44:07] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:44:07] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:44:08] [MQTT Handler] Inserted 6.76 for sensor: pH
+[2025-08-07 04:44:12] [MQTT Handler] Inserted 50.0 for sensor: light
+[2025-08-07 04:44:16] [MQTT Handler] Inserted 38.3 for sensor: soilMoisture
+[2025-08-07 04:44:18] [Control Logic] Temp within range: 25.1
+[2025-08-07 04:44:18] [Control Logic] pH within acceptable range: 6.76
+[2025-08-07 04:44:18] [Control Logic] (manual) grow_light is OFF
+[2025-08-07 04:44:18] [MQTT Handler] Published command to grow_light: off
+[2025-08-07 04:44:19] [Smart Garden] Executing command: :set grow_light auto
+[2025-08-07 04:44:19] [Control Logic] (auto switch) Light too low: 50.0
+[2025-08-07 04:44:19] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:44:19] [CoAP Controller] Command sent to grow_light: on
+[2025-08-07 04:44:19] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:44:19] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-07 04:44:19] > 
+[2025-08-07 04:44:20] [MQTT Handler] Inserted 25.2 for sensor: temperature
+[2025-08-07 04:44:24] [MQTT Handler] Inserted 6.75 for sensor: pH
+[2025-08-07 04:44:28] [MQTT Handler] Inserted 65.0 for sensor: light
+[2025-08-07 04:44:28] [Control Logic] Temp within range: 25.2
+[2025-08-07 04:44:28] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 04:44:29] [Control Logic] Light too low: 65.0
+[2025-08-07 04:44:29] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:44:32] [MQTT Handler] Inserted 39.0 for sensor: soilMoisture
+[2025-08-07 04:44:36] [Smart Garden] Executing command: :get actuators
+[2025-08-07 04:44:36] [Smart Garden] Current actuator states:
+[2025-08-07 04:44:36]   - fertilizer: off
+[2025-08-07 04:44:36]   - irrigation: on
+[2025-08-07 04:44:36]   - grow_light: on
+[2025-08-07 04:44:36]   - fan: off
+[2025-08-07 04:44:36]   - heater: off
+[2025-08-07 04:44:36] > 
+[2025-08-07 04:44:36] [MQTT Handler] Inserted 25.3 for sensor: temperature
+[2025-08-07 04:44:39] [Control Logic] Temp within range: 25.3
+[2025-08-07 04:44:39] [Control Logic] pH within acceptable range: 6.75
+[2025-08-07 04:44:39] [Control Logic] Light too low: 65.0
+[2025-08-07 04:44:39] [MQTT Handler] Published command to grow_light: on
+[2025-08-07 04:44:40] [MQTT Handler] Inserted 6.76 for sensor: pH

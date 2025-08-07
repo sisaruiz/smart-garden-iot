@@ -28,6 +28,7 @@ public class Main {
             ":trigger fan",
             ":trigger heater",
             ":get configuration",
+            ":set grow_light auto",
             ":help",
             ":quit"
     };
@@ -83,6 +84,11 @@ public class Main {
 
             if (isValidCommand(userInput)) {
                 ConsoleUtils.println(LOG + " Executing command: " + userInput);
+                
+                if (userInput.equals(":set grow_light auto")) {
+		    controlLogic.enableGrowLightAutoMode();
+		    continue;
+		}
 
                 if (userInput.startsWith(":trigger ")) {
                     String shortName = userInput.replace(":trigger ", "").trim();
@@ -128,15 +134,25 @@ public class Main {
 				e.printStackTrace();
 			    }
 			} else {
-			    boolean currentState = actuatorState.getOrDefault(shortName, false);
+			    boolean currentState;
+		    	    try {
+				    String state = coapController.getActuatorState(shortName);
+				    currentState = "on".equalsIgnoreCase(state);
+			    } catch (Exception e) {
+				    ConsoleUtils.printError(LOG + " Could not fetch current state for " + shortName + ". Assuming OFF.");
+				    currentState = false;
+			    }
 			    String nextCommand = currentState ? "off" : "on";
 
 			    try {
 				coapController.sendCommand(shortName, nextCommand);
 				actuatorState.put(shortName, !currentState);
-
-				// Manual override logic for fan and heater only
-				if (shortName.equals("fan") || shortName.equals("heater")) {
+				
+				if (shortName.equals("grow_light")) {
+				    controlLogic.setGrowLightManualMode(true);
+				    controlLogic.setGrowLightState(!currentState);
+				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
+				} else if (shortName.equals("fan") || shortName.equals("heater")) {
 				    controlLogic.setManualOverride(shortName, true);
 				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
 				}
@@ -173,16 +189,22 @@ public class Main {
                         break;
 
                     case ":get actuators":
-                        ConsoleUtils.println(LOG + " Current actuator states:");
-                        for (String shortName : configuration.getActuators()) {
-                            try {
-                                String state = coapController.getActuatorState(shortName);
-                                ConsoleUtils.println("  - " + shortName + ": " + state);
-                            } catch (Exception e) {
-                                ConsoleUtils.printError(LOG + " Could not retrieve state for " + shortName);
-                            }
-                        }
-                        break;
+		        ConsoleUtils.println(LOG + " Current actuator states:");
+		        for (String shortName : configuration.getActuators()) {
+			    try {
+			        String state = coapController.getActuatorState(shortName);
+			        String line = "  - " + shortName + ": " + state;
+  
+			        if (shortName.equals("grow_light") && controlLogic.isGrowLightManual()) {
+				    line += " [manual mode]";
+			        } 
+
+			        ConsoleUtils.println(line);
+			    } catch (Exception e) {
+			        ConsoleUtils.printError(LOG + " Could not retrieve state for " + shortName);
+			    }
+		        }
+		        break;
 
                     case ":get configuration":
                         ConsoleUtils.println(configuration.toString());
