@@ -73,8 +73,7 @@ build/nrf52840/dongle/obj/irrigation_resource.o: \
  ../../arch/cpu/nrf52840/lib/nrf52-sdk/modules/nrfx/drivers/include/nrfx_gpiote.h \
  ../../arch/cpu/nrf52840/lib/nrf52-sdk/modules/nrfx/hal/nrf_gpiote.h \
  ../../arch/cpu/nrf52840/lib/nrf52-sdk/modules/nrfx/hal/nrf_gpio.h \
- ../../os/dev/button-hal.h ../../os/sys/ctimer.h ../../os/sys/log.h \
- ../../os/sys/log-conf.h
+ ../../os/sys/log.h ../../os/sys/log-conf.h
 
 ../../os/net/app-layer/coap/module-macros.h:
 
@@ -259,10 +258,6 @@ project-conf.h:
 ../../arch/cpu/nrf52840/lib/nrf52-sdk/modules/nrfx/hal/nrf_gpiote.h:
 
 ../../arch/cpu/nrf52840/lib/nrf52-sdk/modules/nrfx/hal/nrf_gpio.h:
-
-../../os/dev/button-hal.h:
-
-../../os/sys/ctimer.h:
 
 ../../os/sys/log.h:
 

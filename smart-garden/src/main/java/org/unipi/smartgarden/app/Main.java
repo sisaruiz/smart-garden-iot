@@ -152,7 +152,7 @@ public class Main {
 				    controlLogic.setGrowLightManualMode(true);
 				    controlLogic.setGrowLightState(!currentState);
 				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
-				} else if (shortName.equals("fan") || shortName.equals("heater")) {
+				} else if (shortName.equals("fan") || shortName.equals("heater") || shortName.equals("irrigation")) {
 				    controlLogic.setManualOverride(shortName, true);
 				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
 				}

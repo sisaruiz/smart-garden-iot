@@ -407,21 +407,42 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
 		  turn = 4;
 
-		} else if(turn == 4){
+		} else if (turn == 4) {
 		  sprintf(pub_topic, "soilMoisture");
 
-		  // Simulate soil moisture based on irrigation
-		  if(irrigation_on) sim_moisture += 7;
-		  else sim_moisture -= 4;
+		  // --- Soil moisture dynamics (x10 scaling) ---
+		  if (irrigation_on) {
+		    // Irrigation ON → steady rise (+0.7% .. +1.2%)
+		    sim_moisture += 7 + (rand() % 6);          // +7..+12
+		  } else {
+		    // Irrigation OFF → mostly drying, sometimes rain/dew bumps
+		    int r = rand() % 100;
 
-		  if(sim_moisture < 100) sim_moisture = 100;
-		  if(sim_moisture > 900) sim_moisture = 900;
+		    if (r < 6) {
+		      // ~6% chance: rain shower (+2.0% .. +6.0%)
+		      sim_moisture += 20 + (rand() % 41);      // +20..+60
+		      LOG_INFO("Rain event: soil moisture boosted\n");
+		    } else if (r < 26) {
+		      // next 20%: dew/cloud cover (+0.2% .. +0.6%)
+		      sim_moisture += 2 + (rand() % 5);        // +2..+6
+		    } else {
+		      // otherwise drying (-0.2% .. -0.6%)
+		      sim_moisture -= 2 + (rand() % 5);        // -2..-6
+		    }
+		  }
+
+		  // Clamp to 10%..90%
+		  if (sim_moisture < 100) sim_moisture = 100;
+		  if (sim_moisture > 900) sim_moisture = 900;
 
 		  sprintf(app_buffer, "{\"soilMoisture\":%d.%01d}", sim_moisture/10, sim_moisture%10);
-		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer),
+			       MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
 		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
+
 		  turn = 1;
-		}
+		}		
+
             etimer_set(&periodic_timer, SHORT_PUBLISH_INTERVAL);
             rgb_led_off();
         } else if ( state == STATE_DISCONNECTED ){
@@ -433,9 +454,9 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
             etimer_set(&periodic_timer, STATE_MACHINE_PERIODIC);
         }
 
-    }//end event check
+    }
 
-  }//end while
+  }
 
   PROCESS_END();
   }
