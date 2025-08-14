@@ -18,8 +18,7 @@ The list of devices is static and loaded from a configuration file.
 - **Eclipse Californium** – CoAP framework for Java.
 - **Eclipse Paho** – MQTT client for Java.
 - **Eclipse Mosquitto** – MQTT broker.
-- **MySQL** – Database for sensor data and actuator state storage.
-
+- **MySQL** – Database for sensor data.
 ## Architecture
 
 ### 1. MQTT Sensor Node
