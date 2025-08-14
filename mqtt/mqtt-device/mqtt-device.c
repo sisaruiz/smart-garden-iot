@@ -94,6 +94,11 @@ static int fertilizer_erogation_variation = 0;
 static bool heater_on = false;
 static bool fan_on = false;
 
+// Ambient light state (used when grow_light is OFF)
+static int ambient_target = 300;  // x10 scale (e.g., 300 => 30.0%)
+static int ambient_ticks = 0;     // remaining ticks to keep current ambient target
+
+
 // Sensor simulation values (scaled: temp ×10, others ×100)
 static int sim_temperature = 250;   // 25.0°C
 static int sim_pH = 675;            // pH 6.75
@@ -381,33 +386,61 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 			       MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
 		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
 		  turn = 3;
-		} else if(turn == 3){
-		  sprintf(pub_topic, "light");
+		} else if (turn == 3) {
+			  sprintf(pub_topic, "light");
 
-		  // Simulate light based on grow light state
-		  if(grow_light_state == 1) {
-			  if(sim_light < 200) {
-			    sim_light += 400;
-			  } else if(sim_light < 500) {
-			    sim_light += 300;
-			  } else if(sim_light < 700) {
-			    sim_light += 150;
+			  if (grow_light_state == 1) {
+			    // --- Grow light ON ---
+			    // Ramp toward a high plateau, then hover with small jitter.
+			    if (sim_light < 950) {
+			      sim_light += 30 + (rand() % 40);  // +30..+69 per tick until near plateau
+			    } else {
+			      int jitter = (rand() % 11) - 5;   // -5..+5 small jitter at plateau
+			      sim_light += jitter;
+			    }
+
+			    // Soft clamp for ON: keep it high and stable, no big dips
+			    if (sim_light < 930) sim_light = 930;  // don’t allow deep dips once ON
+			    if (sim_light > 1000) sim_light = 1000;
+
 			  } else {
-			    sim_light += 50;
+			    // --- Grow light OFF ---
+			    // Ambient light switches between "dark" and "bright" periods with dwell time.
+			    if (ambient_ticks <= 0) {
+			      if ((rand() % 100) < 60) {
+				// ~60% chance: dark period (night / cloudy)
+				ambient_target = 120 + (rand() % 131);   // 120..250 (12.0%..25.0%)
+				ambient_ticks  = 10  + (rand() % 16);    // 10..25 ticks
+			      } else {
+				// ~40% chance: bright period (day / sunny)
+				ambient_target = 600 + (rand() % 301);   // 600..900 (60.0%..90.0%)
+				ambient_ticks  = 10  + (rand() % 16);    // 10..25 ticks
+			      }
+			    }
+
+			    // Move toward ambient target smoothly
+			    int diff = ambient_target - sim_light;
+			    int step = diff / 8;                         // smooth convergence
+			    if (step == 0 && diff != 0) {
+			      // ensure movement even for small diffs
+			      step = (diff > 0 ? 1 : -1) * (5 + rand() % 6);  // 5..10
+			    }
+			    sim_light += step;
+
+			    // Small natural noise
+			    sim_light += (rand() % 11) - 5;              // -5..+5
+			    ambient_ticks--;
+
+			    // Clamp overall range
+			    if (sim_light < 100)  sim_light = 100;       // 10.0%
+			    if (sim_light > 1000) sim_light = 1000;      // 100.0%
 			  }
-			} else {
-			  sim_light -= 100;
-		  }
 
-		  if(sim_light < 100) sim_light = 100;
-		  if(sim_light > 1000) sim_light = 1000;
-
-		  sprintf(app_buffer, "{\"light\":%d.%01d}", sim_light/10, sim_light%10);
-		  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
-		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
-		  turn = 4;
-
-		} else if (turn == 4) {
+			  sprintf(app_buffer, "{\"light\":%d.%01d}", sim_light/10, sim_light%10);
+			  mqtt_publish(&conn, NULL, pub_topic, (uint8_t *)app_buffer, strlen(app_buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
+			  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
+			  turn = 4;
+	} else if (turn == 4) {
 		  sprintf(pub_topic, "soilMoisture");
 
 		  // --- Soil moisture dynamics (x10 scaling) ---
@@ -441,7 +474,7 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 		  LOG_INFO("Published: %s → %s\n", pub_topic, app_buffer);
 
 		  turn = 1;
-		}		
+	}		
 
             etimer_set(&periodic_timer, SHORT_PUBLISH_INTERVAL);
             rgb_led_off();

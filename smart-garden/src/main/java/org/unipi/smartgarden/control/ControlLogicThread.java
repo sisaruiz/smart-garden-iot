@@ -41,8 +41,7 @@ public class ControlLogicThread extends Thread {
     private static final float MOISTURE_LOWER = 35.0f;
     private static final float MOISTURE_UPPER = 70.0f;
 
-    private static final float LIGHT_LOWER = 300.0f;  // lux (arbitrary scale)
-    private static final float LIGHT_UPPER = 1000.0f;
+    private static final float LIGHT_LOWER = 30.0f;  // lux (arbitrary scale)
 
     // Constructor WITHOUT alias map
     public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController) {
@@ -278,59 +277,54 @@ public class ControlLogicThread extends Thread {
 
 
     private void checkLight() {
-        Float light = mqttHandler.getLatestValue("light");
-        if (light == null) return;
+	    Float light = mqttHandler.getLatestValue("light");
+	    if (light == null) return;
 
-        try {
-            String lightState = coapController.getActuatorState(GROW_LIGHT);
+	    try {
+		String lightState = coapController.getActuatorState(GROW_LIGHT);
 
-            if (growLightManualMode) {
-                ConsoleUtils.println("[Control Logic] (manual) grow_light is " + (growLightOn ? "ON" : "OFF"));
-                mqttHandler.simulateGrowLight(growLightOn ? "on" : "off");
-                if (growLightOn && !"on".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand(GROW_LIGHT, "on");
-                } else if (!growLightOn && !"off".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand(GROW_LIGHT, "off");
-                }
-                return;
-            }
+		if (growLightManualMode) {
+		    ConsoleUtils.println("[Control Logic] (manual) grow_light is " + (growLightOn ? "ON" : "OFF"));
+		    mqttHandler.simulateGrowLight(growLightOn ? "on" : "off");
+		    if (growLightOn && !"on".equalsIgnoreCase(lightState)) {
+		        coapController.sendCommand(GROW_LIGHT, "on");
+		    } else if (!growLightOn && !"off".equalsIgnoreCase(lightState)) {
+		        coapController.sendCommand(GROW_LIGHT, "off");
+		    }
+		    return;
+		}
 
-            // --- Automatic mode logic ---
-            if (light < LIGHT_LOWER) {
-                ConsoleUtils.println("[Control Logic] Light too low: " + light);
-                mqttHandler.simulateGrowLight("on");
-                if (!"on".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand(GROW_LIGHT, "on");
-                }
-            } else if (light > LIGHT_UPPER) {
-                mqttHandler.simulateGrowLight("off");
-                if (!"off".equalsIgnoreCase(lightState)) {
-                    coapController.sendCommand(GROW_LIGHT, "off");
-                }
-            }
-        } catch (ConnectorException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+		// --- Automatic mode logic ---
+		if (light < LIGHT_LOWER) {
+		    ConsoleUtils.println("[Control Logic] Light too low: " + light);
+		    mqttHandler.simulateGrowLight("on");
+		    if (!"on".equalsIgnoreCase(lightState)) {
+		        coapController.sendCommand(GROW_LIGHT, "on");
+		    }
+		}
+		// No OFF command here – high light values are ignored in auto mode
+	    } catch (ConnectorException | IOException e) {
+		throw new RuntimeException(e);
+	    }
+	}
 
 	public void enableGrowLightAutoMode() {
 	    this.growLightManualMode = false;
 
-	    // Fetch current light value and immediately adjust grow_light state
 	    Float light = mqttHandler.getLatestValue("light");
 	    if (light == null) return;
 
 	    try {
 		if (light < LIGHT_LOWER) {
-		    ConsoleUtils.println("[Control Logic] (auto switch) Light too low: " + light);
+		    ConsoleUtils.println("[Control Logic] (auto switch) Light low: " + light + " → ON");
 		    mqttHandler.simulateGrowLight("on");
 		    coapController.sendCommand(GROW_LIGHT, "on");
-		} else if (light > LIGHT_UPPER) {
-		    ConsoleUtils.println("[Control Logic] (auto switch) Light high: " + light);
+		} else if (light > 340.0f) { // "safe high" threshold for OFF at switch
+		    ConsoleUtils.println("[Control Logic] (auto switch) Light high: " + light + " → OFF");
 		    mqttHandler.simulateGrowLight("off");
 		    coapController.sendCommand(GROW_LIGHT, "off");
 		} else {
-		    ConsoleUtils.println("[Control Logic] (auto switch) Light in range: " + light);
+		    ConsoleUtils.println("[Control Logic] (auto switch) Light near threshold: keep state");
 		}
 	    } catch (ConnectorException | IOException e) {
 		ConsoleUtils.printError("[Control Logic] Failed to apply auto-mode adjustment");
