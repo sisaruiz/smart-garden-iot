@@ -83,7 +83,7 @@ res_put_handler(coap_message_t *request, coap_message_t *response,
   coap_notify_observers(&res_cc_heater);
 }
 
-/* TRIGGER handler */
+/* trigger handler */
 static void
 res_trigger_handler(void)
 {

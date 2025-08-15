@@ -8,7 +8,7 @@ public class Configuration {
     private List<String> actuators;
 
     public Configuration() {
-        // Required by Gson
+        // required by Gson
     }
 
     public List<SensorConfig> getSensors() {

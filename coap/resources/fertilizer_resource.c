@@ -9,15 +9,14 @@
 #define LOG_MODULE "fertilizer_res"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
-/* Exposed by coap-device.c (must be non-static there) */
 extern bool fertilizer_needs_refill;
 
-/* How many OFF -> ON transitions before the tank is empty */
-#ifndef MAX_FERTILIZER_USES
-#define MAX_FERTILIZER_USES 3
+/* OFF -> ON transitions before the tank is empty */
+#ifndef MAX_FERTILIZER_USES 
+#define MAX_FERTILIZER_USES 3 
 #endif
 
-/* Local usage counter (counts OFF->ON transitions only) */
+/* usage counter */
 static int fertilizer_use_count = 0;
 
 enum FertilizerMode {
@@ -28,7 +27,6 @@ enum FertilizerMode {
 
 static enum FertilizerMode current_mode = MODE_OFF;
 
-/* Forward declarations */
 static void res_get_handler(coap_message_t *request,
                             coap_message_t *response,
                             uint8_t *buffer,
@@ -41,7 +39,6 @@ static void res_put_handler(coap_message_t *request,
                             int32_t *offset);
 static void res_trigger_handler(void);
 
-/* CoAP resource definition (standard 6 arguments) */
 RESOURCE(res_fertilizer,
          "title=\"Fertilizer Dispenser\";rt=\"Control\";obs",
          res_get_handler,
@@ -49,12 +46,11 @@ RESOURCE(res_fertilizer,
          res_put_handler,
          NULL);
 
-/* Public init function to assign trigger handler */
+/* function to assign trigger handler */
 void fertilizer_resource_init(void) {
   res_fertilizer.trigger = res_trigger_handler;
 }
 
-/*---------------------------------------------------------------------------*/
 static void
 res_get_handler(coap_message_t *request,
                 coap_message_t *response,
@@ -72,7 +68,6 @@ res_get_handler(coap_message_t *request,
   coap_set_payload(response, buffer, len);
 }
 
-/*---------------------------------------------------------------------------*/
 static void
 res_put_handler(coap_message_t *request,
                 coap_message_t *response,
@@ -141,7 +136,7 @@ res_put_handler(coap_message_t *request,
     LOG_INFO("Dispense cycle started: %d/%d\n", fertilizer_use_count, MAX_FERTILIZER_USES);
 
     if(fertilizer_use_count >= MAX_FERTILIZER_USES) {
-      /* Depleted now: require manual refill, force OFF, show red */
+      /* require manual refill, force OFF, show red */
       fertilizer_needs_refill = true;
       fertilizer_use_count = 0;
       current_mode = MODE_OFF;
@@ -154,7 +149,7 @@ res_put_handler(coap_message_t *request,
     }
   }
 
-  /* Commit requested mode (not depleted) */
+  /* Only set current_mode to the newly requested mode if the fertilizer tank is not empty. */
   current_mode = requested;
 
   coap_notify_observers(&res_fertilizer);
@@ -162,17 +157,16 @@ res_put_handler(coap_message_t *request,
 }
 
 /*---------------------------------------------------------------------------*/
-/* Triggered by button press (manual refill confirmation) */
+/* Triggered by button press: manual refill confirmation */
 static void
 res_trigger_handler(void)
 {
   LOG_INFO("Fertilizer refill confirmed (trigger)\n");
 
-  /* Clear empty state; keep counter at current value (was reset on depletion) */
   fertilizer_needs_refill = false;
   leds_off(LEDS_RED);  // red off after refill
 
-  /* Notify observers (even if mode unchanged) */
+  /* Notify observers */
   coap_notify_observers(&res_fertilizer);
 }
 

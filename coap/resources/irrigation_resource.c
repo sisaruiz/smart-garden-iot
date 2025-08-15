@@ -56,7 +56,7 @@ res_get_handler(coap_message_t *request,
   coap_set_payload(response, buffer, len);
 }
 
-/*---------------------------------------------------------------------------*/
+
 static void
 res_put_handler(coap_message_t *request,
                 coap_message_t *response,
@@ -102,7 +102,6 @@ res_put_handler(coap_message_t *request,
   res_get_handler(request, response, buffer, preferred_size, offset);
 }
 
-/*---------------------------------------------------------------------------*/
 static void
 res_trigger_handler(void)
 {

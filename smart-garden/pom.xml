@@ -15,33 +15,36 @@
     </properties>
 
     <dependencies>
-        <!-- Eclipse Californium Core for CoAP -->
         <dependency>
             <groupId>org.eclipse.californium</groupId>
             <artifactId>californium-core</artifactId>
             <version>3.7.0</version>
         </dependency>
-        <!-- JSON.simple for JSON handling -->
+
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+        
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+        
         <dependency>
 	    <groupId>org.json</groupId>
 	    <artifactId>json</artifactId>
 	    <version>20231013</version>
 	</dependency>
+	
         <dependency>
             <groupId>org.eclipse.paho</groupId>
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
             <version>1.2.5</version>
         </dependency>
+        
         <dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
@@ -50,7 +53,6 @@
     </dependencies>
 
     <build>
-        <!-- Include config/devices.json inside the JAR -->
         <resources>
             <resource>
                 <directory>config</directory>
@@ -62,7 +64,6 @@
         </resources>
 
         <plugins>
-            <!-- Plugin to create a fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>

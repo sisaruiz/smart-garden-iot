@@ -24,7 +24,7 @@ public class ControlLogicThread extends Thread {
 
     private static final long SLEEP_INTERVAL_MS = 10_000; // 10 seconds
 
-    // CoAP resource paths (bare names)
+    // CoAP resource paths
     private static final String FERTILIZER = "fertilizer";
     private static final String IRRIGATION = "irrigation";
     private static final String GROW_LIGHT = "grow_light";
@@ -41,9 +41,9 @@ public class ControlLogicThread extends Thread {
     private static final float MOISTURE_LOWER = 35.0f;
     private static final float MOISTURE_UPPER = 70.0f;
 
-    private static final float LIGHT_LOWER = 30.0f;  // lux (arbitrary scale)
+    private static final float LIGHT_LOWER = 30.0f;  // lux
 
-    // Constructor WITHOUT alias map
+    // Constructor
     public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController) {
         this.mqttHandler = mqttHandler;
         this.coapController = coapController;
@@ -97,7 +97,7 @@ public class ControlLogicThread extends Thread {
 
 	    boolean withinRange = temperature >= TEMP_LOWER && temperature <= TEMP_UPPER;
 
-	    // --- CASO 1: C'È MANUAL OVERRIDE ---
+	    // ANUAL OVERRIDE
 	    if (fanOverride || heaterOverride) {
 		if (temperature < TEMP_LOWER) {
 		    ConsoleUtils.println("[Control Logic] (override) Temp too low: " + temperature);
@@ -133,7 +133,7 @@ public class ControlLogicThread extends Thread {
 		return;
 	    }
 
-	    // --- CASO 2: NESSUN OVERRIDE → automatico sempre attivo ---
+	    // AUTOMATIC MODE
 	    if (temperature < TEMP_LOWER) {
 		ConsoleUtils.println("[Control Logic] Temp too low: " + temperature);
 		if (!"on".equalsIgnoreCase(heaterState)) {
@@ -175,7 +175,7 @@ public class ControlLogicThread extends Thread {
 	    try {
 		String fertState = coapController.getActuatorState(FERTILIZER);
 
-		// --- CASE 1: MANUAL OVERRIDE ---
+		// MANUAL OVERRIDE
 		if (fertOverride) {
 		    if (pH < PH_LOWER) {
 		        ConsoleUtils.println("[Control Logic] (override) pH too low: " + pH);
@@ -201,7 +201,7 @@ public class ControlLogicThread extends Thread {
 		    return;
 		}
 
-		// --- CASE 2: NO OVERRIDE → automatic always active ---
+		// AUTOMATIC MODE
 		if (pH < PH_LOWER) {
 		    ConsoleUtils.println("[Control Logic] pH too low: " + pH);
 		    if (!"acidic".equalsIgnoreCase(fertState)) {
@@ -239,6 +239,7 @@ public class ControlLogicThread extends Thread {
         try {
             String irrigationState = coapController.getActuatorState(IRRIGATION);
 
+	    // MANUAL OVERRIDE
             if (irrigationOverride) {
                 if (moisture < MOISTURE_LOWER || moisture > MOISTURE_UPPER) {
                     ConsoleUtils.println("[Control Logic] (override) Soil moisture out of bounds: " + moisture);
@@ -255,7 +256,7 @@ public class ControlLogicThread extends Thread {
                 return;
             }
 
-            // No override → automatic mode always active
+            // AUTOMATIC MODE
             if (moisture < MOISTURE_LOWER) {
                 ConsoleUtils.println("[Control Logic] Soil moisture too low: " + moisture);
                 mqttHandler.simulateIrrigation("on");
@@ -283,6 +284,7 @@ public class ControlLogicThread extends Thread {
 	    try {
 		String lightState = coapController.getActuatorState(GROW_LIGHT);
 
+		// MANUAL OVERRIDE
 		if (growLightManualMode) {
 		    ConsoleUtils.println("[Control Logic] (manual) grow_light is " + (growLightOn ? "ON" : "OFF"));
 		    mqttHandler.simulateGrowLight(growLightOn ? "on" : "off");
@@ -294,7 +296,7 @@ public class ControlLogicThread extends Thread {
 		    return;
 		}
 
-		// --- Automatic mode logic ---
+		// AUTOMATIC MODE
 		if (light < LIGHT_LOWER) {
 		    ConsoleUtils.println("[Control Logic] Light too low: " + light);
 		    mqttHandler.simulateGrowLight("on");
@@ -302,7 +304,7 @@ public class ControlLogicThread extends Thread {
 		        coapController.sendCommand(GROW_LIGHT, "on");
 		    }
 		}
-		// No OFF command here – high light values are ignored in auto mode
+		
 	    } catch (ConnectorException | IOException e) {
 		throw new RuntimeException(e);
 	    }

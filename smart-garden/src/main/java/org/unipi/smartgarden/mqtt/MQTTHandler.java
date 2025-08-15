@@ -65,21 +65,15 @@ public class MQTTHandler implements MqttCallback {
 	public void messageArrived(String topic, MqttMessage message) {
 	    String payload = new String(message.getPayload()).trim();
 
-	    // Debug: show the incoming MQTT message and topic
-	    //System.out.println("[DEBUG] Payload on topic " + topic + ": " + payload);
-
 	    try {
 		String sensorName = getSensorNameFromTopic(topic);
-
-		// Debug: show the matched sensor name (or null if no match)
-		//System.out.println("[DEBUG] Matching sensor name: " + sensorName);
 
 		if (sensorName != null) {
 		    com.google.gson.Gson gson = new com.google.gson.Gson();
 		    Map<?, ?> jsonMap = gson.fromJson(payload, Map.class);
 
 		    if (jsonMap.containsKey(sensorName)) {
-		        double doubleVal = (Double) jsonMap.get(sensorName); // Gson returns Double by default
+		        double doubleVal = (Double) jsonMap.get(sensorName);
 		        float value = (float) doubleVal;
 
 		        latestValues.put(sensorName, value);
@@ -142,15 +136,15 @@ public class MQTTHandler implements MqttCallback {
     }
 
     public void simulateGrowLight(String mode) {
-        sendCommand("grow_light", mode);  // "ON", "OFF", "DIM"
+        sendCommand("grow_light", mode);  // ""on" or "off"
     }
 
     public void simulateIrrigation(String state) {
-        sendCommand("irrigation", state);  // "ON" or "OFF"
+        sendCommand("irrigation", state);  // "on" or "off"
     }
 
     public void simulateFertilizer(String mode) {
-        sendCommand("fertilizer", mode);  // "OFF", "SINC", "SDEC", "INC", "DEC", "acidic", "alkaline"
+        sendCommand("fertilizer", mode);  // "off", "sinc", "sdec", "acidic", "alkaline"
     }
 
     // ---------------------- SENSOR SIMULATION METHOD ----------------------
@@ -165,4 +159,5 @@ public class MQTTHandler implements MqttCallback {
         }
     }
 }
+
 

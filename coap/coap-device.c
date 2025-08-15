@@ -15,39 +15,40 @@
 #define START_INTERVAL 1
 #define REGISTRATION_INTERVAL 1
 
-// Declare actuator resources
+// actuator resources
 extern coap_resource_t res_fertilizer;
 extern coap_resource_t res_irrigation;
 extern coap_resource_t res_grow_light;
 extern coap_resource_t res_cc_fan;
 extern coap_resource_t res_cc_heater;
 
-// Init trigger functions
+// init trigger functions
 void fertilizer_resource_init(void);
 void irrigation_resource_init(void);
 void grow_light_resource_init(void);
 void cc_fan_resource_init(void);
 void cc_heater_resource_init(void);
 
-// Service URL
+// service URL
 static char *service_url = "/registration";
 
-// State flags
+// state flags
 static bool connected = false;
 static bool registered = false;
 
-// Timers
+// timers
 static struct etimer wait_connection;
 static struct etimer wait_registration;
 static struct etimer feedback_led_timer;
 static bool feedback_led_on = false;
 
-// Button
+// button
 static button_hal_button_t *btn;
 
+// flag for button trigger
 bool fertilizer_needs_refill = false;
 
-// Registration response handler
+// registration response handler
 void client_chunk_handler(coap_message_t *response)
 {
   const uint8_t *chunk;
@@ -144,11 +145,11 @@ PROCESS_THREAD(coap_device, ev, data)
   while(1) {
     PROCESS_WAIT_EVENT();
     
-	  // 1) Auto-turn off feedback LEDs when the timer fires
+	  // auto-turn off feedback LEDs when the timer fires (for blinking)
 	  if (ev == PROCESS_EVENT_TIMER && data == &feedback_led_timer && feedback_led_on) {
 	    leds_off(LEDS_GREEN | LEDS_RED);
 	    feedback_led_on = false;
-	    continue; // optional: skip the rest of this loop iteration
+	    continue; 
 	  }
 
     	// Check for fertilizer refill confirmation
@@ -157,7 +158,7 @@ PROCESS_THREAD(coap_device, ev, data)
 	  LOG_INFO("Manual refill confirmed (button released)\n");
 	  fertilizer_needs_refill = false;
 	  leds_on(LEDS_GREEN);
-	  res_fertilizer.trigger();   // notify/resource-side reset
+	  res_fertilizer.trigger(); 
 
 	  etimer_set(&feedback_led_timer, CLOCK_SECOND / 2);
 	  feedback_led_on = true;
