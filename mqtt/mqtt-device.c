@@ -15,6 +15,19 @@
 #include <strings.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+/* --- LED compatibility for Cooja vs real nRF boards --- */
+#ifdef CONTIKI_TARGET_COOJA
+#include "dev/leds.h"
+/* Use Cooja's generic LEDs to emulate the green RGB LED */
+#define RGB_ON_GREEN()  leds_on(LEDS_GREEN)
+#define RGB_OFF_ALL()   leds_off(LEDS_ALL)
+#else
+#include "dev/etc/rgb-led/rgb-led.h"
+#define RGB_ON_GREEN()  rgb_led_set(RGB_LED_GREEN)
+#define RGB_OFF_ALL()   rgb_led_off()
+#endif
+
 /*---------------------------------------------------------------------------*/
 #define LOG_MODULE "mqtt-client"
 #ifdef MQTT_CLIENT_CONF_LOG_LEVEL
@@ -328,7 +341,7 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
           }
 
         if(state == STATE_SUBSCRIBED){
-            rgb_led_set(RGB_LED_GREEN);
+            RGB_ON_GREEN();
             if(turn == 1){
 		  sprintf(pub_topic, "temperature");
 
@@ -477,7 +490,7 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 	}		
 
             etimer_set(&periodic_timer, SHORT_PUBLISH_INTERVAL);
-            rgb_led_off();
+            RGB_OFF_ALL();
         } else if ( state == STATE_DISCONNECTED ){
            LOG_ERR("Disconnected from MQTT broker\n");	
            state = STATE_INIT;
