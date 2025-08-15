@@ -60,7 +60,7 @@ The list of devices is static and loaded from a configuration file.
 5. If the device disconnects, re-select it in the VM’s USB device list.
 
 ### 2. MQTT Device Setup
-1. Unplug the first dongle and insert the second one.
+1. İnsert the second dongle.
 2. Enter bootloader mode (red LED flickering) and connect it to the VM.
 3. From the Contiki project directory, run:
    ```bash
@@ -68,7 +68,7 @@ The list of devices is static and loaded from a configuration file.
    make login TARGET=nrf52840 BOARD=dongle PORT=/dev/ttyACM1
    
 ### 3. CoAP Device Setup
-1. Unplug the second dongle and insert the third one.
+1. Plug the third dongle.
 2. Enter bootloader mode and connect it to the VM.
 3. Run:
    ```bash
