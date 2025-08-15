@@ -19,7 +19,6 @@
 /* --- LED compatibility for Cooja vs real nRF boards --- */
 #ifdef CONTIKI_TARGET_COOJA
 #include "dev/leds.h"
-/* Use Cooja's generic LEDs to emulate the green RGB LED */
 #define RGB_ON_GREEN()  leds_on(LEDS_GREEN)
 #define RGB_OFF_ALL()   leds_off(LEDS_ALL)
 #else
@@ -36,19 +35,15 @@
 #define LOG_LEVEL LOG_LEVEL_DBG
 #endif
 
-/*---------------------------------------------------------------------------*/
 /* MQTT broker address. */
 #define MQTT_CLIENT_BROKER_IP_ADDR "fd00::1"
 
 static const char *broker_ip = MQTT_CLIENT_BROKER_IP_ADDR;
 
-// Default config values
 #define DEFAULT_BROKER_PORT         1883
 #define DEFAULT_PUBLISH_INTERVAL    (30 * CLOCK_SECOND)
 #define SHORT_PUBLISH_INTERVAL (4*CLOCK_SECOND)
 
-/*---------------------------------------------------------------------------*/
-/* Various states */
 static uint8_t state;
 
 #define STATE_INIT    		  0
@@ -58,19 +53,14 @@ static uint8_t state;
 #define STATE_SUBSCRIBED      4
 #define STATE_DISCONNECTED    5
 
-/*---------------------------------------------------------------------------*/
 PROCESS_NAME(mqtt_device_process);
 AUTOSTART_PROCESSES(&mqtt_device_process);
 
-/*---------------------------------------------------------------------------*/
-/* Maximum TCP segment size for outgoing segments of our socket */
+// maximum TCP segment size for outgoing segments of socket
 #define MAX_TCP_SEGMENT_SIZE    32
 #define CONFIG_IP_ADDR_STR_LEN   64
-/*---------------------------------------------------------------------------*/
-/*
- * Buffers for Client ID and Topics.
- * Make sure they are large enough to hold the entire respective string
- */
+
+// buffers for Client ID and Topics.
 #define BUFFER_SIZE 64
 
 static char client_id[BUFFER_SIZE];
@@ -84,19 +74,12 @@ static char sub_topic_temp[BUFFER_SIZE];
 #define STATE_MACHINE_PERIODIC     (CLOCK_SECOND >> 1)
 static struct etimer periodic_timer;
 
-/*---------------------------------------------------------------------------*/
-/*
- * The main MQTT buffers.
- * We will need to increase if we start publishing more data.
- */
 #define APP_BUFFER_SIZE 512
 
-/*---------------------------------------------------------------------------*/
 static struct mqtt_message *msg_ptr = 0;
 
 static struct mqtt_connection conn;
 
-/*---------------------------------------------------------------------------*/
 static char app_buffer[APP_BUFFER_SIZE];
 static char pub_topic[BUFFER_SIZE];
 
@@ -112,7 +95,7 @@ static int ambient_target = 300;  // x10 scale (e.g., 300 => 30.0%)
 static int ambient_ticks = 0;     // remaining ticks to keep current ambient target
 
 
-// Sensor simulation values (scaled: temp ×10, others ×100)
+// sensors simulation values (scaled: temp ×10, others ×100)
 static int sim_temperature = 250;   // 25.0°C
 static int sim_pH = 675;            // pH 6.75
 static int sim_light = 500;         // 50.0%
@@ -170,7 +153,6 @@ static void pub_handler(const char *topic, uint16_t topic_len,
 }
 
 
-/*---------------------------------------------------------------------------*/
 static void
 mqtt_event(struct mqtt_connection *m, mqtt_event_t event, void *data)
 {
@@ -233,8 +215,6 @@ have_connectivity(void)
 // Round-robin turn: 1=light, 2=moisture, 3=pH, 4=temperature
 static int turn = 1;
 
-/*---------------------------------------------------------------------------*/
-
 PROCESS(mqtt_device_process, "MQTT Device Process");
 
 PROCESS_THREAD(mqtt_device_process, ev, data){
@@ -246,21 +226,20 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 
   LOG_INFO("MQTT device process initialization...\n");
 
-  // Initialize the ClientID as MAC address
+  // initialize ClientID as MAC address
   snprintf(client_id, BUFFER_SIZE, "%02x%02x%02x%02x%02x%02x",
                      linkaddr_node_addr.u8[0], linkaddr_node_addr.u8[1],
                      linkaddr_node_addr.u8[2], linkaddr_node_addr.u8[5],
                      linkaddr_node_addr.u8[6], linkaddr_node_addr.u8[7]);
 
-  // Broker registration					 
+  // broker registration					 
   mqtt_register(&conn, &mqtt_device_process, client_id, mqtt_event, MAX_TCP_SEGMENT_SIZE);
                   
   state=STATE_INIT;
                     
-  // Initialize periodic timer to check the status 
+  // initialize periodic timer to check the status 
   etimer_set(&periodic_timer, STATE_MACHINE_PERIODIC);
 
-  /* Main loop */
   while(1) {
 
     PROCESS_YIELD();
@@ -345,7 +324,7 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
             if(turn == 1){
 		  sprintf(pub_topic, "temperature");
 
-		  int target_temp = 250; // 25.0°C in scaled units
+		  int target_temp = 250;
 
 		  if(heater_on) {
 		    if(sim_temperature < target_temp)
@@ -362,7 +341,7 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 		    sim_temperature += (rand() % 3) - 1;
 		  }
 
-		  // clamp within range
+		  // within range
 		  if(sim_temperature < 100) sim_temperature = 100;
 		  if(sim_temperature > 400) sim_temperature = 400;
 
@@ -375,21 +354,21 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 	 	else if(turn == 2){
 		  sprintf(pub_topic, "pH");
 
-		  // Baseline and targets in ×100
+		  // baseline and targets in ×100
 		  int baseline = 675; // ~6.75
 		  int target = baseline;
 
-		  // acidic lowers pH, alkaline raises
-		  if(fertilizer_erogation_variation ==  2) target = baseline - 120; // strong acidic
-		  else if(fertilizer_erogation_variation == -2) target = baseline + 120; // strong alkaline
+		  // !! acidic lowers pH, alkaline raises !!
+		  if(fertilizer_erogation_variation ==  2) target = baseline - 120; // acidic
+		  else if(fertilizer_erogation_variation == -2) target = baseline + 120; // alkaline
 
-		  // Move gradually (first-order lag) + tiny noise
+		  // adjust pH toward target with slight random variation
 		  int diff = target - sim_pH;
-		  int step = diff / 10;                 // ~10% per tick
+		  int step = diff / 10;          // ~10% per tick
 		  if(step == 0 && diff != 0) step = (diff > 0) ? 1 : -1;
 		  sim_pH += step;
 
-		  sim_pH += (rand() % 3) - 1;           // ±1 noise
+		  sim_pH += (rand() % 3) - 1;    // ±1 noise
 
 		  if(sim_pH < 400) sim_pH = 400;
 		  if(sim_pH > 900) sim_pH = 900;
@@ -402,49 +381,47 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 		} else if (turn == 3) {
 			  sprintf(pub_topic, "light");
 
+			  // GROW_LIGHT ON
 			  if (grow_light_state == 1) {
-			    // --- Grow light ON ---
-			    // Ramp toward a high plateau, then hover with small jitter.
+			    // increase until near maximum, then stay with slight fluctuations
 			    if (sim_light < 950) {
-			      sim_light += 30 + (rand() % 40);  // +30..+69 per tick until near plateau
+			      sim_light += 30 + (rand() % 40);  // +30..+69 per tick until top reached
 			    } else {
-			      int jitter = (rand() % 11) - 5;   // -5..+5 small jitter at plateau
+			      int jitter = (rand() % 11) - 5;   // -5..+5 small fluctuations
 			      sim_light += jitter;
 			    }
 
-			    // Soft clamp for ON: keep it high and stable, no big dips
+			    // When ON, keep light value high and steady
 			    if (sim_light < 930) sim_light = 930;  // don’t allow deep dips once ON
 			    if (sim_light > 1000) sim_light = 1000;
 
-			  } else {
-			    // --- Grow light OFF ---
-			    // Ambient light switches between "dark" and "bright" periods with dwell time.
+			  } else { // GROW_LIGHT OFF
+			    // Ambient light alternates between dark and bright phases, each lasting a while
 			    if (ambient_ticks <= 0) {
 			      if ((rand() % 100) < 60) {
-				// ~60% chance: dark period (night / cloudy)
-				ambient_target = 120 + (rand() % 131);   // 120..250 (12.0%..25.0%)
+				// ~60% chance: dark period
+				ambient_target = 120 + (rand() % 131);   // 12.0%..25.0%
 				ambient_ticks  = 10  + (rand() % 16);    // 10..25 ticks
 			      } else {
-				// ~40% chance: bright period (day / sunny)
-				ambient_target = 600 + (rand() % 301);   // 600..900 (60.0%..90.0%)
+				// ~40% chance: bright period
+				ambient_target = 600 + (rand() % 301);   // 60.0%..90.0%
 				ambient_ticks  = 10  + (rand() % 16);    // 10..25 ticks
 			      }
 			    }
 
-			    // Move toward ambient target smoothly
+			    // raech ambient target smoothly
 			    int diff = ambient_target - sim_light;
-			    int step = diff / 8;                         // smooth convergence
+			    int step = diff / 8;
 			    if (step == 0 && diff != 0) {
-			      // ensure movement even for small diffs
 			      step = (diff > 0 ? 1 : -1) * (5 + rand() % 6);  // 5..10
 			    }
 			    sim_light += step;
 
 			    // Small natural noise
-			    sim_light += (rand() % 11) - 5;              // -5..+5
+			    sim_light += (rand() % 11) - 5;  // -5..+5
 			    ambient_ticks--;
 
-			    // Clamp overall range
+			    // within range
 			    if (sim_light < 100)  sim_light = 100;       // 10.0%
 			    if (sim_light > 1000) sim_light = 1000;      // 100.0%
 			  }
@@ -456,20 +433,18 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 	} else if (turn == 4) {
 		  sprintf(pub_topic, "soilMoisture");
 
-		  // --- Soil moisture dynamics (x10 scaling) ---
 		  if (irrigation_on) {
-		    // Irrigation ON → steady rise (+0.7% .. +1.2%)
-		    sim_moisture += 7 + (rand() % 6);          // +7..+12
+		    sim_moisture += 7 + (rand() % 6);          // steady rise: +7..+12
 		  } else {
-		    // Irrigation OFF → mostly drying, sometimes rain/dew bumps
+		    // Irrigation OFF: mostly drying sometimes rain/cloudy bumps
 		    int r = rand() % 100;
 
 		    if (r < 6) {
-		      // ~6% chance: rain shower (+2.0% .. +6.0%)
+		      // ~6% chance: rain shower (2%..6%)
 		      sim_moisture += 20 + (rand() % 41);      // +20..+60
 		      LOG_INFO("Rain event: soil moisture boosted\n");
 		    } else if (r < 26) {
-		      // next 20%: dew/cloud cover (+0.2% .. +0.6%)
+		      // next 20%: cloudy (+0.2% .. +0.6%)
 		      sim_moisture += 2 + (rand() % 5);        // +2..+6
 		    } else {
 		      // otherwise drying (-0.2% .. -0.6%)
@@ -477,7 +452,7 @@ PROCESS_THREAD(mqtt_device_process, ev, data){
 		    }
 		  }
 
-		  // Clamp to 10%..90%
+		  // within range 10% to 90%
 		  if (sim_moisture < 100) sim_moisture = 100;
 		  if (sim_moisture > 900) sim_moisture = 900;
 
