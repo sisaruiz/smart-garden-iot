@@ -26571,3 +26571,105 @@ The last packet successfully received from the server was 8.026 milliseconds ago
 [2025-08-19 13:47:23] [Control Logic] Thread stopped.
 [2025-08-19 13:47:23] [MQTT Handler] Disconnecting...
 [2025-08-19 13:47:23] [CoAP Controller] CoAP server shut down.
+[2025-08-19 14:36:47] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-19 14:36:47] [Smart Garden] Loading configuration...
+[2025-08-19 14:36:47] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-19 14:36:48] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-19 14:36:48] [MQTT Handler] Subscribed to topic: light
+[2025-08-19 14:36:48] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-19 14:36:48] [MQTT Handler] Subscribed to topic: pH
+[2025-08-19 14:36:48] [CoAP Controller] CoAP server started on port 5683
+[2025-08-19 14:36:48] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-19 14:37:03] [Smart Garden] Available commands:
+[2025-08-19 14:37:03] [Smart Garden] - :get status
+[2025-08-19 14:37:03] [Smart Garden] - :get actuators
+[2025-08-19 14:37:03] [Smart Garden] - :trigger irrigation
+[2025-08-19 14:37:03] [Smart Garden] - :trigger grow_light
+[2025-08-19 14:37:03] [Smart Garden] - :trigger fertilizer
+[2025-08-19 14:37:03] [Smart Garden] - :trigger fan
+[2025-08-19 14:37:03] [Smart Garden] - :trigger heater
+[2025-08-19 14:37:03] [Smart Garden] - :get configuration
+[2025-08-19 14:37:03] [Smart Garden] - :set grow_light auto
+[2025-08-19 14:37:03] [Smart Garden] - :help
+[2025-08-19 14:37:03] [Smart Garden] - :quit
+[2025-08-19 14:37:03] > 
+[2025-08-19 14:37:37] [Smart Garden] Executing command: :get status
+[2025-08-19 14:37:37] [Smart Garden] Current sensor readings:
+[2025-08-19 14:37:37] soilMoisture - No data received yet.
+[2025-08-19 14:37:37] light - No data received yet.
+[2025-08-19 14:37:37] temperature - No data received yet.
+[2025-08-19 14:37:37] pH - No data received yet.
+[2025-08-19 14:37:37] > 
+[2025-08-19 14:38:46] [Smart Garden] Welcome to the Smart Garden System!
+[2025-08-19 14:38:46] [Smart Garden] Loading configuration...
+[2025-08-19 14:38:47] Configuration {
+  sensors=[temperature → temperature, pH → pH, light → light, soilMoisture → soilMoisture],
+  actuators=[fertilizer, irrigation, grow_light, fan, heater]
+}
+[2025-08-19 14:38:48] [MQTT Handler] Subscribed to topic: soilMoisture
+[2025-08-19 14:38:48] [MQTT Handler] Subscribed to topic: light
+[2025-08-19 14:38:48] [MQTT Handler] Subscribed to topic: temperature
+[2025-08-19 14:38:48] [MQTT Handler] Subscribed to topic: pH
+[2025-08-19 14:38:48] [CoAP Controller] CoAP server started on port 5683
+[2025-08-19 14:38:48] [Smart Garden] Waiting 15 seconds for CoAP device registration...
+[2025-08-19 14:39:03] [Smart Garden] Available commands:
+[2025-08-19 14:39:03] [Smart Garden] - :get status
+[2025-08-19 14:39:03] [Smart Garden] - :get actuators
+[2025-08-19 14:39:03] [Smart Garden] - :trigger irrigation
+[2025-08-19 14:39:03] [Smart Garden] - :trigger grow_light
+[2025-08-19 14:39:03] [Smart Garden] - :trigger fertilizer
+[2025-08-19 14:39:03] [Smart Garden] - :trigger fan
+[2025-08-19 14:39:03] [Smart Garden] - :trigger heater
+[2025-08-19 14:39:03] [Smart Garden] - :get configuration
+[2025-08-19 14:39:03] [Smart Garden] - :set grow_light auto
+[2025-08-19 14:39:03] [Smart Garden] - :help
+[2025-08-19 14:39:03] [Smart Garden] - :quit
+[2025-08-19 14:39:03] > 
+[2025-08-19 14:39:18] [CoAP Controller] Registration received from fd00:0:0:0:f6ce:36a5:8106:327d: {"device":"coapDevice","resources":["fertilizer","irrigation","grow_light","fan","heater"]}
+[2025-08-19 14:39:18] [CoAP Controller] Registered actuator: fertilizer at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fertilizer
+[2025-08-19 14:39:18] [CoAP Controller] Registered actuator: irrigation at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/irrigation
+[2025-08-19 14:39:18] [CoAP Controller] Registered actuator: grow_light at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/grow_light
+[2025-08-19 14:39:18] [CoAP Controller] Registered actuator: fan at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/fan
+[2025-08-19 14:39:18] [CoAP Controller] Registered actuator: heater at coap://[fd00:0:0:0:f6ce:36a5:8106:327d]:5683/heater
+[2025-08-19 14:39:32] [Smart Garden] Executing command: :trigger irrigation
+[2025-08-19 14:39:32] [CoAP Controller] Command sent to irrigation: on
+[2025-08-19 14:39:33] [MQTT Handler] Published command to irrigation: on
+[2025-08-19 14:39:33] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-19 14:39:33] [Smart Garden] Manual override activated for irrigation
+[2025-08-19 14:39:33] > 
+[2025-08-19 14:40:09] [Smart Garden] Executing command: :trigger irrigation
+[2025-08-19 14:40:09] [CoAP Controller] Command sent to irrigation: off
+[2025-08-19 14:40:09] [MQTT Handler] Published command to irrigation: off
+[2025-08-19 14:40:09] [CoAP Controller] MQTT command published to topic: irrigation
+[2025-08-19 14:40:09] [Smart Garden] Manual override activated for irrigation
+[2025-08-19 14:40:09] > 
+[2025-08-19 14:40:18] [Smart Garden] Executing command: :get actuators
+[2025-08-19 14:40:18] [Smart Garden] Current actuator states:
+[2025-08-19 14:40:18]   - fertilizer: off
+[2025-08-19 14:40:18]   - irrigation: off
+[2025-08-19 14:40:18]   - grow_light: off
+[2025-08-19 14:40:18]   - fan: off
+[2025-08-19 14:40:18]   - heater: off
+[2025-08-19 14:40:18] > 
+[2025-08-19 14:40:27] [Smart Garden] Executing command: :trigger grow_light
+[2025-08-19 14:40:27] [CoAP Controller] Command sent to grow_light: on
+[2025-08-19 14:40:27] [MQTT Handler] Published command to grow_light: on
+[2025-08-19 14:40:27] [CoAP Controller] MQTT command published to topic: grow_light
+[2025-08-19 14:40:27] [Smart Garden] Manual override activated for grow_light
+[2025-08-19 14:40:27] > 
+[2025-08-19 14:40:49] [Smart Garden] Executing command: :get actuators
+[2025-08-19 14:40:49] [Smart Garden] Current actuator states:
+[2025-08-19 14:40:50]   - fertilizer: off
+[2025-08-19 14:40:50]   - irrigation: off
+[2025-08-19 14:40:50]   - grow_light: on [manual mode]
+[2025-08-19 14:40:50]   - fan: off
+[2025-08-19 14:40:50]   - heater: off
+[2025-08-19 14:40:50] > 
+[2025-08-19 14:40:53] [Smart Garden] Executing command: :quit
+[2025-08-19 14:40:53] [Smart Garden] Shutting down...
+[2025-08-19 14:40:53] [Control Logic] Thread stopped.
+[2025-08-19 14:40:53] [MQTT Handler] Disconnecting...
+[2025-08-19 14:40:53] [CoAP Controller] CoAP server shut down.

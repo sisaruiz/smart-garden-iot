@@ -80,13 +80,10 @@ res_put_handler(coap_message_t *request,
 
   if(strcmp(mode, "on") == 0) {
     current_mode = MODE_ON;
-    leds_single_on(LEDS_BLUE);
-    leds_off(LEDS_RED);
     LOG_INFO("Mode set to on\n");
 
   } else if(strcmp(mode, "off") == 0) {
     current_mode = MODE_OFF;
-    leds_off(LEDS_BLUE | LEDS_RED);
     LOG_INFO("Mode set to off\n");
 
   } else {
@@ -107,11 +104,8 @@ res_trigger_handler(void)
   current_mode = (current_mode == MODE_ON) ? MODE_OFF : MODE_ON;
 
   if(current_mode == MODE_ON) {
-    leds_single_on(LEDS_BLUE);
-    leds_off(LEDS_RED);
     LOG_INFO("Grow light triggered ON\n");
   } else {
-    leds_off(LEDS_BLUE | LEDS_RED);
     LOG_INFO("Grow light triggered OFF\n");
   }
 

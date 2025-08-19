@@ -82,11 +82,9 @@ res_put_handler(coap_message_t *request,
 
   if(strcasecmp(mode, "on") == 0) {
     irrigation_mode = IRRIGATION_ON;
-    leds_single_off(LEDS_RED);
     LOG_INFO("Mode set to on\n");
   } else if(strcasecmp(mode, "off") == 0) {
     irrigation_mode = IRRIGATION_OFF;
-    leds_single_off(LEDS_RED);
     LOG_INFO("Mode set to off\n");
   } else {
     LOG_WARN("Unknown mode: %s\n", mode);
@@ -110,10 +108,8 @@ res_trigger_handler(void)
   irrigation_mode = (irrigation_mode == IRRIGATION_ON) ? IRRIGATION_OFF : IRRIGATION_ON;
 
   if(irrigation_mode == IRRIGATION_ON) {
-    leds_single_off(LEDS_RED);
     LOG_INFO("Irrigation triggered ON\n");
   } else {
-    leds_single_off(LEDS_RED);
     LOG_INFO("Irrigation triggered OFF\n");
   }
 
