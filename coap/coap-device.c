@@ -62,6 +62,8 @@ void client_chunk_handler(coap_message_t *response)
     LOG_INFO("Registration completed!\n");
     leds_single_off(LEDS_BLUE);
     leds_set(LEDS_GREEN);
+    etimer_set(&feedback_led_timer, CLOCK_SECOND * 3);
+    feedback_led_on = true;
     registered = true;
   } else {
     LOG_INFO("Sending a new registration request...\n");
@@ -147,7 +149,7 @@ PROCESS_THREAD(coap_device, ev, data)
     
 	  // auto-turn off feedback LEDs when the timer fires (for blinking)
 	  if (ev == PROCESS_EVENT_TIMER && data == &feedback_led_timer && feedback_led_on) {
-	    leds_off(LEDS_GREEN | LEDS_RED);
+	    leds_off(LEDS_GREEN | LEDS_RED | LEDS_BLUE);
 	    feedback_led_on = false;
 	    continue; 
 	  }
