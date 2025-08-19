@@ -78,25 +78,18 @@ res_put_handler(coap_message_t *request,
   const uint8_t *payload = NULL;
   size_t len = coap_get_payload(request, &payload);
 
-  LOG_INFO("Fertilizer PUT received\n");
-
-  /* Block usage if tank is empty (manual refill required) */
-  if(fertilizer_needs_refill) {
-    LOG_WARN("Fertilizer empty: manual refill required\n");
-    coap_set_status_code(response, SERVICE_UNAVAILABLE_5_03);
-    return;
-  }
-
-  if(len == 0 || payload == NULL) {
-    coap_set_status_code(response, BAD_REQUEST_4_00);
-    return;
-  }
+  /* DBG: log payload grezzo */
+  LOG_INFO("Fertilizer PUT len=%d payload='%.*s'\n",
+           (int)len, (int)len, (const char*)payload);
 
   /* Parse requested mode */
   char mode[16];
   if(len >= sizeof(mode)) len = sizeof(mode) - 1;
   memcpy(mode, payload, len);
   mode[len] = '\0';
+
+  /* DBG: stato precedente + testo parsato */
+  LOG_INFO("DBG prev_mode=%d  parsed_text='%s'\n", (int)current_mode, mode);
 
   enum FertilizerMode requested = current_mode;
   int known = 1;
@@ -111,6 +104,9 @@ res_put_handler(coap_message_t *request,
     known = 0;
   }
 
+  /* DBG: esito parsing */
+  LOG_INFO("DBG requested_enum=%d  known=%d\n", (int)requested, known);
+
   if(!known) {
     LOG_WARN("Unknown mode: %s\n", mode);
     coap_set_status_code(response, BAD_REQUEST_4_00);
@@ -118,17 +114,6 @@ res_put_handler(coap_message_t *request,
   }
 
   enum FertilizerMode prev = current_mode;
-
-  /* LEDs for visual hint */
-  if(requested == MODE_ACIDIC) {
-    leds_single_on(LEDS_GREEN);
-    leds_single_off(LEDS_BLUE);
-  } else if(requested == MODE_ALKALINE) {
-    leds_single_on(LEDS_BLUE);
-    leds_single_off(LEDS_GREEN);
-  } else { /* MODE_OFF */
-    leds_off(LEDS_GREEN | LEDS_BLUE);
-  }
 
   /* Count ONLY OFF -> (ACIDIC|ALKALINE) transitions */
   if(prev == MODE_OFF && (requested == MODE_ACIDIC || requested == MODE_ALKALINE)) {
@@ -140,8 +125,15 @@ res_put_handler(coap_message_t *request,
       fertilizer_needs_refill = true;
       fertilizer_use_count = 0;
       current_mode = MODE_OFF;
-      leds_on(LEDS_RED);  // steady red until manual refill
-      LOG_WARN("Fertilizer depleted -> needs refill (forcing OFF)\n");
+      leds_off(LEDS_RED | LEDS_GREEN | LEDS_BLUE);
+      leds_on(LEDS_RED);
+      LOG_WARN("Fertilizer empty -> needs refill (forcing OFF)\n");
+
+      /* DBG: maschera LED in depletion */
+      {
+        int mask = leds_get();
+        LOG_INFO("DBG depletion_leds_mask=0x%02x\n", mask);
+      }
 
       coap_notify_observers(&res_fertilizer);
       res_get_handler(request, response, buffer, preferred_size, offset);
@@ -151,6 +143,22 @@ res_put_handler(coap_message_t *request,
 
   /* Only set current_mode to the newly requested mode if the fertilizer tank is not empty. */
   current_mode = requested;
+  
+  /* set LED based on MODE */
+  leds_off(LEDS_RED | LEDS_GREEN | LEDS_BLUE);
+  switch (current_mode) {
+     case MODE_ACIDIC:   leds_on(LEDS_GREEN); break;   // sinc → greem
+     case MODE_ALKALINE: leds_on(LEDS_BLUE);  break;   // sdec → blue
+     case MODE_OFF: default:
+       break;
+  }
+
+  /* DBG: stato finale + maschera LED corrente */
+  {
+    int mask = leds_get();
+    LOG_INFO("DBG final current_mode=%d  leds_mask=0x%02x\n",
+             (int)current_mode, mask);
+  }
 
   coap_notify_observers(&res_fertilizer);
   res_get_handler(request, response, buffer, preferred_size, offset);
