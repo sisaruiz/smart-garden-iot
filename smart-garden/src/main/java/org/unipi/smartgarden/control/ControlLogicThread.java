@@ -41,7 +41,7 @@ public class ControlLogicThread extends Thread {
     private static final float MOISTURE_LOWER = 35.0f;
     private static final float MOISTURE_UPPER = 70.0f;
 
-    private static final float LIGHT_LOWER = 30.0f;  // lux
+    private static final float LIGHT_LOWER = 30.0f;  // percentage
 
     // Constructor
     public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController) {
@@ -313,27 +313,17 @@ public class ControlLogicThread extends Thread {
 	public void enableGrowLightAutoMode() {
 	    this.growLightManualMode = false;
 
-	    Float light = mqttHandler.getLatestValue("light");
-	    if (light == null) return;
-
+	    // turn temporarily the lights off for current ambient light evaluation
 	    try {
-		if (light < LIGHT_LOWER) {
-		    ConsoleUtils.println("[Control Logic] (auto switch) Light low: " + light + " → ON");
-		    mqttHandler.simulateGrowLight("on");
-		    coapController.sendCommand(GROW_LIGHT, "on");
-		} else if (light > 340.0f) { // "safe high" threshold for OFF at switch
-		    ConsoleUtils.println("[Control Logic] (auto switch) Light high: " + light + " → OFF");
-		    mqttHandler.simulateGrowLight("off");
-		    coapController.sendCommand(GROW_LIGHT, "off");
-		} else {
-		    ConsoleUtils.println("[Control Logic] (auto switch) Light near threshold: keep state");
-		}
+		ConsoleUtils.println("[Control Logic] AUTO: probing ambient → turn grow_light OFF once");
+		mqttHandler.simulateGrowLight("off");
+		coapController.sendCommand(GROW_LIGHT, "off");
 	    } catch (ConnectorException | IOException e) {
-		ConsoleUtils.printError("[Control Logic] Failed to apply auto-mode adjustment");
+		ConsoleUtils.printError("[Control Logic] Failed to apply auto-mode probe");
 		e.printStackTrace();
 	    }
 	}
-
+	
     public boolean isFanOverride() {
         return manualOverride.getOrDefault(FAN, false);
     }
