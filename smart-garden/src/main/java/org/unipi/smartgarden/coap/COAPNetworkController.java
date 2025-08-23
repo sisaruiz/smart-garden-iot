@@ -51,6 +51,22 @@ public class COAPNetworkController extends CoapServer {
 
 	    if (response != null && response.isSuccess()) {
 		ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
+		
+		try {
+		    String c = command.toLowerCase();
+		    if ("fertilizer".equals(actuatorName)) {
+		        int code = "off".equals(c) ? 0
+		             : ( "sinc".equals(c) || "acidic".equals(c) ) ? 1
+		             : ( "sdec".equals(c) || "alkaline".equals(c) ) ? 2
+		             : 0; // fallback
+		        db.insertSample("fertilizer", code, null);
+		    } else {
+		        float v = "on".equals(c) ? 1f : 0f;
+		        db.insertSample(actuatorName, v, null);
+		    }
+	        } catch (Exception e) {
+		    ConsoleUtils.printError(LOG + " DB persist failed for " + actuatorName + ": " + e.getMessage());
+		}
 
 		mqttHandler.sendCommand(actuatorName, command);
 		ConsoleUtils.println(LOG + " MQTT command published to topic: " + actuatorName);
@@ -101,6 +117,13 @@ public class COAPNetworkController extends CoapServer {
     public void triggerFan(boolean on) throws ConnectorException, IOException {
         sendCommand("fan", on ? "on" : "off");
     }
+    
+    public void logModeEvent(String actuator, String mode) {
+	  try { db.insertModeEvent(actuator, mode); }
+	  catch (Exception e) {
+	    ConsoleUtils.printError(LOG + " Cannot log mode event: " + actuator + " -> " + mode);
+	  }
+    }
 
     public void close() {
         this.stop();
@@ -136,6 +159,19 @@ public class COAPNetworkController extends CoapServer {
                     String fullUri = "coap://[" + sourceIP + "]:5683/" + path;
 		    actuatorEndpoints.put(path, fullUri);
 		    ConsoleUtils.println(LOG + " Registered actuator: " + path + " at " + fullUri);
+		    
+		    try {
+			db.insertModeEvent(path, "auto");
+
+			if ("fertilizer".equals(path)) {
+			    db.insertSample("fertilizer", 0f, null);
+			} else {
+			    db.insertSample(path, 0f, null);
+			}
+			ConsoleUtils.println(LOG + " Baseline written for " + path + " (mode=auto, state=off)");
+		    } catch (Exception e) {
+			ConsoleUtils.printError(LOG + " Baseline insert failed for " + path + ": " + e.getMessage());
+		    }
                 }
 
                 exchange.respond(CoAP.ResponseCode.CREATED, "Success");
@@ -147,4 +183,5 @@ public class COAPNetworkController extends CoapServer {
         }
     }
 }
+
 

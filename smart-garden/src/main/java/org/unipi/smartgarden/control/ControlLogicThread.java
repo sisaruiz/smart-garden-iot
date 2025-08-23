@@ -51,6 +51,12 @@ public class ControlLogicThread extends Thread {
         this.manualOverride.put(HEATER, false);
         this.manualOverride.put(FERTILIZER, false);
         this.manualOverride.put(IRRIGATION, false);
+        
+        coapController.logModeEvent(FAN, "auto");   
+        coapController.logModeEvent(HEATER, "auto");
+        coapController.logModeEvent(IRRIGATION, "auto");
+        coapController.logModeEvent(FERTILIZER, "auto");
+        coapController.logModeEvent(GROW_LIGHT, "auto");
     }
 
     @Override
@@ -83,6 +89,7 @@ public class ControlLogicThread extends Thread {
 
     public void setManualOverride(String actuator, boolean override) {
         manualOverride.put(actuator, override);
+        coapController.logModeEvent(actuator, override ? "manual" : "auto");
     }
 
     private void checkTemperature() throws ConnectorException, IOException {
@@ -97,7 +104,7 @@ public class ControlLogicThread extends Thread {
 
 	    boolean withinRange = temperature >= TEMP_LOWER && temperature <= TEMP_UPPER;
 
-	    // ANUAL OVERRIDE
+	    // MANUAL OVERRIDE
 	    if (fanOverride || heaterOverride) {
 		if (temperature < TEMP_LOWER) {
 		    ConsoleUtils.println("[Control Logic] (override) Temp too low: " + temperature);
@@ -111,7 +118,7 @@ public class ControlLogicThread extends Thread {
 		    // Reset override heater
 		    if (heaterOverride) {
 		        ConsoleUtils.println("[Control Logic] Resetting manual override for heater");
-		        manualOverride.put(HEATER, false);
+		        setManualOverride(HEATER, false);
 		    }
 		} else if (temperature > TEMP_UPPER) {
 		    ConsoleUtils.println("[Control Logic] (override) Temp too high: " + temperature);
@@ -125,7 +132,7 @@ public class ControlLogicThread extends Thread {
 		    // Reset override fan
 		    if (fanOverride) {
 		        ConsoleUtils.println("[Control Logic] Resetting manual override for fan");
-		        manualOverride.put(FAN, false);
+		        setManualOverride(FAN, false);
 		    }
 		} else {
 		    ConsoleUtils.println("[Control Logic] (override) Temp within range: " + temperature);
@@ -184,8 +191,8 @@ public class ControlLogicThread extends Thread {
 		            coapController.sendCommand(FERTILIZER, "sinc");
 		        }
 		        ConsoleUtils.println("[Control Logic] Resetting manual override for fertilizer");
-		        manualOverride.put(FERTILIZER, false);
-
+		        setManualOverride(FERTILIZER, false);
+		        
 		    } else if (pH > PH_UPPER) {
 		        ConsoleUtils.println("[Control Logic] (override) pH too high: " + pH);
 		        if (!"alkaline".equalsIgnoreCase(fertState)) {
@@ -193,7 +200,7 @@ public class ControlLogicThread extends Thread {
 		            coapController.sendCommand(FERTILIZER, "sdec");
 		        }
 		        ConsoleUtils.println("[Control Logic] Resetting manual override for fertilizer");
-		        manualOverride.put(FERTILIZER, false);
+		        setManualOverride(FERTILIZER, false);
 
 		    } else {
 		        ConsoleUtils.println("[Control Logic] (override) pH within range: " + pH);
@@ -249,7 +256,7 @@ public class ControlLogicThread extends Thread {
                         coapController.sendCommand(IRRIGATION, desiredState);
                     }
                     ConsoleUtils.println("[Control Logic] Resetting manual override for irrigation");
-                    manualOverride.put(IRRIGATION, false);
+                    setManualOverride(IRRIGATION, false);
                 } else {
                     ConsoleUtils.println("[Control Logic] (override) Moisture in acceptable range: " + moisture);
                 }
@@ -312,6 +319,7 @@ public class ControlLogicThread extends Thread {
 
 	public void enableGrowLightAutoMode() {
 	    this.growLightManualMode = false;
+	    coapController.logModeEvent(GROW_LIGHT, "auto");
 
 	    // turn temporarily the lights off for current ambient light evaluation
 	    try {
@@ -334,6 +342,7 @@ public class ControlLogicThread extends Thread {
     
     public void setGrowLightManualMode(boolean manual) {
         this.growLightManualMode = manual;
+        coapController.logModeEvent(GROW_LIGHT, manual ? "manual" : "auto");
     }
 
     public void setGrowLightState(boolean on) {

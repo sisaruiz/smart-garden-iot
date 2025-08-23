@@ -212,7 +212,7 @@ have_connectivity(void)
 }
 
 /*---------------------------------------------------------------------------*/
-// Round-robin turn: 1=light, 2=moisture, 3=pH, 4=temperature
+// Round-robin turn: 1=temperature, 2=pH, 3=light, 4=moisture
 static int turn = 1;
 
 PROCESS(mqtt_device_process, "MQTT Device Process");

@@ -19,6 +19,7 @@ public class DBDriver {
 
     private Connection connection;
     private Map<String, PreparedStatement> insertStatements;
+    private PreparedStatement insertActuatorMode;
 
     public DBDriver() {
         insertStatements = new HashMap<>();
@@ -26,18 +27,17 @@ public class DBDriver {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 
-            // Prepared statements for sensors
             insertStatements.put("light", connection.prepareStatement("INSERT INTO light (value) VALUES (?)"));
             insertStatements.put("soilMoisture", connection.prepareStatement("INSERT INTO soil_moisture (value) VALUES (?)"));
             insertStatements.put("temperature", connection.prepareStatement("INSERT INTO temperature (value) VALUES (?)"));
             insertStatements.put("pH", connection.prepareStatement("INSERT INTO pH (value) VALUES (?)"));
 
-            // Prepared statements for actuators (as boolean active/inactive)
             insertStatements.put("irrigation", connection.prepareStatement("INSERT INTO irrigation (active) VALUES (?)"));
-            insertStatements.put("fertilizer", connection.prepareStatement("INSERT INTO fertilizer (active) VALUES (?)"));
+            insertStatements.put("fertilizer", connection.prepareStatement("INSERT INTO fertilizer (mode) VALUES (?)"));
             insertStatements.put("grow_light", connection.prepareStatement("INSERT INTO grow_light (active) VALUES (?)"));
             insertStatements.put("fan", connection.prepareStatement("INSERT INTO fan (active) VALUES (?)"));
             insertStatements.put("heater", connection.prepareStatement("INSERT INTO heater (active) VALUES (?)"));
+            insertActuatorMode = connection.prepareStatement("INSERT INTO actuator_mode (actuator, mode) VALUES (?, ?)");
 
         } catch (SQLException e) {
             ConsoleUtils.printError(LOG + " Error connecting to DB: " + e.getMessage());
@@ -58,12 +58,14 @@ public class DBDriver {
                 return false;
             }
 
-            if (type.equals("irrigation") || type.equals("fertilizer") || type.equals("grow_light")
-                    || type.equals("fan") || type.equals("heater")) {
-                stmt.setBoolean(1, value != 0);
-            } else {
-                stmt.setFloat(1, value);
-            }
+            if (type.equals("fertilizer")) {
+		    stmt.setInt(1, (int) value);            // 0=off, 1=acidic, 2=alkaline
+	    } else if (type.equals("irrigation") || type.equals("grow_light")
+			|| type.equals("fan") || type.equals("heater")) {
+		    stmt.setBoolean(1, value != 0);
+	    } else {
+		    stmt.setFloat(1, value);
+	    }
 
             stmt.executeUpdate();
             return true;
@@ -74,12 +76,27 @@ public class DBDriver {
             return false;
         }
     }
+    
+    public boolean insertModeEvent(String actuator, String mode) {
+	  try {
+	    if (connection == null || connection.isClosed()) return false;
+	    insertActuatorMode.setString(1, actuator);
+	    insertActuatorMode.setString(2, mode);
+	    insertActuatorMode.executeUpdate();
+	    return true;
+	  } catch (SQLException e) {
+	    ConsoleUtils.printError(LOG + " Failed to insert mode event: " + e.getMessage());
+	    return false;
+	  }
+    }
 
     public void close() {
         try {
             for (PreparedStatement stmt : insertStatements.values()) {
                 if (stmt != null) stmt.close();
             }
+            
+            if (insertActuatorMode != null) insertActuatorMode.close();
             if (connection != null) connection.close();
         } catch (SQLException e) {
             ConsoleUtils.printError(LOG + " Error closing DB connection: " + e.getMessage());
