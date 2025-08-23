@@ -46,35 +46,56 @@ public class COAPNetworkController extends CoapServer {
 		return;
 	    }
 
+	    String c = command == null ? "" : command.toLowerCase().trim();
+	    if ("fertilizer".equals(actuatorName)) {
+		if ("sinc".equals(c))      c = "acidic";
+		else if ("sdec".equals(c)) c = "alkaline";
+		else if (!"acidic".equals(c) && !"alkaline".equals(c) && !"off".equals(c)) {
+		    ConsoleUtils.printError(LOG + " Invalid fertilizer command: " + command);
+		    return;
+		}
+	    }
+
 	    CoapClient client = new CoapClient(endpoint);
-	    CoapResponse response = client.put(command.toLowerCase(), MediaTypeRegistry.TEXT_PLAIN);
+	    CoapResponse response = client.put(c, MediaTypeRegistry.TEXT_PLAIN);
 
 	    if (response != null && response.isSuccess()) {
-		ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + command);
-		
-		try {
-		    String c = command.toLowerCase();
-		    if ("fertilizer".equals(actuatorName)) {
-		        int code = "off".equals(c) ? 0
-		             : ( "sinc".equals(c) || "acidic".equals(c) ) ? 1
-		             : ( "sdec".equals(c) || "alkaline".equals(c) ) ? 2
-		             : 0; // fallback
-		        db.insertSample("fertilizer", code, null);
-		    } else {
-		        float v = "on".equals(c) ? 1f : 0f;
-		        db.insertSample(actuatorName, v, null);
-		    }
-	        } catch (Exception e) {
-		    ConsoleUtils.printError(LOG + " DB persist failed for " + actuatorName + ": " + e.getMessage());
-		}
+    ConsoleUtils.println(LOG + " Command sent to " + actuatorName + ": " + c);
 
-		mqttHandler.sendCommand(actuatorName, command);
-		ConsoleUtils.println(LOG + " MQTT command published to topic: " + actuatorName);
+    try {
+        if ("heater".equals(actuatorName) && "on".equalsIgnoreCase(c)) {
+            sendCommand("fan", "off");
+        } else if ("fan".equals(actuatorName) && "on".equalsIgnoreCase(c)) {
+            sendCommand("heater", "off");
+        }
+    } catch (Exception e) {
+        ConsoleUtils.printError(LOG + " Failed to enforce heater/fan mutual exclusion: " + e.getMessage());
+    }
 
-	    } else {
-		ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
-	    }
-	}
+    try {
+        if ("fertilizer".equals(actuatorName)) {
+            int code =
+                "off".equals(c) ? 0 :
+                ("sinc".equals(c) || "acidic".equals(c)) ? 1 :
+                ("sdec".equals(c) || "alkaline".equals(c)) ? 2 : 0;
+            db.insertSample("fertilizer", code, null);
+        } else {
+            float v = "on".equals(c) ? 1f : 0f;
+            db.insertSample(actuatorName, v, null);
+        }
+    } catch (Exception e) {
+        ConsoleUtils.printError(LOG + " DB persist failed for " + actuatorName + ": " + e.getMessage());
+    }
+
+    mqttHandler.sendCommand(actuatorName, c);
+    ConsoleUtils.println(LOG + " MQTT command published to topic: " + actuatorName);
+
+} else {
+    ConsoleUtils.printError(LOG + " Failed to send command to " + actuatorName);
+}
+
+    }
+
 
 
     public String getActuatorState(String actuatorName) throws ConnectorException, IOException {
@@ -164,7 +185,7 @@ public class COAPNetworkController extends CoapServer {
 			db.insertModeEvent(path, "auto");
 
 			if ("fertilizer".equals(path)) {
-			    db.insertSample("fertilizer", 0f, null);
+			    db.insertSample("fertilizer", 0, null);
 			} else {
 			    db.insertSample(path, 0f, null);
 			}

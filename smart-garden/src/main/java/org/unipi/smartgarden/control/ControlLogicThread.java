@@ -42,7 +42,7 @@ public class ControlLogicThread extends Thread {
     private static final float MOISTURE_UPPER = 70.0f;
 
     private static final float LIGHT_LOWER = 30.0f;  // percentage
-
+    
     // Constructor
     public ControlLogicThread(MQTTHandler mqttHandler, COAPNetworkController coapController) {
         this.mqttHandler = mqttHandler;
@@ -177,50 +177,44 @@ public class ControlLogicThread extends Thread {
 	    if (pH == null) return;
 
 	    boolean fertOverride = manualOverride.getOrDefault(FERTILIZER, false);
-	    boolean withinRange = pH >= PH_LOWER && pH <= PH_UPPER;
 
 	    try {
 		String fertState = coapController.getActuatorState(FERTILIZER);
-
-		// MANUAL OVERRIDE
+		
+		// MANUAL
 		if (fertOverride) {
-		    if (pH < PH_LOWER) {
-		        ConsoleUtils.println("[Control Logic] (override) pH too low: " + pH);
-		        if (!"acidic".equalsIgnoreCase(fertState)) {
-		            mqttHandler.simulateFertilizer("sinc");
-		            coapController.sendCommand(FERTILIZER, "sinc");
+		    if ("acidic".equalsIgnoreCase(fertState)) {
+		        if (pH <= PH_LOWER) {
+		            mqttHandler.simulateFertilizer("off");
+		            coapController.sendCommand(FERTILIZER, "off");
+		            setManualOverride(FERTILIZER, false);
 		        }
-		        ConsoleUtils.println("[Control Logic] Resetting manual override for fertilizer");
-		        setManualOverride(FERTILIZER, false);
-		        
-		    } else if (pH > PH_UPPER) {
-		        ConsoleUtils.println("[Control Logic] (override) pH too high: " + pH);
-		        if (!"alkaline".equalsIgnoreCase(fertState)) {
-		            mqttHandler.simulateFertilizer("sdec");
-		            coapController.sendCommand(FERTILIZER, "sdec");
+		    } else if ("alkaline".equalsIgnoreCase(fertState)) {
+		        if (pH >= PH_UPPER) {
+		            mqttHandler.simulateFertilizer("off");
+		            coapController.sendCommand(FERTILIZER, "off");
+		            setManualOverride(FERTILIZER, false); 
 		        }
-		        ConsoleUtils.println("[Control Logic] Resetting manual override for fertilizer");
-		        setManualOverride(FERTILIZER, false);
-
 		    } else {
-		        ConsoleUtils.println("[Control Logic] (override) pH within range: " + pH);
+		        // override but state=off → exit from override
+		        setManualOverride(FERTILIZER, false);
 		    }
 		    return;
 		}
 
-		// AUTOMATIC MODE
+		// AUTO
 		if (pH < PH_LOWER) {
 		    ConsoleUtils.println("[Control Logic] pH too low: " + pH);
-		    if (!"acidic".equalsIgnoreCase(fertState)) {
-		        mqttHandler.simulateFertilizer("sinc");
-		        coapController.sendCommand(FERTILIZER, "sinc");
+		    if (!"alkaline".equalsIgnoreCase(fertState)) {
+		        mqttHandler.simulateFertilizer("sdec");
+		        coapController.sendCommand(FERTILIZER, "sdec");
 		    }
 
 		} else if (pH > PH_UPPER) {
 		    ConsoleUtils.println("[Control Logic] pH too high: " + pH);
-		    if (!"alkaline".equalsIgnoreCase(fertState)) {
-		        mqttHandler.simulateFertilizer("sdec");
-		        coapController.sendCommand(FERTILIZER, "sdec");
+		    if (!"acidic".equalsIgnoreCase(fertState)) {
+		        mqttHandler.simulateFertilizer("sinc");
+		        coapController.sendCommand(FERTILIZER, "sinc");
 		    }
 
 		} else {
@@ -237,52 +231,55 @@ public class ControlLogicThread extends Thread {
 	}
 
 
-    private void checkSoilMoisture() {
-        Float moisture = mqttHandler.getLatestValue("soilMoisture");
-        if (moisture == null) return;
+  private void checkSoilMoisture() {
+    Float moisture = mqttHandler.getLatestValue("soilMoisture");
+    if (moisture == null) return;
 
-        boolean irrigationOverride = manualOverride.getOrDefault(IRRIGATION, false);
+    boolean irrigationOverride = manualOverride.getOrDefault(IRRIGATION, false);
 
-        try {
-            String irrigationState = coapController.getActuatorState(IRRIGATION);
+    try {
+        String irrigationState = coapController.getActuatorState(IRRIGATION);
 
-	    // MANUAL OVERRIDE
-            if (irrigationOverride) {
-                if (moisture < MOISTURE_LOWER || moisture > MOISTURE_UPPER) {
-                    ConsoleUtils.println("[Control Logic] (override) Soil moisture out of bounds: " + moisture);
-                    String desiredState = (moisture < MOISTURE_LOWER) ? "on" : "off";
-                    mqttHandler.simulateIrrigation(desiredState);
-                    if (!desiredState.equalsIgnoreCase(irrigationState)) {
-                        coapController.sendCommand(IRRIGATION, desiredState);
-                    }
-                    ConsoleUtils.println("[Control Logic] Resetting manual override for irrigation");
+        // MANUAL
+        if (irrigationOverride) {
+            if ("on".equalsIgnoreCase(irrigationState)) {
+                if (moisture >= MOISTURE_UPPER) {
+                    mqttHandler.simulateIrrigation("off");
+                    if (!"off".equalsIgnoreCase(irrigationState))
+                        coapController.sendCommand(IRRIGATION, "off");
                     setManualOverride(IRRIGATION, false);
-                } else {
-                    ConsoleUtils.println("[Control Logic] (override) Moisture in acceptable range: " + moisture);
                 }
-                return;
+            } else {
+                setManualOverride(IRRIGATION, false);
             }
-
-            // AUTOMATIC MODE
-            if (moisture < MOISTURE_LOWER) {
-                ConsoleUtils.println("[Control Logic] Soil moisture too low: " + moisture);
-                mqttHandler.simulateIrrigation("on");
-                if (!"on".equalsIgnoreCase(irrigationState)) {
-                    coapController.sendCommand(IRRIGATION, "on");
-                }
-            } else if (moisture > MOISTURE_UPPER) {
-                ConsoleUtils.println("[Control Logic] Soil moisture too high: " + moisture);
-                mqttHandler.simulateIrrigation("off");
-                if (!"off".equalsIgnoreCase(irrigationState)) {
-                    coapController.sendCommand(IRRIGATION, "off");
-                }
-            }
-
-        } catch (ConnectorException | IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
-    }
 
+        // AUTO
+        if (moisture < MOISTURE_LOWER) {
+            ConsoleUtils.println("[Control Logic] Soil moisture too low: " + moisture);
+            mqttHandler.simulateIrrigation("on");
+            if (!"on".equalsIgnoreCase(irrigationState)) {
+                coapController.sendCommand(IRRIGATION, "on");
+            }
+
+        } else if (moisture > MOISTURE_UPPER) {
+            ConsoleUtils.println("[Control Logic] Soil moisture too high: " + moisture);
+            mqttHandler.simulateIrrigation("off");
+            if (!"off".equalsIgnoreCase(irrigationState)) {
+                coapController.sendCommand(IRRIGATION, "off");
+            }
+
+        } else {
+            if (!"off".equalsIgnoreCase(irrigationState)) {
+                coapController.sendCommand(IRRIGATION, "off");
+            }
+        }
+
+    } catch (ConnectorException | IOException e) {
+        throw new RuntimeException(e);
+    }
+}
 
     private void checkLight() {
 	    Float light = mqttHandler.getLatestValue("light");
@@ -352,5 +349,8 @@ public class ControlLogicThread extends Thread {
     public boolean isGrowLightManual() {
         return growLightManualMode;
     }
+    
  }
+ 
+ 
 

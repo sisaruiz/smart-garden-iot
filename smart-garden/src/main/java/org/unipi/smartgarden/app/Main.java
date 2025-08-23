@@ -128,7 +128,10 @@ public class Main {
 				if (!"off".equalsIgnoreCase(mode)) {
 				    controlLogic.setManualOverride(shortName, true);
 				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
-				}  
+				} else {
+				    controlLogic.setManualOverride(shortName, false);
+				    ConsoleUtils.println(LOG + " Manual override cleared for " + shortName);
+			        }  
 			    } catch (Exception e) {
 				ConsoleUtils.printError(LOG + " Failed to send fertilizer command.");
 				e.printStackTrace();
@@ -148,15 +151,23 @@ public class Main {
 				coapController.sendCommand(shortName, nextCommand);
 				actuatorState.put(shortName, !currentState);
 				
-				if (shortName.equals("grow_light")) {
-				    controlLogic.setGrowLightManualMode(true);
-				    controlLogic.setGrowLightState(!currentState);
-				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
-				} else if (shortName.equals("fan") || shortName.equals("heater") || shortName.equals("irrigation")) {
-				    controlLogic.setManualOverride(shortName, true);
-				    ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
-				}
+				  if ("grow_light".equals(shortName)) {
+				      controlLogic.setGrowLightManualMode(true);
+				      controlLogic.setGrowLightState(!currentState);
+				      ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
+				  } else if ("irrigation".equals(shortName)) {
+				      if ("on".equalsIgnoreCase(nextCommand)) {
+					  controlLogic.setManualOverride(shortName, true);
+					  ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
+				      } else {
+					  controlLogic.setManualOverride(shortName, false);
+					  ConsoleUtils.println(LOG + " Manual override cleared for " + shortName);
+				      }
 
+				  } else if ("fan".equals(shortName) || "heater".equals(shortName)) {
+				      controlLogic.setManualOverride(shortName, true);
+				      ConsoleUtils.println(LOG + " Manual override activated for " + shortName);
+				  }
 			    } catch (Exception e) {
 				ConsoleUtils.printError(LOG + " Failed to send toggle command to " + shortName);
 				e.printStackTrace();
