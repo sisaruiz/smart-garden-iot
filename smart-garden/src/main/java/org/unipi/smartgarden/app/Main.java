@@ -20,17 +20,17 @@ public class Main {
     private static final String LOG = "[Smart Garden]";
 
     private static final String[] possibleCommands = {
-            ":get status",
-            ":get actuators",
-            ":trigger irrigation",
-            ":trigger grow_light",
-            ":trigger fertilizer",
-            ":trigger fan",
-            ":trigger heater",
-            ":get configuration",
-            ":set grow_light auto",
-            ":help",
-            ":quit"
+            "current status",
+            "show actuators",
+            "trigger irrigation",
+            "trigger grow_light",
+            "trigger fertilizer",
+            "trigger fan",
+            "trigger heater",
+            "get configuration",
+            "set grow_light auto",
+            "help",
+            "quit"
     };
 
 
@@ -85,13 +85,13 @@ public class Main {
             if (isValidCommand(userInput)) {
                 ConsoleUtils.println(LOG + " Executing command: " + userInput);
                 
-                if (userInput.equals(":set grow_light auto")) {
+                if (userInput.equals("set grow_light auto")) {
 		    controlLogic.enableGrowLightAutoMode();
 		    continue;
 		}
 
-                if (userInput.startsWith(":trigger ")) {
-                    String shortName = userInput.replace(":trigger ", "").trim();
+                if (userInput.startsWith("trigger ")) {
+                    String shortName = userInput.replace("trigger ", "").trim();
 
                     if (!configuration.getActuators().contains(shortName)) {
                         ConsoleUtils.printError(LOG + " Unknown actuator: " + shortName);
@@ -178,7 +178,7 @@ public class Main {
                 }
 
                 switch (userInput) {
-                    case ":quit":
+                    case "quit":
                         ConsoleUtils.println(LOG + " Shutting down...");
                         controlLogic.stopThread();
                         try {
@@ -194,12 +194,12 @@ public class Main {
                         ConsoleUtils.println(LOG + " Bye!");
                         return;
 
-                    case ":get status":
+                    case "current status":
                         ConsoleUtils.println(LOG + " Current sensor readings:");
                         mqttHandler.printSensorStatus();
                         break;
 
-                    case ":get actuators":
+                    case "show actuators":
 		        ConsoleUtils.println(LOG + " Current actuator states:");
 		        for (String shortName : configuration.getActuators()) {
 			    try {
@@ -217,17 +217,17 @@ public class Main {
 		        }
 		        break;
 
-                    case ":get configuration":
+                    case "get configuration":
                         ConsoleUtils.println(configuration.toString());
                         break;
 
-                    case ":help":
+                    case "help":
                         printPossibleCommands();
                         break;
                 }
 
             } else {
-                ConsoleUtils.println(LOG + " Invalid command. Type ':help' to see the list of available commands.");
+                ConsoleUtils.println(LOG + " Invalid command. Type 'help' to see the list of available commands.");
             }
         }
     }
